@@ -33,6 +33,7 @@ function MonoClass:initFields()
   self.fields = {}
   self.fieldsByName = {}
   self.fieldsByLowerName = {}
+  local constFieldCount = 0
   
   local temp = mono_class_enumFields(self.id)
   for i,f in ipairs(temp) do
@@ -40,6 +41,11 @@ function MonoClass:initFields()
     table.insert(self.fields, field)
     self.fieldsByLowerName[field.lowerName] = field;
     self.fieldsByName[field.name] = field
+
+    if field.isStatic and field.isConst then
+      field.constValue = constFieldCount
+      constFieldCount = constFieldCount + 1
+    end
   end
 
   table.sort(self.fields)

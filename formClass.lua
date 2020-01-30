@@ -31,22 +31,34 @@
 --]]
 
 local sortByClassThenName = function(a, b)
-  if a.class.name < b.class.lowerName then return true end
+  if a.isConst and not b.isConst then return true end
+  if b.isConst and not a.isConst then return false end
+  if a.isConst and b.isConst then return a.constValue < b.constValue end
+  if a.class.lowerName < b.class.lowerName then return true end
   if b.class.lowerName < a.class.lowerName then return false end
   return a.name < b.name
 end
 
 local sortByClassThenOffset = function(a, b)
-  if a.class.name < b.class.lowerName then return true end
+  if a.isConst and not b.isConst then return true end
+  if b.isConst and not a.isConst then return false end
+  if a.isConst and b.isConst then return a.constValue < b.constValue end
+  if a.class.lowerName < b.class.lowerName then return true end
   if b.class.lowerName < a.class.lowerName then return false end
   return a.offset < b.offset
 end
 
 local sortByName = function(a, b)
-  return a.name < b.name
+  if a.isConst and not b.isConst then return true end
+  if b.isConst and not a.isConst then return false end
+  if a.isConst and b.isConst then return a.constValue < b.constValue end
+  return a.lowerName < b.lowerName
 end
 
 local sortByOffset = function(a, b)
+  if a.isConst and not b.isConst then return true end
+  if b.isConst and not a.isConst then return false end
+  if a.isConst and b.isConst then return a.constValue < b.constValue end
   return a.offset < b.offset
 end
 
@@ -168,7 +180,11 @@ function mono.formClass:listFields_OnData(sender, listitem)
   
   -- columns are Offset, Type, Name
   if field.isStatic then
-    listitem.Caption = 'STATIC:'..string.format('%2X', field.offset or 0)
+    if field.isConst then
+      listitem.Caption = 'Const:'..string.format('%2X', field.constValue or 0)
+    else
+      listitem.Caption = 'Static:'..string.format('%2X', field.offset or 0)
+    end
   else
     listitem.Caption = string.format('%02X', field.offset or 0)
   end

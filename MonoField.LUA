@@ -17,6 +17,7 @@ function MonoField.new(class, f)
     id = f.field,
     name = f.name,
     isStatic = f.isStatic,
+    isConst = f.isConst,
     offset = f.offset,
     monoType = f.monotype,
     lowerName = string.lower(f.name),
