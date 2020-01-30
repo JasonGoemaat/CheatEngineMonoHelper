@@ -43,6 +43,9 @@ function MonoImage:init(name, progress)
     LaunchMonoDataCollector()
   end
   
+  self.domains = mono_enumDomains()
+  self.domain = self.domains[1]
+
   self.classes = {}                -- straight list of all classes
   self.classesByName = {}          -- dictionary for access by name
   self.classesByLowerName = {}     -- for access by lower case name

@@ -68,10 +68,18 @@ function mono.formClass:show(class, field, method)
     self:listFields_OnData(sender, listitem)
   end
   
+  formMonoClass.listFields.OnDblClick = function(sender)
+    self:listFields_OnDblClick(sender)
+  end
+
   formMonoClass.listMethods.OnData = function(sender, listitem)
     self:listMethods_OnData(sender, listitem)
   end
-  
+
+  formMonoClass.listMethods.OnDblClick = function(sender)
+    self:listMethods_OnDblClick(sender)
+  end
+
   formMonoClass.miSortFieldsByOffset.OnClick = funcUpdate
   formMonoClass.miShowInherited.OnClick = funcUpdate
   formMonoClass.miShowUsage.OnClick = funcUpdate
@@ -91,7 +99,8 @@ end
 function mono.formClass:setFieldsAndMethods()
   local other = ''
   if formMonoClass.miShowUsage.Checked then other = ' (usage by other classes)' end
-  formMonoClass.labelClassName.Caption = string.format('Mono Class: %s%s', self.class.name, other)
+
+  formMonoClass.labelClassName.Caption = string.format('Mono Class: %s:%s%s', self.class.namespace, self.class.name, other)
   local fields = {}
   local methods = {}
   if formMonoClass.miShowUsage.Checked then
@@ -159,7 +168,7 @@ function mono.formClass:listFields_OnData(sender, listitem)
   
   -- columns are Offset, Type, Name
   if field.isStatic then
-    listitem.Caption = 'STATIC'
+    listitem.Caption = 'STATIC:'..string.format('%2X', field.offset or 0)
   else
     listitem.Caption = string.format('%02X', field.offset or 0)
   end
@@ -190,6 +199,195 @@ function mono.formClass:listMethods_OnData(sender, listitem)
   end
 end
 
+local parameters = { 'RCX', 'RDX', 'R8', 'R9', '[RBP+30]', '[RBP+38]', '[RBP+40]', '[RBP+48]', '[RBP+50]' }
+local floatParameters = { 'XMM0', 'XMM1', 'XMM2', 'XMM3', 'XMM4', 'XMM5', 'XMM6'}
+
 function mono.formClass:popupMethod_OnPopup(sender)
   
+end
+
+function mono.formClass:listMethods_OnDblClick(sender)
+  local method = self.methods[sender.ItemIndex + 1]
+  --print("method: "..tostring(method.id))
+  if method then
+    local address = mono_compile_method(method.id)
+    --print("address: "..tostring(address))
+    getMemoryViewForm().DisassemblerView.SelectedAddress = address
+    getMemoryViewForm().show()
+    local hookInfo = hookAt(address)
+    -- have aobString, hookString, returnString, instructions
+    --[[ how to get method signature
+    local ps = {}
+    for i,p in ipairs(method.parameters) do
+      table.insert(ps, string.format('%s %s', p.type, p.name))
+    end
+    local parms = method.returnType..' ('..table.concat(ps, ', ')..')'
+    ]]
+
+    local lines = {}
+    table.insert(lines, "define(hook,"..hookInfo.hookString..")")
+    table.insert(lines, "define(bytes,"..hookInfo.aobString..")")
+    table.insert(lines, "")
+    table.insert(lines, "[enable]")
+    table.insert(lines, "")
+    table.insert(lines, "assert(hook, bytes)")
+    table.insert(lines, "alloc(newmem,$1000, hook)")
+    table.insert(lines, "{")
+
+
+    -- note: per x64 calling convention, RCX might actually be space for
+    -- a pre-allocated structure for the return value and other parameters
+    -- might be moved one further down the list
+    table.insert(lines, "  RCX: "..method.class.name.." (this)")
+    for i,p in ipairs(method.parameters) do
+      local param = parameters[i + 1]
+      if (p.type == "System.Single" or p.type == "System.Double") then param = floatParameters[i + 1] end
+      table.insert(lines, "  "..param..": "..tostring(p.type).." "..tostring(p.name))
+    end
+    table.insert(lines, "")
+
+    table.insert(lines, "  Returns (RAX) "..method.returnType)
+    table.insert(lines, "}")
+    table.insert(lines, "")
+    table.insert(lines, "newmem:")
+    table.insert(lines, "  // original code")
+    for i,c in ipairs(hookInfo.instructions) do
+      table.insert(lines, "  "..c)
+    end
+    table.insert(lines, "  jmp hook+"..string.format("%X", hookInfo.returnOffset))
+    table.insert(lines, "")
+    table.insert(lines, "hook:")
+    table.insert(lines, "  jmp newmem")
+    table.insert(lines, "")
+    table.insert(lines, "[disable]")
+    table.insert(lines, "")
+    table.insert(lines, "hook:")
+    table.insert(lines, "  db bytes")
+    table.insert(lines, "")
+    table.insert(lines, "dealloc(newmem)")
+
+    local t = {}
+    for i,v in ipairs(lines) do
+      table.insert(t, v);
+      table.insert(t, "\r\n")
+    end
+  
+    local aa = table.concat(t)
+
+    getMemoryViewForm().AutoInject1.DoClick()
+    
+    for i=0,getFormCount()-1 do --this is sorted from z-level. 0 is top
+      local f=getForm(i)
+  
+      if getForm(i).ClassName == 'TfrmAutoInject' then
+        f.assemblescreen.Lines.Text = aa
+        break
+      end
+    end
+  end
+end
+
+--[[
+      When double-clicking a field, print out the base address for the statics of the
+      class and the address of the clicked-on static field.
+--]]
+function mono.formClass:listFields_OnDblClick(sender)
+  local field = self.fields[sender.ItemIndex + 1]
+  if field then
+    local class = field.class
+    local image = class.image
+    local domainId = image.domain
+    print('double-clicked on class '..tostring(field.class.name)..' field '..tostring(field.name)..' domain '..tostring(domainId))
+    local address = mono_class_getStaticFieldAddress(domainId, class.id)
+    print('statics base address: '..string.format("%x", address))
+    print(class.name..'.'..field.name..': '..string.format("%x", address + field.offset))
+  end
+end
+
+--[[
+      IN PROGRESS - take an address and create an AA script to hook at that address
+      expecting MONO code.  Will process instructions until 5 bytes (for jmp) are
+      processed.  Basic format is like this for address 'CryingSuns.PlayerStatus:BattleshipState:HasAuxiliarySystemType+28'
+
+[enable]
+assert("CryingSuns.PlayerStatus:BattleshipState:HasAuxiliarySystemType":+28, )
+]]
+function hookAt(address)
+  local pos = string.find(address, "+", 1, true)
+  local name = address
+  local offset = 0
+  if (pos ~= nil) then
+    name = string.substring(1, pos - 1)
+    offset = tonumber(string.sub(pos + 1), 16)
+  end
+  local actualAddress = getAddress(name) + offset
+
+  local data = {
+    hookString = util.safeAddress(getNameFromAddress(actualAddress)), -- used for injection, etc
+    instructions = {},
+    aobString = ""
+  }
+
+  local aobs = {}
+
+  while (offset < 5) do
+    local parsed = disassembleAndParse(actualAddress + offset)
+    if #aobs > 0 then table.insert(aobs, " ") end
+    table.insert(aobs, parsed.bytesString)
+    table.insert(data.instructions, parsed.instructionString)
+    offset = offset + parsed.length
+  end
+
+  data.aobString = table.concat(aobs)
+  data.returnString = util.safeAddress(getNameFromAddress(actualAddress + offset))
+  data.returnOffset = offset
+  return data
+end
+
+function hookMethod(method)
+
+end
+
+--[[
+      Expects address to be a number
+]]
+function disassembleAndParse(address)
+  local disassembly = disassemble(address)
+  local parts = util.split(disassembly, "-")
+  for i = 1,#parts do
+    if i == 2 then
+      parts[i] = parts[i]:gsub("%s+", "") -- remove ALL whitespace from bytes
+    else
+      parts[i] = parts[i]:gsub("^%s*(.-)%s*$", "%1") -- remove whitespace from ends
+    end
+  end
+
+  local aob = {}
+  local i = 1
+  while i < string.len(parts[2]) do
+    if (i ~= 1) then table.insert(aob, " ") end
+    table.insert(aob, string.sub(parts[2], i, i+1))
+    i = i + 2
+  end
+
+  local instructionString = parts[3]
+  for k,v in parts[3]:gmatch("[0-9a-fA-F]+") do
+    if k:len() == 8 or k:len() == 16 then
+      instructionString = instructionString:gsub(k, getNameFromAddress(k))
+    end
+  end
+  
+
+  local result = {
+    address = getAddress(address),
+    addressString = util.safeAddress(getNameFromAddress(address)),
+    aob = aob,
+    bytesString = table.concat(aob),
+    disassembly = disassembly,
+    instructionString = instructionString,
+    length = getInstructionSize(address),
+    originalInstructionString = parts[3]
+  }
+
+  return result
 end

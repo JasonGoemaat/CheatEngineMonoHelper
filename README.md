@@ -24,7 +24,7 @@ have to click through 'find' over and over to get to something interesting.
 
 With the search window for Crying Suns I immediately see 'PlayerState' which seems
 very interesting.  Other things pop up that could quickly lead to cheats such
-as the fields "player" on the "Team" class, playerState on the RunSTate class, and
+as the fields "player" on the "Team" class, playerState on the RunState class, and
 playerBattleship on BattlefieldUI.  In methods we can see Configuration.get_InvinciblePlayer,
 GameState.get_PlayerState, Battlefield.set_PlayerBattleship, etc.
 
@@ -38,6 +38,81 @@ can use commands I'm sure to get the address of GameState.currentRunState.  With
 you can get `playerState` at offset 30.
 
 ![Class](Docs/Class.png)
+
+## Hooking a method
+
+Double-clicking a method in the Class window will goto the method's address in
+the disassembly window and open up an auto-assembly window with code to hook
+into the start of the method.  For example in Crying Suns you can search for
+'IsConnectedTo' and double-click on the method in the search window to open
+up the NavigationSystem class it belongs to.  Then double-clicking on the method
+there will create this script:
+
+```
+define(hook,"CryingSuns.Navigation:NavigationSystem:IsConnectedTo")
+define(bytes,55 48 8B EC 56)
+
+[enable]
+
+assert(hook, bytes)
+alloc(newmem,$1000, hook)
+{
+  RCX: NavigationSystem (this)
+  RDX: CryingSuns.Navigation.NavigationSystem _system
+
+  Returns (RAX) System.Boolean
+}
+
+newmem:
+  // original code
+  push rbp
+  mov rbp,rsp
+  push rsi
+  jmp hook+5
+
+hook:
+  jmp newmem
+
+[disable]
+
+hook:
+  db bytes
+
+dealloc(newmem)
+```
+
+You can replace the original code with this to return true so that you can jump from one system to another:
+
+```
+mov rax,1
+ret
+```
+
+## Static Fields
+
+The script "Register Statics" shows how to register static fields as symbols so you can use them
+in your code or in table values.  Here it registers `CryingSuns:GameState:currentRunState` which
+is an easy way to find the player state with fuel, commandos, and scrap:
+
+```
+[enable]
+{$lua}
+unregisterSymbol("CryingSuns:GameState:currentRunState")
+LaunchMonoDataCollector()
+local class = mono_findClass("CryingSuns", "GameState")
+for i,f in ipairs(mono_class_enumFields(class)) do
+  if f.isStatic and f.name == "currentRunState" then
+    registerSymbol("CryingSuns:GameState:currentRunState", mono_class_getStaticFieldAddress(mono_enumDomains()[1], class) + f.offset, true)
+    break
+  end
+end
+{$asm}
+
+[disable]
+{$lua}
+unregisterSymbol("CryingSuns:GameState:currentRunState")
+{$asm}
+```
 
 ## So what now?
 

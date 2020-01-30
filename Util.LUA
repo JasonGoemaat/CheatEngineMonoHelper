@@ -1,6 +1,27 @@
 util = util or {}
 
 --[[
+  For mono symbols, you have to surround them in quotes for use in AA
+]]
+function util.safeAddress(s)
+  local tbl = {}
+  for a in string.gmatch(s, "([^+]+)[+]?") do table.insert(tbl, a) end
+  local result = '"'..tbl[1]..'"'
+  if #tbl > 1 then result = result..'+'..tbl[2] end
+  return result
+end
+
+function util.split(s, separator)
+  local tbl = {}
+  for str in string.gmatch(s, "([^"..separator.."]+)") do table.insert(tbl, str) end
+  return tbl
+end
+
+function util.trim(s)
+  return (s:gsub("^%s*(.-)%s*$", "%1"))
+end
+
+--[[
     Pretty-print serialize the passed object and return the results
     as a string.  This does nice indenting and follows metatables.  It
     is not guaranteed to provide the same object back if the string is
