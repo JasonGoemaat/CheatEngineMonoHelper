@@ -1,8 +1,11 @@
 function mono.menu:init()
-  if self.menuSearch or self.timer then return end
+  --if self.menuSearch or self.timer then return end
   self.timer = createTimer()
   self.timer.Interval = 1000
   self.timer.OnTimer = function(timer)
+    self.timer.destroy()
+    self.timer = nil
+
     -- wait for normal mono script to create mono menu
     if not miMonoTopMenuItem then return end
     
@@ -11,8 +14,6 @@ function mono.menu:init()
     self.menuSearch.Name = 'miMonoSearch'
     self.menuSearch.OnClick = function(sender) self:OnSearchClick() end
     miMonoTopMenuItem.add(self.menuSearch)
-    self.timer.destroy()
-    self.timer = nil
   end
 end
 

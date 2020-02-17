@@ -1,0 +1,83 @@
+object formMonoImage: TCEForm
+  Left = 3003
+  Height = 434
+  Top = 143
+  Width = 643
+  Caption = 'Select Mono Image'
+  ClientHeight = 434
+  ClientWidth = 643
+  object listImages: TCEListBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = buttonSelectImage
+    Left = 10
+    Height = 368
+    Top = 10
+    Width = 623
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Left = 10
+    BorderSpacing.Top = 10
+    BorderSpacing.Right = 10
+    BorderSpacing.Bottom = 10
+    ItemHeight = 0
+    TabOrder = 0
+  end
+  object buttonSelectImage: TCEButton
+    AnchorSideLeft.Control = Owner
+    AnchorSideLeft.Side = asrCenter
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 273
+    Height = 36
+    Top = 388
+    Width = 96
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Bottom = 10
+    Caption = 'Select Image'
+    OnClick = buttonSelectImageClick
+    TabOrder = 1
+  end
+  object progressImage: TCEProgressBar
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 10
+    Height = 20
+    Top = 404
+    Width = 623
+    Anchors = [akLeft, akRight, akBottom]
+    BorderSpacing.Left = 10
+    BorderSpacing.Right = 10
+    BorderSpacing.Bottom = 10
+    TabOrder = 2
+    Visible = False
+  end
+  object labelMessage: TCELabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = progressImage
+    Left = 10
+    Height = 24
+    Top = 400
+    Width = 623
+    Alignment = taCenter
+    Anchors = [akLeft, akRight, akBottom]
+    BorderSpacing.Left = 10
+    BorderSpacing.Right = 10
+    BorderSpacing.Bottom = 10
+    Caption = 'labelMessage'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = 'Arial'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ParentColor = False
+    ParentFont = False
+    Visible = False
+  end
+end

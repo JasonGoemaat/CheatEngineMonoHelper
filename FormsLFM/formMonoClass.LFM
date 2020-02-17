@@ -1,0 +1,238 @@
+object formMonoClass: TCEForm
+  Left = 2962
+  Height = 781
+  Top = 129
+  Width = 1047
+  Caption = 'Class'
+  ClientHeight = 761
+  ClientWidth = 1047
+  Menu = menuMain
+  object labelClassName: TCELabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    Left = 10
+    Height = 22
+    Top = 10
+    Width = 231
+    BorderSpacing.Left = 10
+    BorderSpacing.Top = 10
+    Caption = 'Mono Class: Attribute'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -19
+    Font.Name = 'Inconsolata'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object panelMain: TCEPanel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = labelClassName
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 10
+    Height = 712
+    Top = 39
+    Width = 1027
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Left = 10
+    BorderSpacing.Top = 10
+    BorderSpacing.Right = 10
+    BorderSpacing.Bottom = 10
+    Caption = 'panelMain'
+    ClientHeight = 712
+    ClientWidth = 1027
+    TabOrder = 0
+    Visible = False
+    object CESplitter1: TCESplitter
+      Left = 482
+      Height = 710
+      Top = 1
+      Width = 5
+    end
+    object gbMethods: TCEGroupBox
+      Left = 487
+      Height = 710
+      Top = 1
+      Width = 539
+      Align = alClient
+      Caption = 'Methods'
+      TabOrder = 1
+    end
+    object gbFields: TCEGroupBox
+      Left = 1
+      Height = 710
+      Top = 1
+      Width = 481
+      Align = alLeft
+      Caption = 'Fields'
+      TabOrder = 2
+    end
+  end
+  object pageMain: TCEPageControl
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = labelClassName
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 10
+    Height = 709
+    Top = 42
+    Width = 1027
+    ActivePage = tabNotes
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Left = 10
+    BorderSpacing.Top = 10
+    BorderSpacing.Right = 10
+    BorderSpacing.Bottom = 10
+    TabIndex = 2
+    TabOrder = 1
+    object tabFields: TTabSheet
+      Caption = 'Fields'
+      ClientHeight = 684
+      ClientWidth = 1019
+      object listFields: TCEListView
+        AnchorSideLeft.Control = tabFields
+        AnchorSideTop.Control = tabFields
+        AnchorSideRight.Control = tabFields
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = tabFields
+        AnchorSideBottom.Side = asrBottom
+        Left = 0
+        Height = 684
+        Top = 0
+        Width = 1019
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Columns = <        
+          item
+            Caption = 'Offset'
+            MinWidth = 40
+            Width = 46
+          end        
+          item
+            Caption = 'Type'
+            MinWidth = 40
+            Width = 193
+          end        
+          item
+            Caption = 'Name'
+            MinWidth = 40
+            Width = 288
+          end        
+          item
+            Caption = 'Class'
+            Width = 329
+          end>
+        OwnerData = True
+        ReadOnly = True
+        RowSelect = True
+        TabOrder = 0
+        ViewStyle = vsReport
+      end
+    end
+    object tabMethods: TTabSheet
+      Caption = 'Methods'
+      ClientHeight = 684
+      ClientWidth = 1019
+      object listMethods: TCEListView
+        AnchorSideLeft.Control = tabMethods
+        AnchorSideTop.Control = tabMethods
+        AnchorSideRight.Control = tabMethods
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = tabMethods
+        AnchorSideBottom.Side = asrBottom
+        Left = 0
+        Height = 862
+        Top = 0
+        Width = 1038
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Columns = <        
+          item
+            Caption = 'Name'
+            MinWidth = 50
+            Width = 217
+          end        
+          item
+            Caption = 'Parameters'
+            MinWidth = 50
+            Width = 386
+          end        
+          item
+            Caption = 'Class'
+            Width = 300
+          end>
+        OwnerData = True
+        PopupMenu = popupMethods
+        ReadOnly = True
+        RowSelect = True
+        TabOrder = 0
+        ViewStyle = vsReport
+      end
+    end
+    object tabNotes: TTabSheet
+      Caption = 'Notes'
+      ClientHeight = 681
+      ClientWidth = 1019
+      object memoNotes: TCEMemo
+        AnchorSideLeft.Control = tabNotes
+        AnchorSideTop.Control = tabNotes
+        AnchorSideRight.Control = tabNotes
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = tabNotes
+        AnchorSideBottom.Side = asrBottom
+        Left = 0
+        Height = 681
+        Top = 0
+        Width = 1019
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -16
+        Font.Name = 'Inconsolata'
+        Font.Pitch = fpFixed
+        Font.Quality = fqDraft
+        ParentFont = False
+        TabOrder = 0
+        SelStart = 0
+        SelLength = 0
+      end
+    end
+  end
+  object menuMain: TMainMenu
+    object miOptions: TMenuItem
+      Caption = 'Options'
+      object miSortByClassFirst: TMenuItem
+        Caption = 'Sort By Class First'
+      end
+      object miSortFieldsByOffset: TMenuItem
+        AutoCheck = True
+        Caption = 'Sort Fields By Offset'
+      end
+      object miShowInherited: TMenuItem
+        AutoCheck = True
+        Caption = 'Include Inherited'
+      end
+      object miShowUsage: TMenuItem
+        AutoCheck = True
+        Caption = 'Show Usage'
+      end
+    end
+    object miGoto: TMenuItem
+      Caption = 'Goto'
+      object miGotoAncestors: TMenuItem
+        Caption = 'Ancestors'
+      end
+      object miGotoDescendants: TMenuItem
+        Caption = 'Descendants'
+      end
+    end
+  end
+  object popupMethods: TPopupMenu
+    OnPopup = popupMethodsPopup
+  end
+end

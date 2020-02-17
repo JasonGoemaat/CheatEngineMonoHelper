@@ -1,3 +1,9 @@
+## TLDR;
+
+Copy `monohelper.lua` from the autorun folder in this repo to the autorun
+folder where cheat engine is installed.  When opening the process of a mono
+game you should see a 'Mono Search' menu added to CE.
+
 ## Cheat Engine Mono Helper
 
 The purpose of this is to make easier to analyze games that use mono.  The default
