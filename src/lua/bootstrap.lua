@@ -46,6 +46,8 @@ function saveTextFile(name, text, useTableFile)
   end
 end
 
-loadstring(loadTextFile('util.lua'))()
-loadstring(loadTextFile('notes.lua'))()
+print('Loading util.lua')
+loadstring(loadTextFile('src/lua/util.lua'))()
+print('Success!')
+-- loadstring(loadTextFile('../temp/notes.lua'))()
 loadstring(loadTextFile('mono.lua'))()
