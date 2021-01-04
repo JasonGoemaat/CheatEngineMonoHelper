@@ -120,6 +120,10 @@ unregisterSymbol("CryingSuns:GameState:currentRunState")
 {$asm}
 ```
 
+## Building `autorun/monohelper.lua`
+
+See [`/docs/Building.md`](/docs/Building.md)
+
 ## So what now?
 
 Unfortunately this was something I wrote a couple years ago and have forgotten
