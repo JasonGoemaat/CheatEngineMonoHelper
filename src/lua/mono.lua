@@ -56,13 +56,13 @@ mono.TYPE_NAMES = {
   [0x55] = 'ENUM', -- an enumeration
 }
 
-loadstring(loadTextFile('monofield.lua'))()
-loadstring(loadTextFile('monomethod.lua'))()
-loadstring(loadTextFile('monoclass.lua'))()
-loadstring(loadTextFile('monoimage.lua'))()
+[[-- #INCLUDEFILE(src/lua/mono/monofield.lua) ]]
+[[-- #INCLUDEFILE(src/lua/mono/monomethod.lua) ]]
+[[-- #INCLUDEFILE(src/lua/mono/monoclass.lua) ]]
+[[-- #INCLUDEFILE(src/lua/mono/monoimage.lua) ]]
 
-loadstring(loadTextFile('monomenu.lua'))()
+[[-- #INCLUDEFILE(src/lua/monomenu.lua) ]]
 
-loadstring(loadTextFile('formSelectImage.lua'))()
-loadstring(loadTextFile('formSearch.lua'))()
-loadstring(loadTextFile('formClass.lua'))()
+[[-- #INCLUDEFILE(src/lua/forms/formSelectImage.lua) ]]
+[[-- #INCLUDEFILE(src/lua/forms/formSearch.lua) ]]
+[[-- #INCLUDEFILE(src/lua/forms/formClass.lua) ]]

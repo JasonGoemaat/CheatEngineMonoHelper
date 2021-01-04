@@ -64,3 +64,103 @@ loadstring(loadTextFile('bootstrap.lua'))()
 That's it, you should now see a 'Search' option under the 'Mono' menu when
 attached to a game that supports CE mono features.
 
+
+## Getting form text:
+
+```lua
+local loadTextFile = function(name)
+  local path = getMainForm().openDialog1.InitialDir..name
+  local f, err = io.open(path, "r")
+  -- fall back to table file if disk file error (doesn't exist)
+  if f == nil then return loadTextFile(name, true) end
+  local text = f:read("*all")
+  f:close()
+  return text
+end
+
+local text = loadTextFile("build/build.lua")
+local result = loadstring(text)
+return result()
+```
+
+## WORK IN PROGRESS
+
+Sample script for what I'm thinking, including text of other files in with existing file.
+This seems to work fine.  If we rely on exactly one space where they are and no spaces
+in the file name, we should be able to use the lengths to pick out the file name pretty
+easily.
+
+Ok, this seems to work well.  The pattern to seach for returns only the file name,
+but the pattern used to replace replaces the whole string from beginning brackets to closing
+and allows for spaces in brackets.  The search should find the first one, and the replace
+is limited by last parameter to one replace.  Works online...
+
+```lua
+local s = "[[-- #INCLUDEFILE(src/lua/mono/monofield.lua) ]]"
+
+local s2 =[===[
+
+  [[-- #INCLUDEFILE(src/lua/mono/monofield.lua) ]]
+  [[-- #INCLUDEFILE(src/lua/mono/monomethod.lua) ]]
+  [[-- #INCLUDEFILE(src/lua/mono/monoclass.lua) ]]
+  [[-- #INCLUDEFILE(src/lua/mono/monoimage.lua) ]]
+  
+  [[-- #INCLUDEFILE(src/lua/monomenu.lua) ]]
+  
+  [[-- #INCLUDEFILE(src/forms/lua/formSelectImage.lua) ]]
+  [[-- #INCLUDEFILE(src/forms/lua/formSearch.lua) ]]
+  [[-- #INCLUDEFILE(src/forms/lua/formClass.lua) ]]
+  
+  ]===]
+
+local patternOriginal = "%[%[%-%- *#INCLUDEFILE%([^%)]*%) *%]%]"
+local pattern =         "%[%[%-%- *#INCLUDEFILE%(([^%)]*)%) *%]%]"
+
+print("patternOriginal: (entire line with comments and spaces, use for gsub")
+local simpleMatch = s:match(patternOriginal )
+print(simpleMatch)
+print()
+
+print("pattern: pick out file name (between parens) alone for loading file")
+local s2Match, a, b, c = s2:match(pattern)
+print(s2Match)
+print()
+
+
+local r = s2:gsub(pattern, "FILE CONTENT", 1) -- limit to 1 replacement
+print('result:')
+print(r);
+print()
+
+print('s2 now:')
+print(s2)
+```
+
+Ok, THIS script seems to be very nice, it handles includes like above, prevents
+an endless loop of loading files if they have a circular reference:
+
+```lua
+local alreadyLoaded = {} -- to prevent endless loop
+
+function includeLuaFile(name)
+  if alreadyLoaded[name] then error("Already loaded file: "..tostring(name)) end
+  alreadyLoaded[name] = true -- prevent endless loop
+
+  local path = getMainForm().openDialog1.InitialDir..name
+  print("loatTextFile() path: "..path);
+  local f, err = io.open(path, "r")
+  if f == nil then error("Cannot open path: "..tostring(path)..", "..tostring(err)) end
+  local text = f:read("*all")
+  print("  loaded bare text, size: "..tostring(string.len(text)))
+  f:close()
+
+  text = "\r\n[[--------------------------------------------------------------------------------\r\n  -- Included File: "..tostring(name).."\r\n  --------------------------------------------------------------------------------]]\r\n"..text
+
+  -- search pattern, returns only the file name because it's a group in parens ()
+  local patternSearch = "%[%[%-%- *#INCLUDEFILE%(([^%)]*)%) *%]%]"
+
+  -- interesting, using a function it should call with file name, returning text
+  text = text:gsub(patternSearch, includeLuaFile)
+  return text
+end
+```
