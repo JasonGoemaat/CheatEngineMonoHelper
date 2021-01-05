@@ -2,14 +2,14 @@
     
 -- Sample call getting all (both), forms only, and lua only
 
-local lf, err, c = loadfile("Build/build.lua")
-local all, forms, lua = lf()
+
+local all, forms, lua = loadfile(getMainForm().openDialog1.InitialDir.."Build/build.lua")()
 return forms, lua
 
 
 -- Sample to reload and run LUA
 
-local all, forms, lua = loadfile("Build/build.lua")() -- load build script into function and execute
+local all, forms, lua = loadfile(getMainForm().openDialog1.InitialDir.."Build/build.lua")() -- load build script into function and execute
 print("Lua:")
 print("--------------------------------------------------------------------------------")
 print(lua)
@@ -27,36 +27,37 @@ loadstring(lua)()
 -- appear between the brackets and the close is only when the same number of =
 -- are between the close brackets
 local sForms = [=====[
-
 --[[--------------------------------------------------------------------------------
     -- Forms - Save strings as files in CE autorun\forms directory, then load form
     -- from file.  
     --------------------------------------------------------------------------------]]
 
-local stringFormMonoClass = '[[-- #INCLUDEFORM(src/forms/formMonoClass.FRM) ]]'
+local stringFormMonoClass = [[-- #INCLUDEFORM(src/forms/formMonoClass.FRM) ]]
 
-local stringFormMonoImage = '[[-- #INCLUDEFORM(src/forms/formMonoImage.FRM) ]]'
+local stringFormMonoImage = [[-- #INCLUDEFORM(src/forms/formMonoImage.FRM) ]]
 
-local stringFormMonoSearch = '[[-- #INCLUDEFORM(src/forms/formMonoSearch.FRM) ]]'
+local stringFormMonoSearch = [[-- #INCLUDEFORM(src/forms/formMonoSearch.FRM) ]]
 
-local function saveForm(name, text)
-    local path = getCheatEngineDir()..[[\autorun\forms\]]..name
-    local f, err = io.open(path, "w")
-    if f == nil then return nil, err end
-    f:write(text)
-    f:close()
-    return true
+local function saveForm(text)
+  local path = os.tmpname() -- get temp file name
+  local f, err = io.open(path, "w")
+  if f == nil then return nil, err end
+  f:write(text)
+  f:close()
+  return path
 end
 
-saveForm('formMonoClass.frm', stringFormMonoClass)
-saveForm('formMonoImage.frm', stringFormMonoImage)
-saveForm('formMonoSearch.frm', stringFormMonoSearch)
+local function createFormFromString(text)
+  local path = saveForm(text)
+  local form = createFormFromFile(path)
+  pcall(os.remove, path)
+  return form
+end
 
--- set globals for use in lua
-formMonoClass = createFormFromFile(getCheatEngineDir()..[[\autorun\forms\formMonoClass.frm]])
-formMonoImage = createFormFromFile(getCheatEngineDir()..[[\autorun\forms\formMonoImage.frm]])
-formMonoSearch = createFormFromFile(getCheatEngineDir()..[[\autorun\forms\formMonoSearch.frm]])
 
+formMonoClassB = createFormFromString(stringFormMonoClass)
+formMonoImage = createFormFromString(stringFormMonoImage)
+formMonoSearch = createFormFromString(stringFormMonoSearch)
 ]=====]
 
 local function loadFormAsLuaString(name)
@@ -65,7 +66,7 @@ local function loadFormAsLuaString(name)
   if f == nil then error("Cannot open path: "..tostring(path)..", "..tostring(err)) end
   local text = f:read("*all")
   f:close()
-  return "[=========="..text.."]==========]"
+  return "[==========["..text.."]==========]"
 end
 
 
@@ -92,7 +93,7 @@ local function includeLuaFile(name)
   -- print("  loaded bare text, size: "..tostring(string.len(text)))
   f:close()
 
-  text = "\r\n--[[--------------------------------------------------------------------------------\r\n    -- Included File: "..tostring(name).."\r\n    --------------------------------------------------------------------------------]]\r\n"..text
+  text = "\n--[[--------------------------------------------------------------------------------\n    -- Included File: "..tostring(name).."\n    --------------------------------------------------------------------------------]]\n"..text
 
   -- search pattern, returns only the file name because it's a group in parens ()
   local patternSearch = "%[%[%-%- *#INCLUDEFILE%(([^%)]*)%) *%]%]"
@@ -107,7 +108,7 @@ end
 
 local sectionLua = includeLuaFile("src/lua/bootstrap.lua")
 
-local all = sectionForms.."\r\n\r\n"..sectionLua
+local all = sectionForms.."\n"..sectionLua
 
 local function saveBuildOutput(name, text)
   local path = getMainForm().saveDialog1.InitialDir.."Build/output/"..name
@@ -118,7 +119,7 @@ local function saveBuildOutput(name, text)
   return true
 end
 
-saveBuildOutput("all.lua", all)
+saveBuildOutput("monohelper.lua", all)
 saveBuildOutput("sectionForms.lua", sectionForms)
 saveBuildOutput("sectionLua.lua", sectionLua)
 
