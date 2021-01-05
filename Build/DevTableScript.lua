@@ -39,3 +39,20 @@ end
 mi.Name = 'miDevBuildLua'
 DevMenu.miTopMenuItem.Add(mi)
 DevMenu.miDevBuildLua = mi
+
+-- menu item will build, then copy the file to the CE autorun folder, easy to close and restart CE to see changes
+mi = createMenuItem(DevMenu.miTopMenuItem)
+mi.Caption = "Build and copy to CE autorun directory"
+mi.OnClick = function()
+  local all, forms, lua = loadfile(getMainForm().openDialog1.InitialDir.."Build/build.lua")()
+  local path = getCheatEngineDir()..[[\autorun\monohelper.lua]]
+  local f, err = io.open(path, "w")
+  if f == nil then return nil, err end
+  f:write(all)
+  f:close()
+  showMessage("Restart CE to see changes")
+end
+mi.Name = 'miDevBuildToCEAutorunDirectory'
+DevMenu.miTopMenuItem.Add(mi)
+DevMenu.miDevBuildLua = mi
+

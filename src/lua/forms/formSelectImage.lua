@@ -29,7 +29,7 @@ function mono.formSelectImage:show()
   formMonoImage.show()
 
   if foundIndex ~= 0 and imageHasBeenSelected == false then
-    formMonoImage.listImages.ItemIndex = foundIndex
+    formMonoImage.listImages.ItemIndex = foundIndex - 1
     mono.formSelectImage:OnSelectImage()
   end
 end

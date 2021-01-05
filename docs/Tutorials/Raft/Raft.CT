@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="34">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Max Oxygen"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>define(hook,"PlayerStats:Update")
+define(bytes,55 48 8B EC 48 83 EC 60)
+
+[enable]
+
+assert(hook, bytes)
+alloc(newmem,$1000, hook)
+{
+  RCX: PlayerStats (this)
+
+  Returns (RAX) System.Void
+}
+
+newmem:
+  // cheat: maximize oxygen every time PlayerStats.Update() is called
+  push rax // save rax
+  push rbx // save rbx
+  mov rax,[rcx+68] // load pointer at PlayerStats.stat_oxygen into rax
+  test rax,rax // is it zero?
+  jz @f // jump forward to nearest @@ label to prevent null pointer error
+  mov ebx, [rax+20] // load Stats_Oxygen.maxValue into ebx
+  mov [rax+1C], ebx // save as Stats_Oxygen.value
+@@: // temp label for jz @f earlier
+  pop rbx // restore rbx
+  pop rax // restore rax
+
+  // original code
+  push rbp
+  mov rbp,rsp
+  sub rsp,60
+  jmp hook+8
+
+hook:
+  jmp newmem
+
+[disable]
+
+hook:
+  db bytes
+
+dealloc(newmem)
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
