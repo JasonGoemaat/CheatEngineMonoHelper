@@ -25,10 +25,10 @@ with health besides players, probably enemies.
 ![PlayerStats fields](PlayerStatsFields.png)
 
 Let's concentrate on oxygen for now though.  Remember the offset is 68 for stat_oxygen.
-Change to the 'Methods' tab and we see some cool thigns such as 'Damage()' which exists
+Change to the 'Methods' tab and we see some cool things such as 'Damage()' which exists
 on both PlayerStats and Network_Entity.  Those might be handy for god mode and one hit
-kill cheats.  For now though look down to find the 'Update' method.  Methods like this
-are usually frequenly updated to do housekeeping on the object.  
+kill cheats.  For now though look down to find the 'Update' method.  Methods named update
+are usually frequently called to do housekeeping on objects.
 
 Double-click the update method without text in the 'Class' column, this means it's
 directly on the PlayerStats class and not on a parent class.  We don't want to be
@@ -78,15 +78,15 @@ dealloc(newmem)
 ```
 
 Notice the comment tells you what registers are passed and what types they are along
-with the expected return type.  This only shows the int registers for parameters (RCX,
-RDX, R8, R9), if any parameters are floats they will actually be xmm0-xmm3.  For
-class methods RCX is always the instance the method is called on.  Say there is a second
-parameter and it's a float, that would actually be XMM2 and not R8.
+with the expected return type.  This currently only shows the registers as if they were
+ints (RCX, RDX, R8, R9), if any parameters are floats they will actually be XMM0-XMM3.
+For class methods RCX is always the instance the method is called on.  Say there is a
+second parameter and it's a float, that would actually be XMM2 and not R8.
 
 Well, we know that `stats_oxygen` is of type Stat_Oxygen and at offset +68, so go back to
-the search window double-click  'Stat_Oxygen' in the Classes panel to open it and switch
-to the fields tab.  You can see there's a float 'value' at offset 1C and a 'maxValue'
-float at offset 20:
+the search window double-click  'Stat_Oxygen' in the Classes panel to open it, then switch
+to the fields tab.  You can see there's a float 'value' at offset 1C and a float 'maxValue'
+at offset 20:
 
 ![Stat_Oxygen](Stat_Oxygen.png)
 

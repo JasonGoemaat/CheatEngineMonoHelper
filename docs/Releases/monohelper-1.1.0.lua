@@ -1,5 +1,5 @@
 --[[--------------------------------------------------------------------------------
-    -- Forms - Save strings as temp files, then load using createFormFromFile()
+    -- Forms - Save strings as temp files, then load using createFormFromFile()  
     --------------------------------------------------------------------------------]]
 
 local stringFormMonoClass = [==========[<?xml version="1.0" encoding="utf-8"?>
@@ -943,7 +943,7 @@ function mono.formSelectImage:show()
   formMonoImage.show()
 
   if foundIndex ~= 0 and imageHasBeenSelected == false then
-    formMonoImage.listImages.ItemIndex = foundIndex
+    formMonoImage.listImages.ItemIndex = foundIndex - 1
     mono.formSelectImage:OnSelectImage()
   end
 end
