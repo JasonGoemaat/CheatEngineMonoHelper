@@ -1,0 +1,1 @@
+# This folder has code I'm messing around with, not part of the main project yet.

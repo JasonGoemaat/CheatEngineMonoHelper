@@ -1,3 +1,6 @@
+local DEFAULT_ASSEMBLY_NAME = "Assembly-CSharp"
+local imageHasBeenSelected = false
+
 function mono.formSelectImage:show()
   LaunchMonoDataCollector()
   formMonoImage.listImages.Visible = true
@@ -9,7 +12,12 @@ function mono.formSelectImage:show()
   table.sort(self.imageNames)
   local items = formMonoImage.listImages.Items
   items.Clear()
-  for i,name in ipairs(self.imageNames) do items.add(name) end
+
+  local foundIndex = 0
+  for i,name in ipairs(self.imageNames) do
+    items.add(name)
+    if name == DEFAULT_ASSEMBLY_NAME then foundIndex = i end
+  end
   
   local handler = function(sender)
     mono.formSelectImage.OnSelectImage(self)
@@ -19,9 +27,15 @@ function mono.formSelectImage:show()
   formMonoImage.listImages.OnDblClick = handler
   
   formMonoImage.show()
+
+  if foundIndex ~= 0 and imageHasBeenSelected == false then
+    formMonoImage.listImages.ItemIndex = foundIndex
+    mono.formSelectImage:OnSelectImage()
+  end
 end
 
 function mono.formSelectImage:OnSelectImage()
+  imageHasBeenSelected = true
   local index = formMonoImage.listImages.ItemIndex + 1
   if self.imageNames == nil or index < 1 or index > #self.imageNames then return end
   local imageName = self.imageNames[index]
@@ -54,4 +68,5 @@ function mono.formSelectImage:OnImageComplete(image)
   mono.selectedImage = image
   formMonoImage.Close()
   mono.formSearch:show()
+  formMonoSearch:centerScreen()
 end
