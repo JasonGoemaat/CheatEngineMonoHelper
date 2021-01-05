@@ -1,20 +1,12 @@
 --[[ 
     
 -- Sample call getting all (both), forms only, and lua only
-
-
 local all, forms, lua = loadfile(getMainForm().openDialog1.InitialDir.."Build/build.lua")()
 return forms, lua
 
 
 -- Sample to reload and run LUA
-
 local all, forms, lua = loadfile(getMainForm().openDialog1.InitialDir.."Build/build.lua")() -- load build script into function and execute
-print("Lua:")
-print("--------------------------------------------------------------------------------")
-print(lua)
-print()
-print("--------------------------------------------------------------------------------")
 loadstring(lua)()
 
 --]]
@@ -28,8 +20,7 @@ loadstring(lua)()
 -- are between the close brackets
 local sForms = [=====[
 --[[--------------------------------------------------------------------------------
-    -- Forms - Save strings as files in CE autorun\forms directory, then load form
-    -- from file.  
+    -- Forms - Save strings as temp files, then load using createFormFromFile()  
     --------------------------------------------------------------------------------]]
 
 local stringFormMonoClass = [[-- #INCLUDEFORM(src/forms/formMonoClass.FRM) ]]
