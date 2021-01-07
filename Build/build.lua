@@ -23,6 +23,28 @@ local sForms = [=====[
     -- Forms - Save strings as temp files, then load using createFormFromFile()  
     --------------------------------------------------------------------------------]]
 
+-- close any open forms
+if formMonoClass ~= nil then 
+  formMonoClass.close()
+  formMonoClass:destroy()
+  formMonoClass = nil
+end
+if formMonoImage ~= nil then
+  formMonoImage.close()
+  formMonoImage:destroy()
+  formMonoImage = nil
+end
+if formMonoSearch ~= nil then
+  formMonoSearch.close()
+  formMonoSearch:destroy()
+  formMonoSearch = nil
+end
+
+-- unselect image, refs won't be correct if re-ran
+if mono then mono.selectedImage = nil end
+
+
+-- generate forms from saved XML
 local stringFormMonoClass = [[-- #INCLUDEFORM(src/forms/formMonoClass.FRM) ]]
 
 local stringFormMonoImage = [[-- #INCLUDEFORM(src/forms/formMonoImage.FRM) ]]
@@ -45,8 +67,8 @@ local function createFormFromString(text)
   return form
 end
 
-
-formMonoClassB = createFormFromString(stringFormMonoClass)
+-- create forms from xml (using temp files)
+formMonoClass = createFormFromString(stringFormMonoClass)
 formMonoImage = createFormFromString(stringFormMonoImage)
 formMonoSearch = createFormFromString(stringFormMonoSearch)
 ]=====]

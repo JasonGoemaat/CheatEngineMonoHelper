@@ -1,5 +1,10 @@
 Save file as 'monohelper.lua' in the 'autorun' directory where CE is installed
 
+## In progress
+
+* delete forms and unselect image on reload (mostly nicety for making changes during development of this)
+* fixed parameter detection of 'single' and 'double' for XMM registers
+
 ## [Current Release 1.1.0](monohelper-1.1.0.lua)
 
 Here is is as a table script in a cheat table: [MonoHelper.CT](Releases/MonoHelper.CT)

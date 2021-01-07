@@ -1398,6 +1398,8 @@ function mono.formClass:listMethods_OnDblClick(sender)
     table.insert(lines, "  RCX: "..method.class.name.." (this)")
     for i,p in ipairs(method.parameters) do
       local param = parameters[i + 1]
+      print('parameter '..tostring(i + 1))
+      print(util.pretty(p))
       if (p.type == "System.Single" or p.type == "System.Double") then param = floatParameters[i + 1] end
       table.insert(lines, "  "..param..": "..tostring(p.type).." "..tostring(p.name))
     end
