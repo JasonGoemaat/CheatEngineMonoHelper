@@ -59,20 +59,23 @@ function mono.formSearch:show()
   end
   
   formMonoSearch.editSearchText.OnChange = function(sender)
-    self:search(sender.text)
+    self:search(formMonoSearch.editSearchText.Text, formMonoSearch.cbStaticFieldsOnly.Checked)
+  end
+
+  formMonoSearch.cbStaticFieldsOnly.OnChange = function(sender)
+    self:search(formMonoSearch.editSearchText.Text, formMonoSearch.cbStaticFieldsOnly.Checked)
   end
   
   -- popups
   formMonoSearch.listSearchClasses.PopupMenu = formMonoSearch.popupClasses
   local count = 0
   formMonoSearch.popupClasses.OnPopup = function(sender)
-    print('formMonoSearch.popupClasses.OnPopup "'..tostring(sender.name)..'" count '..tostring(count))
+    -- print('formMonoSearch.popupClasses.OnPopup "'..tostring(sender.name)..'" count '..tostring(count))
     count = count + 1
   end
   
   -- perform initial search to set 'found' results, probably empty text
-  self:search(formMonoSearch.editSearchText.Text)
-  
+  self:search(formMonoSearch.editSearchText.Text, formMonoSearch.cbStaticFieldsOnly.Checked)  
 
   -- show form
   formMonoSearch.show()
@@ -91,7 +94,7 @@ end
     When typing in the edit box to filter results, filter the lists of
     classes, fields, and methods with the lower case of the text
 --]]
-function mono.formSearch:search(text)
+function mono.formSearch:search(text, staticFieldsOnly)
   local lower = nil
   if text ~= nil then lower = text:lower() end
 
@@ -104,7 +107,11 @@ function mono.formSearch:search(text)
       if lower == nil or method.lowerName:find(lower, 1, true) ~= nil then table.insert(methods, method) end
     end
     for j,field in ipairs(class.fields) do
-      if lower == nil or field.lowerName:find(lower, 1, true) ~= nil then table.insert(fields, field) end
+      if lower == nil or field.lowerName:find(lower, 1, true) ~= nil then
+        if (not staticFieldsOnly) or field.isStatic then
+          table.insert(fields, field)
+        end
+      end
     end
   end
   self.found.classes = classes
@@ -129,7 +136,11 @@ function mono.formSearch:listSearchFields_OnData(sender, listitem)
     listitem.Caption = 'nil index '..tostring(index)
   else
     listitem.Caption = field.name
-    listitem.SubItems.text = field.class.name
+    local staticString = ""
+    if field.isStatic then staticString = "Static" end
+    if field.isConst then staticString = "Const" end
+    local xtra = { field.class.name,  staticString }
+    listitem.SubItems.text = table.concat(xtra, '\n')
   end
 end
 
@@ -142,4 +153,9 @@ function mono.formSearch:listSearchMethods_OnData(sender, listitem)
     listitem.Caption = method.name
     listitem.SubItems.text = method.class.name
   end
+end
+
+-- handler for static fields only checkbox
+function mono.formSearch:cbStaticFieldsOnly_OnChange(sender)
+  self:search(formMonoSearch.editSearchText.Text, formMonoSearch.cbStaticFieldsOnly.Checked)
 end
