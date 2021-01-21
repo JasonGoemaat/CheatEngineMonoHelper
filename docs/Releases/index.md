@@ -7,6 +7,25 @@ Save file as 'monohelper.lua' in the 'autorun' directory where CE is installed
 * added filtering for field type in search window (Normal/Static/Const)
 * uncheck 'HideSelection' on forms so you can see the selected items  in listViews after they've lost focus
 
+* Evil Bank Manager
+  * CountryRelationship has `PoliticSkill[] politicSkills` property, `System.Single <buyPrice>k__BackingField`, and `Country <country>k__BackingField`
+  * Accessible from CountryInfoCard, CountryRelationshipCard, RegionPoliticSkillWindow, DeleteLicenseWindow, DeleteLicenseNotificationWindow, ConversationWindow
+    * CountryInfoCard has various click methods (Invest, Property, Relationshop) and updates relationship value
+    * CountryRelationshipCard has OnSkillClick(), OpenConversationWindow()
+    * RegionPoliticSkillWindow has DeactivateTab, Apply, OnWindowShowing, OnWindowHidint, SetActiveTab
+    * DeleteLicenseWindow has ONWindowShowing() and ShowNotification()
+    * DeleteLicenseNotificationWindow has Accept() and Decline() as well as OnWindowShowing()
+    * ConversationWindow has 
+
+* TODO: Sample of search being buggy:
+  * EvilBankManager - looking for CountryRelationshipCard, start typing and after the last 'C' in  `CountryRelationshipC` it only shows CountryRelationship.  With a 'T' instead it works for others, weird...  `RelationshipC` works fine
+  * Searching for ConversationWindow buggy, 'Window' finds it
+    * Ok, weird, seems to depend on pasting or not, or fixes itself
+  * Might need to 'prepare' some helper functions as it seems to be spotty, next time run a single function in the LUA console to output the exact terms, etc being used for the search and allow checking of what is called in the search...
+  * Pretty simple, it does `lower == nil or class.lowerName:find(lower, 1, true) ~= nil`
+  * Check: return mono.formSearch.found.classes[1].lowerName
+  * Look for match in `for i,class in ipairs(mono.formSearch.image.classes) do print(class.lowerName) end`
+  * 
 * TODO: popup on method -> generate 'find pointer' script
     * Actually adds a new memrec to CE with a script doing my standard stuff to find the pointer
     * Method 'PlayerController:Update' will globalalloc 'pPlayerController_Update'
