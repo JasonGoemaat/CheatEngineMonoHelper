@@ -4,15 +4,9 @@ Save file as 'monohelper.lua' in the 'autorun' directory where CE is installed
 
 * delete forms and unselect image on reload (mostly nicety for making changes during development of this)
 * fixed parameter detection of 'single' and 'double' for XMM registers
-* TODO: Figure out way to hook the right overloaded method
-    * Could be pretty short AA script looking for parameter signatures
-* TODO: Add static fields as option to search?
-    * Filter for 'Static Fields Only'? - works as default shows all classes/fields/methods
-    * Filter classes as classes that contain static fields (and/or methods?)
-    * Filter static methods too?  How do static methods work?
-* TODO: DblClick on static field generates script with {$lua} code to find it and define?
-    * Alternate: LUA code to get base address for static class and define? - doesn't work with mono generate struct due to conflicting offsets, maybe CLASS_FIELD as define?
-* TODO: uncheck 'HideSelection' on forms so you can see the selected items  in listViews after they've lost focus
+* added filtering for field type in search window (Normal/Static/Const)
+* uncheck 'HideSelection' on forms so you can see the selected items  in listViews after they've lost focus
+
 * TODO: popup on method -> generate 'find pointer' script
     * Actually adds a new memrec to CE with a script doing my standard stuff to find the pointer
     * Method 'PlayerController:Update' will globalalloc 'pPlayerController_Update'
@@ -24,6 +18,17 @@ Save file as 'monohelper.lua' in the 'autorun' directory where CE is installed
         * movss [rax+18], xmm3 // parameter 3
         * pop rax
     * Table entries under script as a group header for counter and parameters
+* TODO: When in 'Show usages' mode of class window, double-clicking on field should open that class
+    * Currently it does the static field logic, showing 0 as the address in the console
+* TODO: Figure out way to hook the right overloaded method
+    * Samples in EvilBankManager:
+      * UserBank:GetCapital has two versions, one takes a Single parameter, the other has none
+      * UserBank:GetResourceCount takes either int or Resource/ResourceType
+      * Sample: `System.Single GetResourceCount(int resourceId)`
+        * monoAA_GetOverloadedFunction(SYMBOL_NAME, "UserBank:GetResourceCount", System.Single, int)
+    * Could be pretty short AA script looking for parameter signatures, or lua script
+* TODO: DblClick on static field generates script with {$lua} code to find it and define?
+    * Alternate: LUA code to get base address for static class and define? - doesn't work with mono generate struct due to conflicting offsets, maybe CLASS_FIELD as define?
 * TODO: Alternate for having memrecs for script and pointers - more difficult but cooler
     * Able to hook methods from window, list in separate window and enable/disable/remove
     * LUA could keep track of a 'globals' memory region and where the pointers for each method are
