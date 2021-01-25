@@ -216,10 +216,279 @@ function mono.formClass:listMethods_OnData(sender, listitem)
 end
 
 local parameters = { 'RCX', 'RDX', 'R8', 'R9', '[RBP+30]', '[RBP+38]', '[RBP+40]', '[RBP+48]', '[RBP+50]' }
-local floatParameters = { 'XMM0', 'XMM1', 'XMM2', 'XMM3', 'XMM4', 'XMM5', 'XMM6'}
+local floatParameters = { 'XMM0', 'XMM1', 'XMM2', 'XMM3', '[RBP+30]', '[RBP+38]', '[RBP+40]', '[RBP+48]', '[RBP+50]'}
 
-function mono.formClass:popupMethod_OnPopup(sender)
+local addMenuItem = function(popup, name, caption, func)
+  local mi = createMenuItem(popup.Items)
+  mi.Name = name
+  mi.Caption = caption
+  mi.OnClick = func
+  popup.Items.add(mi)
+end
+
+--[[
+Popup for methods
+]]
+function mono.formClass:popupMethods_OnPopup(popup)
+  local popup = formMonoClass.popupMethods
+  popup.Items:clear()
+
+  local method = self:getSelectedMethod()
+  if method == nil then return end
+
+  addMenuItem(popup, "miMethodsHook", "Hook", mono.formClass.methodHook)
+  addMenuItem(popup, "miMethodsDisassemble", "Disassemble", mono.formClass.methodDisassemble)
+  addMenuItem(popup, "miMethodsCreateTableScript", "Create Table Script", mono.formClass.methodCreateTableScript)
+end
+
+formMonoClass.popupMethods.OnPopup = function(sender) mono.formClass:popupMethods_OnPopup(sender) end
+
+mono.formClass.methodHook = function()
+  local self = mono.formClass
+  local method = self:getSelectedMethod()
+  if method == nil then
+    print("No method selected!")
+    return
+  end
+
+  local address = mono_compile_method(method.id)
+  local hookInfo = hookAt(address)
+  -- have aobString, hookString, returnString, instructions
+  --[[ how to get method signature
+  local ps = {}
+  for i,p in ipairs(method.parameters) do
+    table.insert(ps, string.format('%s %s', p.type, p.name))
+  end
+  local parms = method.returnType..' ('..table.concat(ps, ', ')..')'
+  ]]
+
+  local lines = {}
+  table.insert(lines, "define(hook,"..hookInfo.hookString..")")
+  table.insert(lines, "define(bytes,"..hookInfo.aobString..")")
+  table.insert(lines, "")
+  table.insert(lines, "[enable]")
+  table.insert(lines, "")
+  table.insert(lines, "assert(hook, bytes)")
+  table.insert(lines, "alloc(newmem,$1000, hook)")
+  table.insert(lines, "{")
+
+
+  -- note: per x64 calling convention, RCX might actually be space for
+  -- a pre-allocated structure for the return value and other parameters
+  -- might be moved one further down the list
+  table.insert(lines, "  RCX: "..method.class.name.." (this)")
+  for i,p in ipairs(method.parameters) do
+    local param = parameters[i + 1]
+    if (p.type == "single" or p.type == "double" or p.type == "System.Single" or p.type == "System.Double") then param = floatParameters[i + 1] end
+    table.insert(lines, "  "..param..": "..tostring(p.type).." "..tostring(p.name))
+  end
+  table.insert(lines, "")
+
+  table.insert(lines, "  Returns (RAX) "..method.returnType)
+  table.insert(lines, "}")
+  table.insert(lines, "")
+  table.insert(lines, "newmem:")
+  table.insert(lines, "  // original code")
+  for i,c in ipairs(hookInfo.instructions) do
+    table.insert(lines, "  "..c)
+  end
+  table.insert(lines, "  jmp hook+"..string.format("%X", hookInfo.returnOffset))
+  table.insert(lines, "")
+  table.insert(lines, "hook:")
+  table.insert(lines, "  jmp newmem")
+  table.insert(lines, "")
+  table.insert(lines, "[disable]")
+  table.insert(lines, "")
+  table.insert(lines, "hook:")
+  table.insert(lines, "  db bytes")
+  table.insert(lines, "")
+  table.insert(lines, "dealloc(newmem)")
+
+  local t = {}
+  for i,v in ipairs(lines) do
+    table.insert(t, v);
+    table.insert(t, "\r\n")
+  end
+
+  local aa = table.concat(t)
+
+  getMemoryViewForm().AutoInject1.DoClick()
   
+  for i=0,getFormCount()-1 do --this is sorted from z-level. 0 is top
+    local f=getForm(i)
+
+    if getForm(i).ClassName == 'TfrmAutoInject' then
+      f.assemblescreen.Lines.Text = aa
+      break
+    end
+  end
+end
+
+mono.formClass.methodDisassemble = function()
+  local self = mono.formClass
+  local method = self:getSelectedMethod()
+  if method == nil then
+    print("No method selected!")
+    return
+  end
+
+  local address = mono_compile_method(method.id)
+  getMemoryViewForm().DisassemblerView.SelectedAddress = address
+  getMemoryViewForm().show()
+end
+
+--[[
+--------------------------------------------------------------------------------
+-- Currently working on
+--------------------------------------------------------------------------------
+]]
+mono.formClass.methodCreateTableScript = function()
+  local self = mono.formClass
+  local method = self:getSelectedMethod()
+  if method == nil then
+    print("No method selected!")
+    return
+  end
+
+  local address = mono_compile_method(method.id)
+  local hookInfo = hookAt(address)
+  local pointerLabel = "p"..method.class.name.."_"..method.name
+
+  local lines = {}
+  table.insert(lines, "define(hook,"..hookInfo.hookString..")")
+  table.insert(lines, "define(bytes,"..hookInfo.aobString..")")
+  table.insert(lines, "")
+  table.insert(lines, "[enable]")
+  table.insert(lines, "")
+  table.insert(lines, "assert(hook, bytes)")
+  table.insert(lines, "alloc(newmem,$1000, hook)")
+  table.insert(lines, "label("..pointerLabel..")")
+  table.insert(lines, "")
+  table.insert(lines, "{")
+
+
+  -- note: per x64 calling convention, RCX might actually be space for
+  -- a pre-allocated structure for the return value and other parameters
+  -- might be moved one further down the list
+  table.insert(lines, "  RCX: "..method.class.name.." (this)")
+  for i,p in ipairs(method.parameters) do
+    local param = parameters[i + 1]
+    if (p.type == "single" or p.type == "double" or p.type == "System.Single" or p.type == "System.Double") then param = floatParameters[i + 1] end
+    table.insert(lines, "  "..param..": "..tostring(p.type).." "..tostring(p.name))
+  end
+  table.insert(lines, "")
+
+  table.insert(lines, "  Returns (RAX) "..method.returnType)
+  table.insert(lines, "}")
+  table.insert(lines, "")
+  table.insert(lines, "newmem:")
+
+  table.insert(lines, "  // increment counter, store instance and parameters (could be off for static method?)")
+  table.insert(lines, "  push rax")
+  table.insert(lines, "  mov ["..pointerLabel.."], rcx")
+  table.insert(lines, "  inc dword ptr ["..pointerLabel.."+8]")
+  local parameterOffset = 0x10
+  for i,p in ipairs(method.parameters) do
+    local param = parameters[i + 1]
+    if i < 4 then
+      -- windows 64 ABI: first 3 parameters (plus 'this' in rcx) are in registers
+      if (p.type == "single" or p.type == "double" or p.type == "System.Single" or p.type == "System.Double") then
+        table.insert(lines, "  movss ["..pointerLabel.."+"..string.format("%x", parameterOffset).."], "..floatParameters[i + 1].."  // "..p.name)
+      else
+        table.insert(lines, "  mov ["..pointerLabel.."+"..string.format("%x", parameterOffset).."], "..parameters[i + 1].."  // "..p.name)
+      end
+    else
+      -- doesn't really matter if it's float or not, we use [ebp+XX] as source and RAX as temp register to copy value
+      table.insert(lines, "  mov rax,[rbp+"..string.format("%x", parameterOffset + 0x20).."]  // "..p.name)
+      table.insert(lines, "  mov ["..pointerLabel.."+"..string.format("%x", parameterOffset).."], rax")
+    end
+    parameterOffset = parameterOffset + 8
+  end
+  table.insert(lines, "  pop rax")
+  table.insert(lines, "")
+
+  table.insert(lines, "  // original code")
+  for i,c in ipairs(hookInfo.instructions) do
+    table.insert(lines, "  "..c)
+  end
+  table.insert(lines, "  jmp hook+"..string.format("%X", hookInfo.returnOffset))
+  table.insert(lines, "")
+  table.insert(lines, "align 10")
+  table.insert(lines, pointerLabel..":")
+  table.insert(lines, "  dq 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0")
+  table.insert(lines, "")
+
+  table.insert(lines, "hook:")
+  table.insert(lines, "  jmp newmem")
+  table.insert(lines, "")
+  table.insert(lines, "registersymbol("..pointerLabel..")")
+  table.insert(lines, "")
+  table.insert(lines, "[disable]")
+  table.insert(lines, "")
+  table.insert(lines, "hook:")
+  table.insert(lines, "  db bytes")
+  table.insert(lines, "")
+  table.insert(lines, "unregistersymbol("..pointerLabel..")")
+  table.insert(lines, "")
+  table.insert(lines, "dealloc(newmem)")
+
+  local t = {}
+  for i,v in ipairs(lines) do
+    table.insert(t, v);
+    table.insert(t, "\r\n")
+  end
+
+  local aa = table.concat(t)
+
+  local parent = getAddressList().createMemoryRecord()
+  parent.setDescription("<- Hook "..method.class.name..":"..method.name)
+  parent.Type = vtAutoAssembler -- must be set before setting 'Script'
+  parent.Script = aa
+  getAddressList().SelectedRecord = n -- select record
+
+  addMemoryRecord(parent, pointerLabel, pointerLabel, vtQword, true)
+  addMemoryRecord(parent, "Counter", pointerLabel.."+8", vtDword, false)
+  parameterOffset = 0x10
+  for i,p in ipairs(method.parameters) do
+    local valueType = vtQword
+    local showAsHex = false
+    local param = parameters[i + 1]
+    if (p.type == "single" or p.type == "System.Single") then
+      valueType = vtSingle
+    elseif (p.type == "double" or p.type == "System.Double") then
+      valueType = vtDouble
+    elseif (p.type == "int" or p.type == "System.Int32") then
+      valueType = vtDword
+    elseif (p.type == "long" or p.type == "System.Int64") then
+      valueType = vtQword
+    -- TODO: add pointer for string
+    else
+      valueType = vtQword
+      showAsHex = true
+    end
+    addMemoryRecord(parent, p.name.." ("..p.type..")", pointerLabel.."+"..string.format("%x", parameterOffset), valueType, showAsHex)
+    parameterOffset = parameterOffset + 8
+  end
+
+  -- parent.reinterpret() -- trying to get it to execute the script
+  -- might need to use OnActivate and onDeactivate?
+  parent.Collapsed = true
+end
+
+function addMemoryRecord(parent, description, address, type, hex)
+  local memrec = getAddressList().createMemoryRecord()
+  memrec.setDescription(description)
+  memrec.Address = address
+  memrec.Type = type
+  memrec.ShowAsHex = hex
+  memrec.appendToEntry(parent) -- also works: n.Parent = parent
+end
+
+
+function mono.formClass:getSelectedMethod()
+  local index = formMonoClass.listMethods.ItemIndex
+  if index < 0 then return nil end
+  return self.methods[index + 1]
 end
 
 function mono.formClass:listMethods_OnDblClick(sender)

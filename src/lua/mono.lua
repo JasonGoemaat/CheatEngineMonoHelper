@@ -63,6 +63,8 @@ mono.TYPE_NAMES = {
 
 [[-- #INCLUDEFILE(src/lua/monomenu.lua) ]]
 
+[[-- #INCLUDEFILE(src/lua/generators/index.lua) ]]
+
 [[-- #INCLUDEFILE(src/lua/forms/formSelectImage.lua) ]]
 [[-- #INCLUDEFILE(src/lua/forms/formSearch.lua) ]]
 [[-- #INCLUDEFILE(src/lua/forms/formClass.lua) ]]

@@ -15,7 +15,7 @@ function mono.menu:init()
     self.timer = nil
 
     local existing = util.getSubmenuByCaption(miMonoTopMenuItem, 'Search')
-    if existing ~= nil then self.menuSearch = createMenuItem(miMonoTopMenuItem) else self.menuSearch = existing end
+    if existing ~= nil then self.menuSearch = existing else self.menuSearch = createMenuItem(miMonoTopMenuItem) end
     self.menuSearch.Caption = 'Search'
     self.menuSearch.Name = 'miMonoSearch'
     self.menuSearch.OnClick = function(sender) self:OnSearchClick() end
