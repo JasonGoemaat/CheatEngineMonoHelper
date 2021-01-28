@@ -93,16 +93,13 @@ local sectionForms = sForms:gsub(patternForm, loadFormAsLuaString)
 local alreadyLoaded = {} -- to prevent ENDLESS endless loop
 
 local function includeLuaFile(name)
-  -- print('includeLuaFile: '..name)
   if alreadyLoaded[name] then error("build.lua - Already loaded file: "..tostring(name)) end
   alreadyLoaded[name] = true -- prevent endless loop
 
   local path = getMainForm().openDialog1.InitialDir..name
-  -- print("includeLuaFile() path: "..path);
   local f, err = io.open(path, "r")
   if f == nil then error("build.lua - Cannot open path: "..tostring(path)..", "..tostring(err)) end
   local text = f:read("*all")
-  -- print("  loaded bare text, size: "..tostring(string.len(text)))
   f:close()
 
   text = "\n--[[--------------------------------------------------------------------------------\n    -- Included File: "..tostring(name).."\n    --------------------------------------------------------------------------------]]\n"..text
@@ -111,9 +108,6 @@ local function includeLuaFile(name)
   local patternSearch = "%[%[%-%- *#INCLUDEFILE%(([^%)]*)%) *%]%]"
 
   -- interesting, using a function it should call with file name, returning text
-  -- print("Got text, trying gsub:")
-  -- print(tostring(text))
-  -- print("includeLuaFile is: "..tostring(includeLuaFile))
   text = text:gsub(patternSearch, includeLuaFile)
   return text
 end
@@ -123,7 +117,7 @@ local sectionLua = includeLuaFile("src/lua/bootstrap.lua")
 local all = sectionForms.."\n"..sectionLua
 
 local function saveBuildOutput(name, text)
-  local path = getMainForm().saveDialog1.InitialDir.."Build/output/"..name
+  local path = getMainForm().openDialog1.InitialDir.."Build/output/"..name
   local f, err = io.open(path, "w")
   if f == nil then return nil, err end
   f:write(text)
@@ -134,6 +128,8 @@ end
 saveBuildOutput("monohelper.lua", all)
 saveBuildOutput("sectionForms.lua", sectionForms)
 saveBuildOutput("sectionLua.lua", sectionLua)
+
+print('done')
 
 -- all is what should be written to 
 return all, sectionForms, sectionLua

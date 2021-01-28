@@ -441,9 +441,10 @@ mono.formClass.methodCreateTableScript = function()
   local aa = table.concat(t)
 
   local parent = getAddressList().createMemoryRecord()
-  parent.setDescription("<- Hook "..method.class.name..":"..method.name)
+  parent.setDescription(method.class.name..":"..method.name)
   parent.Type = vtAutoAssembler -- must be set before setting 'Script'
   parent.Script = aa
+  parent.Options = '[moHideChildren]'
   getAddressList().SelectedRecord = n -- select record
 
   addMemoryRecord(parent, pointerLabel, pointerLabel, vtQword, true)
@@ -461,7 +462,7 @@ mono.formClass.methodCreateTableScript = function()
       valueType = vtDword
     elseif (p.type == "long" or p.type == "System.Int64") then
       valueType = vtQword
-    -- TODO: add pointer for string
+    -- TODO: add pointer for string?
     else
       valueType = vtQword
       showAsHex = true
@@ -470,9 +471,8 @@ mono.formClass.methodCreateTableScript = function()
     parameterOffset = parameterOffset + 8
   end
 
-  -- parent.reinterpret() -- trying to get it to execute the script
-  -- might need to use OnActivate and onDeactivate?
-  parent.Collapsed = true
+  -- bring main window to front
+  getMainForm().bringToFront()
 end
 
 function addMemoryRecord(parent, description, address, type, hex)
