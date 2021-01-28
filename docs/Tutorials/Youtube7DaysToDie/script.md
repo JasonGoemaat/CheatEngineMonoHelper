@@ -34,3 +34,17 @@
 
 
 NOTE: Check out GetBlockActivationCommands for possibly unlocking doors
+Possibly 'OnBlockActivated':
+
+		TileEntitySecureDoor tileEntitySecureDoor = (TileEntitySecureDoor)_world.GetTileEntity(_cIdx, _blockPos);
+		if (tileEntitySecureDoor == null && !_world.IsEditor())
+		{
+			return false;
+		}
+		bool flag = (!_world.IsEditor()) ? tileEntitySecureDoor.IsLocked() : ((_blockValue.meta & 4) > 0);
+		bool flag2 = !_world.IsEditor() && tileEntitySecureDoor.IsUserAllowed(GamePrefs.GetString(EnumGamePrefs.PlayerId));
+		switch (_indexInBlockActivationCommands)
+
+Can we do the same call to GetTileEntity and set IsLocked() to false?
+It looks like the function is called, but is it really?
+Also checks IsUserAllowed()
