@@ -215,8 +215,15 @@ function mono.formClass:listMethods_OnData(sender, listitem)
   end
 end
 
-local parameters = { 'RCX', 'RDX', 'R8', 'R9', '[RBP+30]', '[RBP+38]', '[RBP+40]', '[RBP+48]', '[RBP+50]' }
-local floatParameters = { 'XMM0', 'XMM1', 'XMM2', 'XMM3', '[RBP+30]', '[RBP+38]', '[RBP+40]', '[RBP+48]', '[RBP+50]'}
+local getParameter = function(index), monoParam)
+  local param = { index = index }
+  if monoParam ~= nil then
+    param.name = monoParam.name
+    param.type = monoParam.type
+end
+
+local parameters = { 'RCX', 'RDX', 'R8', 'R9', '[RBP+30]', '[RBP+38]', '[RBP+40]', '[RBP+48]', '[RBP+50]', '[RBP+58]', '[RBP+60]', '[RBP+68]', '[RBP+70]', '[RBP+78]' }
+local floatParameters = { 'XMM0', 'XMM1', 'XMM2', 'XMM3', '[RBP+30]', '[RBP+38]', '[RBP+40]', '[RBP+48]', '[RBP+50]', '[RBP+58]', '[RBP+60]', '[RBP+68]', '[RBP+70]', '[RBP+78]' }
 
 local addMenuItem = function(popup, name, caption, func)
   local mi = createMenuItem(popup.Items)
