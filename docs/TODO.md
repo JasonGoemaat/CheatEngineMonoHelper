@@ -109,5 +109,27 @@ For investigations like this it would be SUPER handy to have a one or two click 
 * Way to reference certain overloaded methods
     * It should AT LEAST be possible to do it with a little LUA code in the script, instead of using AOB which is HORRIBLY slow (~10 seconds on my laptop for Raft)
     * Maybe something like 'ClassName.MethodName`2' or something
+* Check out monoform_AddStaticClassField
+    * and monoAA_GETMONOSTATICFIELDDATA(assemblyname, namespace, classname, fieldname, symclassname, false)
+
+      local addrs = getAddressList()
+      local classname=mono_class_getName(class)
+      local namespace=mono_class_getNamespace(class)
+      local assemblyname=mono_image_get_name(image)
+
+    * hmmm... "if monopipe.il2cpp then return end" when 
+* try registerAutoAssemblerCommand("GETMONOSTRUCT", monoAA_GETMONOSTRUCT)
+* Interesting, seems like it just skips the . in the name
+    name=name:match "^%s*(.-)%s*$"
+    classname=classname:match "^%s*(.-)%s*$"
+    namespace=namespace:match "^%s*(.-)%s*$"
+
+    local class=mono_findClass(namespace, classname)
+    if (class==nil) or (class==0) then
+        return nil,translate("The class ")..namespace..":"..classname..translate(" could not be found")
+    end
+* can just pass class to mono_class_getStaticFieldAddress and itwill use domain = 0, which seems to work
+
 ## Wishlist
+
 * Enum values - They are *usually* in order, starting at 0, but not always (i.e. CryingSuns)
