@@ -56,6 +56,40 @@ mono.TYPE_NAMES = {
   [0x55] = 'ENUM', -- an enumeration
 }
 
+mono.reset = function()
+  -- close any open forms
+  if formMonoClass ~= nil then 
+    formMonoClass.close()
+    formMonoClass:destroy()
+  end
+  if formMonoImage ~= nil then
+    formMonoImage.close()
+    formMonoImage:destroy()
+  end
+  if formMonoSearch ~= nil then
+    formMonoSearch.close()
+    formMonoSearch:destroy()
+  end
+
+  -- unselect image, refs won't be correct if re-ran
+  if mono then
+    mono.selectedImage = nil
+    if mono.timer then mono.clearTimer() end
+  end
+end
+
+mono.clearTimer = function()
+  if mono.timer then
+    mono.timer.enabled = false
+    mono.timer = nil
+  end
+end
+
+MainForm.OnProcessOpened = function()
+  mono.reset()
+end
+
+
 [[-- #INCLUDEFILE(src/lua/mono/monofield.lua) ]]
 [[-- #INCLUDEFILE(src/lua/mono/monomethod.lua) ]]
 [[-- #INCLUDEFILE(src/lua/mono/monoclass.lua) ]]

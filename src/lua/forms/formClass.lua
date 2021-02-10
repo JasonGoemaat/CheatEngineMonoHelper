@@ -215,11 +215,12 @@ function mono.formClass:listMethods_OnData(sender, listitem)
   end
 end
 
-local getParameter = function(index), monoParam)
+local getParameter = function(index, monoParam)
   local param = { index = index }
   if monoParam ~= nil then
     param.name = monoParam.name
     param.type = monoParam.type
+  end
 end
 
 local parameters = { 'RCX', 'RDX', 'R8', 'R9', '[RBP+30]', '[RBP+38]', '[RBP+40]', '[RBP+48]', '[RBP+50]', '[RBP+58]', '[RBP+60]', '[RBP+68]', '[RBP+70]', '[RBP+78]' }
@@ -391,6 +392,8 @@ mono.formClass.methodCreateTableScript = function()
   table.insert(lines, "newmem:")
 
   table.insert(lines, "  // increment counter, store instance and parameters (could be off for static method?)")
+  table.insert(lines, "  push rbp")
+  table.insert(lines, "  mov rbp,rsp")
   table.insert(lines, "  push rax")
   table.insert(lines, "  mov ["..pointerLabel.."], rcx")
   table.insert(lines, "  inc dword ptr ["..pointerLabel.."+8]")
@@ -406,12 +409,13 @@ mono.formClass.methodCreateTableScript = function()
       end
     else
       -- doesn't really matter if it's float or not, we use [ebp+XX] as source and RAX as temp register to copy value
-      table.insert(lines, "  mov rax,[rbp+"..string.format("%x", parameterOffset + 0x20).."]  // "..p.name)
+      table.insert(lines, "  mov rax,[rbp+"..string.format("%x", parameterOffset + 0x08).."]  // "..p.name)
       table.insert(lines, "  mov ["..pointerLabel.."+"..string.format("%x", parameterOffset).."], rax")
     end
     parameterOffset = parameterOffset + 8
   end
   table.insert(lines, "  pop rax")
+  table.insert(lines, "  pop rbp")
   table.insert(lines, "")
 
   table.insert(lines, "  // original code")
