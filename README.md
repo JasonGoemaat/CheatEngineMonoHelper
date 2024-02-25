@@ -1,47 +1,43 @@
-## TLDR;
+## Quick Start
 
-Copy `monohelper.lua` from the autorun folder in this repo to the autorun
-folder where cheat engine is installed.  When opening the process of a mono
-game you should see a 'Mono Search' menu added to CE.
+Open the 'Dev.CT' table and copy the 'MonoHelper' entry to your own table.
+Activate it when attached to a game that uses mono and use the new
+menu option Mono->Search.
+
+## Quick Build
+
+Source code is split into lua files in the `src/lua` directory
+with forms in the `src/forms` directory.
+
+1. Open Cheat Engine (do not double click file to open)
+2. Using File->Open, open the table 'Dev.CT' (so that directory is set)
+3. Allow the table script to run to create the `Dev (MonoHelper)` menu
+4. Click `Dev (MonoHelper)`->`Build and create table entry`
+5. Copy the new table entry and paste it into your own table
 
 ## Cheat Engine Mono Helper
 
-The purpose of this is to make easier to analyze games that use mono.  The default
-dissect window is slow and difficult to use.  By fetching all the mono information
-up front (in just a few seconds) and storing them in LUA tables it is possible to
-do things like auto-complete style instant searching.
+There have been some advances with more recent versions of Cheat Engine,
+but this will create some forms that I think make it easier to find
+classes and functions in games that use Mono.
 
-> **NOTE** *this is a work in progress, the basic searching works well, but you
-have to use the dissect window to do most things still until I can figure out
-how to use pop-ups better
-
-To use the new forms, select the new 'Search' option from the mono menu.  The first
-time you do this it will open a window to select the image.  I've found that for
-mono games you usually want to select `Assembly-CSharp`.  This is much easier here
-because the list is sorted by name (unlike the dissect window which is sorted
-by address) and it is usually the one at the top.
+The search pre-processes a single image, which defaults to 'Assembly-CSharp',
+so do 'Select Image' to pick a different one:
 
 ![SelectImage](Docs/SelectImage.png)
 
-With the search window you can find things that may be interesting very quickly.
-For instance I normally start by typing 'player'.  In the normal dissect window
-it helps to select the image first and uncheck 'search entire file', but you still
-have to click through 'find' over and over to get to something interesting.
-
-With the search window for Crying Suns I immediately see 'PlayerState' which seems
-very interesting.  Other things pop up that could quickly lead to cheats such
-as the fields "player" on the "Team" class, playerState on the RunState class, and
-playerBattleship on BattlefieldUI.  In methods we can see Configuration.get_InvinciblePlayer,
-GameState.get_PlayerState, Battlefield.set_PlayerBattleship, etc.
+Use the new 'Mono->Search' menu and start typing to show Classes, Fields,
+and Methods that contain your text.   Double-clicking on any will open
+a 'Class' window.
 
 ![Search](Docs/Search.png)
 
-Double-clicking a class, field, or method will open up a window for the class with
-tables for Fields, Methods, and Notes.  The fields will tell you the offset and let
-you sort by name or offset in the 'Options' menu.  It also tells you if the field is
-STATIC.  That would probably be good for this game to help you write a cheat.   You
-can use commands I'm sure to get the address of GameState.currentRunState.  With that
-you can get `playerState` at offset 30.
+In the 'Class' window you can see fields and methods.  Right-clicking on
+a method gives you a few options:
+
+1. Hook - Create an injection script for the start of the method
+2. Disassemble - jump to the method in the disassembler
+3. Create Table Script - Creates table entry hooking the start of the method with a counter for number of times executed and storing the most recent object pointer and parameter values
 
 ![Class](Docs/Class.png)
 
@@ -124,13 +120,6 @@ unregisterSymbol("CryingSuns:GameState:currentRunState")
 
 See [`/docs/Building.md`](/docs/Building.md)
 
-## So what now?
-
-Unfortunately this was something I wrote a couple years ago and have forgotten
-a lot of the CE lua commands and never figured out how to get pop-up menus to work
-how I wanted.  If you find some interesting classes/methods/fields you need to
-go to the built-in dissect window, go to 'Assembly-CSharp' and search for the name
-you are looking for.
 
 ## What I'd like to do in the future:
 

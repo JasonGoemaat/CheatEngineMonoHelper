@@ -605,8 +605,8 @@ end
       expecting MONO code.  Will process instructions until 5 bytes (for jmp) are
       processed.  Basic format is like this for address 'CryingSuns.PlayerStatus:BattleshipState:HasAuxiliarySystemType+28'
 
-[enable]
-assert("CryingSuns.PlayerStatus:BattleshipState:HasAuxiliarySystemType":+28, )
+// [enable]
+// assert("CryingSuns.PlayerStatus:BattleshipState:HasAuxiliarySystemType":+28, )
 ]]
 function hookAt(address)
   local pos = string.find(address, "+", 1, true)

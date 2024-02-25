@@ -29,7 +29,7 @@ function MonoField.new(class, f)
   --if f.monotype == 15 or f.monotype == 16 or f.monotype == 18 or f.monotype then
   --end
 
-  obj.typeClassId = mono_type_getClass(obj.id)
+  obj.typeClassId = mono_field_getClass(obj.id) -- Fix change in CE 7.5.2
   if obj.typeClassId ~= nil then
     -- this is the 'type' of the field
     obj.typeClass = class.image.classesById[obj.typeClassId]

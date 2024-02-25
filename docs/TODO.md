@@ -11,6 +11,14 @@ For investigations like this it would be SUPER handy to have a one or two click 
 
 ## TODO
 
+Recent (2024-02-25):
+
+* Default or separate option so 'hook' creates a standard table entry (and opens?)
+* Toggle for enabling 14 byte far jmp, default to 5 (current uses 14)
+* Toggle to use 'readmem', default on...  Mostly for 5 byte jumps where 'sub rsp,xxx' won't overwrite the xxx, helpful for not having to update scripts on game updates
+
+Older:
+
 * TODO: popup on method -> generate 'find pointer' script
   * Actually adds a new memrec to CE with a script doing my standard stuff to find the pointer
   * Method 'PlayerController:Update' will globalalloc 'pPlayerController_Update'

@@ -1,123 +1,112 @@
-local formStringClass = '<?xml version="1.0" encoding="utf-8"?><FormData><formMonoClass Class="TCEForm" Encoding="Ascii85">/yXy*/3td4;=F41+]S%7-9[S)8wjBhaO9R]HoK7}lMsjH2I_C;q!qi^+qxopm3Kfq!%Dma2hhF)$K_poB)7+L@pD3sNsL0}z:4a=UG;#ZcYR(mdDGOi$+A_KIq5#[)I_K?:br(3wCkfdu3o^M89!9((jBx%%y=iJ6B-(nYPGMi$Ck#Es?X+$!/5u))%[]*V/0Sn_D]*;euu6OfUHd].NJnlM6-C+D;Mba;5H#*ag73a,$OUnja:-3$l#)(35%$2*]m9)qDPsQXS1c0DeH_SWBsv6SZ@fxzSYh.H1Z(FLo}x:aiPGcMWM7v7xqZ)MoXslMXSwNgr^o.Cp^kZqPs,q3)P!eU%UNpyU+KW[vyruswDm(ww#GY*tx=;Q4(*hG1QRa5oWWcY0kqQz6DSD^Bn)a%r.#5-DQO4Od)yi?xiIj._{#b%@9JHZ*:zOG[o3MB4Cy#w^)OE[.x71Vw.cJ(8;:?6.a}Xv^4+(C{T8ul4-_c+.@sbx7Azb=]L]=C^HobZ#gIy-FU6bs),YN-Kd)%LG0Afifig/B?9folId7zrQ96Oj*z5:bfY*Ui(Et?N2RPJ#dGqycutI{H9@y%aHVVJ3moIA50;We%DN%v27{1ShM%cJ]g=jve@slmsMYH:O/F#S:sN7sTYE7b09#ToIoxkc=2HfeTHD79Vp[.o+]?0,6AxLMm0{QUG3^aSlNfqgh(PoaL;;9EAa=:k$}yC{Yns-S%w9mk4J,j1_0TVDQM;qYO7BK^#[(rJn]2rGO_L0}[]l]6C_#d.aI5Qime;/MahCwh:6R_rZ($r_HhwCejdzA5,7+u33k*_6pAVE-84a;PB}-](rFG6A$Jcsq9^+Htt*6aytoPle][4GDv=jkG*(Yr_m28iP@LY%,8epQ?!$)P+xX=0Cb,QRz2V)rJ/uT(e;_$D#97eqf5;21=2wU;}lHY%{H3sAjiNCS!F{-oYhZ)bTea^x/mA9U0y@O}Y)unaUkP*cC[cQ53JB^hzP^/J!O6/xwl#5kDq8y?;MLEpzG{?oaK_K1#DDbFRy$6rB%Kv%d@S3-j#KVN6[#GARBEK(s$_psl+drRQL-{w#3Dr/tKKCV1*,y68/g]ehS3BepPvrpw*DHMZT9nZyjZi_GR9^M(6mdLZ[9bx.U0xmAb]E[T_9Stnaqj7xE4^[p.4(2P#n@m!1!TdQr*jeM.;jS]l;H0gGCu4x2/!k4B@7clB?yIMX90FOnK}QE,8(PL=B)*MXj,_)]oqwYN-bx5u58ss)AlVNY]52pc9$=*,1cL=:{6()KZVS?dXKwW)wjb6LWCK3]?Ed.ZS}h4v^F;wgQGlr74wI}KI=_iwxn9i,tma7j53-v12HRRCM29L5Hn7g;.asL@6pL+^1W0B5DyWS88_tiC_[fec7sAQFo#4c%,tJ7in!I@</formMonoClass></FormData>'
-local formStringImage = '<?xml version="1.0" encoding="utf-8"?><FormData><formMonoImage Class="TCEForm" Encoding="Ascii85">#goBu):ZT+Wtl^dlQI).N^(5n(hQF{X^MQJn@1eo5fn$ZHIXe;RtGr4190F.cqtCN1hVAXjWcD*0l3*K^?z^hx4+qE0Ksbh3I+QToQw1+QkP4f?kNSb@5lX/)jLR@IiYbP=eCTy?ZA0ZI(bMlCiZ8DJe+6*v,mF+jD,(E%sth}1CLRX$vU-f(i9$XRV@:QA!q!f%hX+b6)]dyOt_prhLp]G9=zuU40V/tG9sQgs]],Y[?WW7%bqQH*RxO9*We0CaVdE@Zgdl/@M}s?b/WI$4H*R(bICOq:vG*bM5b2J?8GRcx[DbAAiUL]9lSLiz[S=[8zTH1hct@Prs^Avs4E{u#(j9zj(]G[D0JP0B(qo^2%G=}m+ra!0MJv,XL@_ZnSM_HxTV)cJhf9I9+4KLxJqx*H(z;36.k,8JMD^Qkiz#h)TZim?DT^LGY6G3@@j/pDI11cbh0/UjyJR^0G:vZE5TzyieiSvQC;a(0j_I1#Y1q]28AO^@P9DA)8H^GkPRD[5Z%y%t^HKF?{v6g?tUv!E3cP_:l]R+yV4f4v4-{wf!3Qc8fU38JaQy9#^U-{8!JCVHkhj,CSHPtPb3.lul(V3=_gdgp9Os[Rb%_?;C,WXNw,f/6f.*]R#b*wa-.kPtDstrDfs3NGb%qJ6y3fSIFkJp7HU$DGcFw09Lg7,2RjA700</formMonoImage></FormData>'
-local formStringSearch = '<?xml version="1.0" encoding="utf-8"?><FormData><formMonoSearch Class="TCEForm" Encoding="Ascii85">%}#KF,cp%Yq+#;fF0-;[=QS^sGN4#^E)+k6vj(Lgz(5foZ80]sniM43Np}sshx8vPu*}UB$D$ZEpujG;?1GedO3?FSj[d9*9_ZEf$H%Addmm}2)+$66arzA$cAlT_Xuf_XA6=G*0HbI.-8.uu!g/qhUtlts3g:JT8S;Ei8Pt9tftWhe8tkA?5YF5@wd!7n63j#z^fphu@DKC.i]fEtbNTEd!oa?V@#V/Bhcgjz;V/Nw9ABQW?svjc5?1!pqtp+.y:#V{queWtsW_WF(b{)5.y$dp*d;11j?n!ZK7Ww:wZXi1;aQe75VPwUV6PLv=0SmVuvR{A3$n!Ot*VZ[NaGB3,PG0eGa2uqnMwoEEGg1MGo2h9w0RWZXb[==VUtICuU6TZ=Ds_4mZY*khh=iyYS,CX8lABK-]GG6dn)2Tz#q!VV2ZIQ6q=cP;Uo+*pUQ-v+MRD*:K(G;SU(WUA-*kNg7b_GB/BHTpzZr5od4b*DX,(mQ@X]4hvgczwE(1Wz.qx]By8Zz.W:g#F__QU1-}FnoXQ$Iobm_5F;O.co_Rk!?seWbUd3%r10a!Bz0WXhgzBmH-5Hk)z6a%}N^/;fl5exSPS%#XNh:]J%B9xI+R]yBwpGPCTI,4R#Pp0w%_dUq;=0E6KpT4tA(qdfR15HJM.Cc0xAkSUt?Ea@KtuBQUBnk+o8NpsQ3IVqm1=51xRrs;Vu,EiV$kl48LHXD8O%8AYtHPHvp:lb2[,K-T_@VEG6umd%(/dI9OJkQ?v{0-?2%oNq#!.gvA87ox/%zc+P13Wfm_iS0CY9X2zE7acfdDPwv_wxY0$Gv[]S8QP?p]X7IPNwTeo!76BLiXM_13T)T(b^=08,mlCd46yF9SujgZ]d-y)s0ua8mCWAvr)[xZIv4*Iv^1:4(*mOk;lW!%RhkA(M{YArlk.ZT_D)mSHE3(u0{*oMiQ0:gXrAtge{xEZT}juan)rM/p@=flG1K=H?9x;+oPf}?^}@p_B(!z)9MgNLZ?=lpQ=Nm;=0zbuSbPL8o%I)u4$rs_R*pm/9t,@qTwUA;i7_NGrqc25bWK{E[;%N4(fO1YVntn-,Zyz$kFT3!t[s)CeZcRlY6^jH+)mKFW)QxsiGz{zh6UjZmANF/heJ][E!^JSH[[(+c:VU:-Z-Js}=Ww+rATHnTN6/yR#vp]/5-)7vMT_LeRLqX1OmibihP8Na;$dB01?5=S0Q,_iY-dfdTVa/J,CNimP1qg%4R@p5r]*Fv+65CYVE)({5DGGBnlK*GI9j*-4YE1q7q58U3AL02oxU_XPnZR;6Cuei?U3y#F!)=6vIY;ivP37p%9%{2cUL:3?.RO#Dp.},_RHO7Rhdq]!V5=_NOohGtZ16ZQNKKC*gLP3*Dp5}V1@*s</formMonoSearch></FormData>'
+--[[--------------------------------------------------------------------------------
+    -- Forms - Save strings as temp files, then load using createFormFromFile()  
+    --------------------------------------------------------------------------------]]
 
-function saveForm(name, text)
-    local path = getCheatEngineDir()..[[\autorun\forms\]]..name
-    local f, err = io.open(path, "w")
-    if f == nil then return nil, err end
-    f:write(text)
-    f:close()
-    return true
+-- close any open forms
+if formMonoClass ~= nil then 
+  formMonoClass.close()
+  formMonoClass:destroy()
+  formMonoClass = nil
+end
+if formMonoImage ~= nil then
+  formMonoImage.close()
+  formMonoImage:destroy()
+  formMonoImage = nil
+end
+if formMonoSearch ~= nil then
+  formMonoSearch.close()
+  formMonoSearch:destroy()
+  formMonoSearch = nil
 end
 
-saveForm('formMonoClass.frm', formStringClass)
-saveForm('formMonoImage.frm', formStringImage)
-saveForm('formMonoSearch.frm', formStringSearch)
+-- unselect image, refs won't be correct if re-ran
+if mono then mono.selectedImage = nil end
 
-formMonoClass = createFormFromFile(getCheatEngineDir()..[[\autorun\forms\formMonoClass.frm]])
-formMonoImage = createFormFromFile(getCheatEngineDir()..[[\autorun\forms\formMonoImage.frm]])
-formMonoSearch = createFormFromFile(getCheatEngineDir()..[[\autorun\forms\formMonoSearch.frm]])
 
---[[================================================================================
---  Table Script
---================================================================================]]
+-- generate forms from saved XML
+local stringFormMonoClass = [==========[<?xml version="1.0" encoding="utf-8"?>
+<FormData>
+  <formMonoClass Class="TCEForm" Encoding="Ascii85">/yXCLBSjP,?7mt4B(XzZcStnuKnO*ZNoPCfi:^XYS#y,V=0vRJ+[}N-$CtRF.J?L_pa9+!KncxNNVJHC]Pg]8oh+c$fP!W^@S/Z3-?JM5KSF47KKRI*@q(t^mh8@OXT(J$$2iZMr!eO;SnU%aizT.rZF_B{;,9ARB.rf@S/}s]loLkVzSQX]rJa6Efbv4,H!INl8/pk::+n;u?f}48kt.l).wi+=vHU6%XE:eUT^;H]EF:-gD31D!?^Gk!YkWl@ds1;mL_aT1w(fR5TTfNcei8H:bkJj21X-Bk8KH_KExcbPDvizQo_LEiwA1B0BhwX!oq[Or*L-H)1n%r}(%*uC^gduR[/Ry5R@k5[PwnKP,QE;^7_mIXIrbI#obcJwapviOTtlR7ezw9f.cG$t;Nvx5t_ddhjv.8z@B#+M6rAHsq[xjtmbt#)NHG[wl%8V;v6srPO!I?XxmA(as,9b7Je,4e#yLx#mD}$=;?63E,w3j%cS@n^*Q4E]w,vK@Zojrv*!!=sZZ^omAP-vjQgGV%QYtw3QibE/OKs-/:y,VEDKnOTSfy(C29)N?RPV^[;OHZW=gUTA)v+dqmn0_C7,e(H%7(?H28S#tmmlkk]g7yv@grm,H{vVP7E,ooGPX+4=AlvQN5GdXDlYh(8a={6tJRIkf.ujab#$9@IE95W%tqCTyO/6L#Dx#5(c#oS!bKa$svtKG,FHA]Zy_+C6tWjkV8czt]hN-U=^yYG+udNG(Nz7mGC7XNagqD}7WA?qLmI*gg-n:u6R]:G0Ne/4tL*Xw?on^T^BA3xosyitByi:(VxiUQa8Np]!9poeTj*}c.l.i*jz23nYHw1Y3XWPgDY$QG9q}e{5{NNd$^dg9@BlN4B2?Q;[lrJpgi4_2WSzn-5(Ju2%E*[jTc+:6WLoNi6]Y{H61ykjpdrLClYG{x[(+l!q34}mbd^=4AV{r1XaN[1qcM%wo[E2nw5DgYM@A!4J(un1D!,h}WnA:%5?x;0deN=K@^;AJv[Jx[)5pk5.j0E{hD0sa44H=6=e0,ib,m1P/deeYk0y{h^34^pQ/mSB^H7L8AKn+EJE;mkC,ltT/ch=eF%Bh}T59]OSdv5b2omNc.-fU]P[+$-gP^$-7C^=^hvVn2ApTkO,.@h;@^prBE!3Fvvw.LxNQ4_].%uH,o(sG6Tq2}/Am/JVuJW(ppo!(;L+gZ5tdL/eoPuCT9V8=a+y@nnrUxX.%kk(2/aBy#^jZ}:n8=sQ*VjJu[SU,id*+ah^UyvUz4E[^GNk3CJuPXPdL(FO,0}FPAtM}3yR7VsEXS)_IvXj_LZB@to^Q/?E@S_OJBp1:y;;!gFwV,WA$QftBt?VHaxU.wPSG2ZX;MPOA45I@8ez(yg{?-n@7*fZbExzNXG_5t++B=+R8cbDCt;an</formMonoClass>
+</FormData>
+]==========]
 
-function loadTextFile(name, useTableFile)
-    if useTableFile then
-        local tableFile = findTableFile(name)
-        if not tableFile then return nil, 'Unable to open table file "'..tostring(name)..'"' end
-        local ss = createStringStream()
-        ss.Position = 0 -- recommended on wiki: https://wiki.cheatengine.org/index.php?title=Lua:Class:TableFile
-        ss.CopyFrom(tableFile.Stream, 0)
-        local text = ss.DataString
-        ss.destroy()
-        return text
-    else
-        local path = getMainForm().openDialog1.InitialDir..name
-        local f, err = io.open(path, "r")
-        -- fall back to table file if disk file error (doesn't exist)
-        if f == nil then return loadTextFile(name, true) end
-        local text = f:read("*all")
-        f:close()
-        return text
-    end
+local stringFormMonoImage = [==========[<?xml version="1.0" encoding="utf-8"?>
+<FormData>
+  <formMonoImage Class="TCEForm" Encoding="Ascii85">#goBu):ZT+Wtl^dlQI).N^(5n(hQF{X^MQJn@1eo5fn$ZHIXe;RtGr4190F.cqtCN1hVAXjWcD*0l3*K^?z^hx4+qE0Ksbh3I+QToQw1+QkP4f?kNSb@5lX/)jLR@IiYbP=eCTy?ZA0ZI(bMlCiZ8DJe+6*v,mF+jD,(E%sth}1CLRX$vU-f(i9$XRV@:QA!q!f%hX+b6)]dyOt_prhLp]G9=zuU40V/tG9sQgs]],Y[?WW7%bqQH*RxO9*We0CaVdE@Zgdl/@M}s?b/WI$4H*R(bICOq:vG*bM5b2J?8GRcx[DbAAiUL]9lSLiz[S=[8zTH1hct@Prs^Avs4E{u#(j9zj(]G[D0JP0B(qo^2%G=}m+ra!0MJv,XL@_ZnSM_HxTV)cJhf9I9+4KLxJqx*H(z;36.k,8JMD^Qkiz#h)TZim?DT^LGY6G3@@j/pDI11cbh0/UjyJR^0G:vZE5TzyieiSvQC;a(0j_I1#Y1q]28AO^@P9DA)8H^GkPRD[5Z%y%t^HKF?{v6g?tUv!E3cP_:l]R+yV4f4v4-{wf!3Qc8fU38JaQy9#^U-{8!JCVHkhj,CSHPtPb3.lul(V3=_gdgp9Os[Rb%_?;C,WXNw,f/6f.*]R#b*wa-.kPtDstrDfs3NGb%qJ6y3fSIFkJp7HU$DGcFw09Lg7,2RjA700</formMonoImage>
+</FormData>
+]==========]
+
+local stringFormMonoSearch = [==========[<?xml version="1.0" encoding="utf-8"?>
+<FormData>
+  <formMonoSearch Class="TCEForm" Encoding="Ascii85">*mKe#,cp?c/yw?S#+MRN=QS^sGN4%d4]Q!r0;pI=8^KUHBQZ8%i4-I^Np}rF:%JVWmK{C1ielKIz.?VA+iYDD[l+:Ki.[jhb,N.I5GcMMeEhuc@Gf:w3(8m7:o;ihKRse]+try!0i$e$QS43coZ=H}^0G;[m]tX.]M1;@v#9waXnjX}K5fP:+hdj3jM]f:;Oh6v=FR%=o)27BZK=Y[:FR{qIdnpC9UwxTGnNpU19l:d?=wl;UwGpfbOfq1G^JpFdCUSQ5@EXp/stQ@EFKXbOMs6uJ8TWFDUSCGs^mUu-Y/.j5=#f-S2fEObWsxb80Rc{P{tRm]RvSINsuyXwR1v$PYJc!8K2+],J[z_S6KdQ:yG)S2!$$bveiN{.cugvOasv?1=ixfN*C2:EcS6cijYU;/dHh7Ti#61]:Y#.rm?/4/z1E3YCB[eaYB83V+$AwN+?aVcPws3Q.fL:G.asHt]mMLcfyMnkbU;mC%l8jMTLy/4L23IILJ]s!l6vGb-%;)AL{#a3}7Igs3@x=8Kc[O2ysR?7.zMH3%Fu:is@).Ezp)D$At1Dfw9j57DMO-y#RT$l4-/W1^m6xNsk3S5KPP7r#RS)/W-%!F*tN/cgtRt9yMyDIA)L5*IwdQmBsLRqqOpMEAO6lRZ(.gb]M_S.DidzLg)V?9FYY3YI8Ujvj?V9D.a:]0jJfW,{3ZZZCx{*18j+pK8x8r;am-96S,[,Bvey5@]i[0*m?DB)w#Q1m.ueIn!(tguT^.gtY+J9T89CdP-vqdtyNw?u%H=C1C%5/DN]JlDgMyV2a%-slqCEG!PnhDEELu)k%^DLF$[dk-Hc;c9XBU?1,uk-5-QU3hxCWWx/Y_sJk3LzbQ,6tv^M!jo{(.u19YP?9yFZ,q3PQ4vr]@40N6ejxWwqgo^V,e@pW@2.;dN+G4h8rc/H,5;^[_FS]A%UJ2e5FtK:L/Eavu+%2;F,R8qO!7S?YEG:);VUoCrNCZM]w6a_C{RqrHnp+.B}P.1rqvsH_sj8mWu=j21xDbea{;bHhL9B-SMI2.tHX0MUQQqr/cUYB,9wpnm(l{1rl;#,gx^Q$2=g]J},rO-Dr@uOFLZTpDez@@EKR!02ZsO,7h$SRLX+em}/F70JUqqvt^H/$Ou*Gq],D,}Pn:Lo!(lDS(jKLelzq!P/4A9af?-hMdo^.N5#S8V^fyF%dUe[xZ?MtxV.3S5]bj#kU]yxZDhJv[}i20(t%n{;vRIOl9ce!y/:G#y_+Ww(VVU86cBYM!Q9B9rKrh%jhw$/HXcPo}zaxK-db5!{1a5uB{/^68pef2sVL/mAsC%TICnDZluVmwRG*!f@.gauUjq+ag(w;AmK%o4F]VW$+2WYWF__0WHi4iIRWyxdQuB=9H)6YR.Y9]8kV26ci!)eI8O5qsXn2T@qBV$B33oxK:rJyNCdwJw9X6Jd%NTBe{{nSm2PR2H4ei):F^BH)xw1V9DEq$Dq#ZNyY1lMDQ.</formMonoSearch>
+</FormData>
+]==========]
+
+local function saveForm(text)
+  local path = os.tmpname() -- get temp file name
+  local f, err = io.open(path, "w")
+  if f == nil then return nil, err end
+  f:write(text)
+  f:close()
+  return path
 end
 
-popupMethodsCount = popupMethodsCount or 0
+local function createFormFromString(text)
+  local path = saveForm(text)
+  local form = createFormFromFile(path)
+  pcall(os.remove, path)
+  return form
+end
 
-function popupMethodsPopup(sender)
-  local popup = formMonoClass.popupMethods
+-- create forms from xml (using temp files)
+formMonoClass = createFormFromString(stringFormMonoClass)
+formMonoImage = createFormFromString(stringFormMonoImage)
+formMonoSearch = createFormFromString(stringFormMonoSearch)
 
-  -- clear menu items
-  for i=popup.Items.Count,1,-1 do popup.Items[i-1].destroy() end
 
-  -- item to JIT method
+--[[--------------------------------------------------------------------------------
+    -- Included File: src/lua/bootstrap.lua
+    --------------------------------------------------------------------------------]]
+-- loadstring(loadTextFile('src/lua/util.lua'))()
+-- loadstring(loadTextFile('../temp/notes.lua'))()
+-- loadstring(loadTextFile('src/lua/mono.lua'))()
 
-  local item1 = createMenuItem(popup)
-  popupMethodsCount = popupMethodsCount + 1
-  item1.Caption = 'Item '..tostring(popupMethodsCount)
-  popup.Items.Add(item1)
+
+--[[--------------------------------------------------------------------------------
+    -- Included File: src/lua/util.lua
+    --------------------------------------------------------------------------------]]
+util = util or {}
+
+util.loadTextFile = function (name)
+  local path = getMainForm().openDialog1.InitialDir..name
+  local f, err = io.open(path, "r")
+  -- fall back to table file if disk file error (doesn't exist)
+  if f == nil then return loadTextFile(name, true) end
+  local text = f:read("*all")
+  f:close()
+  return text
+end
+
+--[[
+  Save a string to a text file.  If useTableFile is true it will be saved as
+  a TableFile.  The directory should be where the cheat file is, it is the
+  initial directory for the dialog when you are saving your cheat table.
+--]]
+util.saveTextFile = function(name, text)
+  local path = getMainForm().saveDialog1.InitialDir..name
+  local f, err = io.open(path, "w")
+  if f == nil then return nil, err end
+  f:write(text)
+  f:close()
   return true
 end
 
---[[================================================================================
---  bootstrap.lua
---================================================================================]]
-
-function loadTextFile(name, useTableFile)
-    if useTableFile then
-      local tableFile = findTableFile(name)
-      if not tableFile then return nil, 'Unable to open table file "'..tostring(name)..'"' end
-      local ss = createStringStream()
-      ss.Position = 0 -- recommended on wiki: https://wiki.cheatengine.org/index.php?title=Lua:Class:TableFile
-      ss.CopyFrom(tableFile.Stream, 0)
-      local text = ss.DataString
-      ss.destroy()
-      return text
-    else
-      local path = getMainForm().openDialog1.InitialDir..name
-      local f, err = io.open(path, "r")
-      -- fall back to table file if disk file error (doesn't exist)
-      if f == nil then return loadTextFile(name, true) end
-      local text = f:read("*all")
-      f:close()
-      return text
-    end
+util.getSubmenuByCaption = function(menuItem, caption)
+  for i = 0, menuItem.getCount() - 1 do
+    if menuItem.Item[i].Caption == caption then return menuItem.Item[i] end
   end
-  
-  --[[
-    Save a string to a text file.  If useTableFile is true it will be saved as
-    a TableFile.  The directory should be where the cheat file is, it is the
-    initial directory for the dialog when you are saving your cheat table.
-  --]]
-  function saveTextFile(name, text, useTableFile)
-    if useTableFile then
-      local tf = findTableFile(name)
-      if tf ~= nil then
-        tf.delete()
-        tf = nil
-      end
-      tf = createTableFile(name)
-      local ss = createStringStream(text)
-      tf.Stream.CopyFrom(ss, 0)
-      ss.destroy()
-      return true
-    else
-      local path = getMainForm().saveDialog1.InitialDir..name
-      local f, err = io.open(path, "w")
-      if f == nil then return nil, err end
-      f:write(text)
-      f:close()
-      return true
-    end
-  end
-  
---[[================================================================================
---  util.lua
---================================================================================]]
-
-util = util or {}
+  return nil
+end
 
 --[[
   For mono symbols, you have to surround them in quotes for use in AA
@@ -379,9 +368,19 @@ function util.map(t, f)
   return results
 end
 
---[[================================================================================
--- notes.lua
---================================================================================]]
+function util.slice(t, index)
+  local result = {}
+  for i = index, #t do table.insert(result, t[i]) end
+  return result
+end
+
+
+--[[--------------------------------------------------------------------------------
+    -- Included File: src/lua/temp/notes.lua
+    --------------------------------------------------------------------------------]]
+--[[ 
+    A note has 'key' and 'text' fields, lists are sorted by key.
+--]]
 
 notes = notes or {}
 notesmt = notesmt or {}
@@ -437,10 +436,12 @@ function notes:getList()
   return keys
 end
 
---[[================================================================================
---  mono.lua
---================================================================================]]
 
+--[[--------------------------------------------------------------------------------
+    -- Included File: src/lua/mono.lua
+    --------------------------------------------------------------------------------]]
+
+-- moduled
 mono = mono or {}
 
 -- classes
@@ -497,11 +498,52 @@ mono.TYPE_NAMES = {
   [0x55] = 'ENUM', -- an enumeration
 }
 
+mono.reset = function()
+  -- close any open forms
+  if formMonoClass ~= nil then 
+    formMonoClass.close()
+    formMonoClass:destroy()
+  end
+  if formMonoImage ~= nil then
+    formMonoImage.close()
+    formMonoImage:destroy()
+  end
+  if formMonoSearch ~= nil then
+    formMonoSearch.close()
+    formMonoSearch:destroy()
+  end
 
---[[================================================================================
---  monofield.lua
---================================================================================]]
+  -- unselect image, refs won't be correct if re-ran
+  if mono then
+    mono.selectedImage = nil
+    if mono.timer then mono.clearTimer() end
+  end
+end
 
+mono.clearTimer = function()
+  if mono.timer then
+    mono.timer.enabled = false
+    mono.timer = nil
+  end
+end
+
+-- if mono.hookedOnProcessOpened ~= nil then
+--   MainForm.OnOnProcessOpened  = mono.hookedOnProcessOpened
+--   mono.hookedOnProcessOpened = nil
+-- else
+--   mono.hookedOnProcessOpened = MainForm.OnProcessOpened
+-- end
+
+-- MainForm.OnProcessOpened = function()
+--   if mono.hookedOnProcessOpened ~= nil then 
+--   mono.reset()
+-- end
+
+
+
+--[[--------------------------------------------------------------------------------
+    -- Included File: src/lua/mono/monofield.lua
+    --------------------------------------------------------------------------------]]
 local MonoField = mono.MonoField
 MonoField.mt = {
   __index = MonoField,
@@ -533,7 +575,7 @@ function MonoField.new(class, f)
   --if f.monotype == 15 or f.monotype == 16 or f.monotype == 18 or f.monotype then
   --end
 
-  obj.typeClassId = mono_type_getClass(obj.id)
+  obj.typeClassId = mono_field_getClass(obj.id) -- Fix change in CE 7.5.2
   if obj.typeClassId ~= nil then
     -- this is the 'type' of the field
     obj.typeClass = class.image.classesById[obj.typeClassId]
@@ -562,10 +604,9 @@ function MonoField:getFullName()
 end
 
 
---[[================================================================================
---  monomethod.lua
---================================================================================]]
-
+--[[--------------------------------------------------------------------------------
+    -- Included File: src/lua/mono/monomethod.lua
+    --------------------------------------------------------------------------------]]
 local MonoMethod = mono.MonoMethod
 MonoMethod.mt = {
   __index = MonoMethod,
@@ -626,10 +667,10 @@ function MonoMethod:fetchParms()
   end
 end
 
---[[================================================================================
---  monoclass.lua
---================================================================================]]
 
+--[[--------------------------------------------------------------------------------
+    -- Included File: src/lua/mono/monoclass.lua
+    --------------------------------------------------------------------------------]]
 local MonoClass = mono.MonoClass
 MonoClass.mt = {
   __index = MonoClass,
@@ -700,10 +741,9 @@ function MonoClass:initMethods()
 end
 
 
---[[================================================================================
---  monoimage.lua
---================================================================================]]
-
+--[[--------------------------------------------------------------------------------
+    -- Included File: src/lua/mono/monoimage.lua
+    --------------------------------------------------------------------------------]]
 local MonoImage = mono.MonoImage
 MonoImage.mt = {
   __index = MonoImage,
@@ -866,93 +906,246 @@ function MonoImage:report(done, message)
 end
 
 
---[[================================================================================
---  monomenu.lua
---================================================================================]]
+--[[  Sample code... weird
 
-function mono.menu:init(parent)
-    self.menuSearch = createMenuItem(parent)
+--return util.pretty(mono.MonoImage.enumerate())
+mi = mono.MonoImage.new()
+print('mi is "'..tostring(mi)..'"')
+mi:init('Assembly-CSharp', function(c, i, m, p, t)
+  print(m, p, t)
+end)
+
+--LaunchMonoDataCollector()
+local thread = createThread(function(th)
+  TESTIMAGES = {}
+  mono_enumImages(function(img)
+    th.synchronize(function() print(img) end)
+  end)
+end)
+
+--]]
+
+
+
+--[[--------------------------------------------------------------------------------
+    -- Included File: src/lua/monomenu.lua
+    --------------------------------------------------------------------------------]]
+if mono.menu.timer then
+  mono.menu.timer.destroy()
+  mono.menu.timer = nil
+end
+
+function mono.menu:init()
+  --if self.menuSearch or self.timer then return end
+  self.timer = createTimer()
+  self.timer.Interval = 1000
+  self.timer.OnTimer = function(timer)
+    -- wait for normal mono script to create mono menu, check every 5 seconds
+    if not miMonoTopMenuItem then return end
+    
+    self.timer.destroy()
+    self.timer = nil
+
+    local existing = util.getSubmenuByCaption(miMonoTopMenuItem, 'Search')
+    if existing ~= nil then self.menuSearch = existing else self.menuSearch = createMenuItem(miMonoTopMenuItem) end
     self.menuSearch.Caption = 'Search'
     self.menuSearch.Name = 'miMonoSearch'
     self.menuSearch.OnClick = function(sender) self:OnSearchClick() end
-    parent.add(self.menuSearch)
+    if existing == nil then miMonoTopMenuItem.add(self.menuSearch) end
+  end
 end
-  
+
 function mono.menu:OnSearchClick()
-    if mono.selectedImage then
-        mono.formSearch:show()
-    else
-        mono.formSelectImage:show()
-    end
+  if mono.selectedImage then
+    mono.formSearch:show()
+    formMonoSearch:centerScreen()
+  else
+    mono.formSelectImage:show()
+  end
 end
+
+mono.menu:init()
+
+
+
+--[[--------------------------------------------------------------------------------
+    -- Included File: src/lua/generators/index.lua
+    --------------------------------------------------------------------------------]]
+
+--[[--------------------------------------------------------------------------------
+    -- Included File: src/lua/generators/original_hook.lua
+    --------------------------------------------------------------------------------]]
+mono.generators = mono.generators or {}
+
+mono.generators.original_hook = function(method)
+  if method == nil then return nil, nil end
+  local address = mono_compile_method(method.id)
+end
+
+
+function mono.formClass:listMethods_OnDblClick(sender)
+  local method = self.methods[sender.ItemIndex + 1]
+  --print("method: "..tostring(method.id))
+  if method then
+    local address = mono_compile_method(method.id)
+    --print("address: "..tostring(address))
+    getMemoryViewForm().DisassemblerView.SelectedAddress = address
+    getMemoryViewForm().show()
+    local hookInfo = hookAt(address)
+    -- have aobString, hookString, returnString, instructions
+    --[[ how to get method signature
+    local ps = {}
+    for i,p in ipairs(method.parameters) do
+      table.insert(ps, string.format('%s %s', p.type, p.name))
+    end
+    local parms = method.returnType..' ('..table.concat(ps, ', ')..')'
+    ]]
+
+    local lines = {}
+    table.insert(lines, "define(hook,"..hookInfo.hookString..")")
+    table.insert(lines, "define(bytes,"..hookInfo.aobString..")")
+    table.insert(lines, "")
+    table.insert(lines, "[enable]")
+    table.insert(lines, "")
+    table.insert(lines, "assert(hook, bytes)")
+    table.insert(lines, "alloc(newmem,$1000, hook)")
+    table.insert(lines, "{")
+
+
+    -- note: per x64 calling convention, RCX might actually be space for
+    -- a pre-allocated structure for the return value and other parameters
+    -- might be moved one further down the list
+    table.insert(lines, "  RCX: "..method.class.name.." (this)")
+    for i,p in ipairs(method.parameters) do
+      local param = parameters[i + 1]
+      if (p.type == "single" or p.type == "double" or p.type == "System.Single" or p.type == "System.Double") then param = floatParameters[i + 1] end
+      table.insert(lines, "  "..param..": "..tostring(p.type).." "..tostring(p.name))
+    end
+    table.insert(lines, "")
+
+    table.insert(lines, "  Returns (RAX) "..method.returnType)
+    table.insert(lines, "}")
+    table.insert(lines, "")
+    table.insert(lines, "newmem:")
+    table.insert(lines, "  // original code")
+    for i,c in ipairs(hookInfo.instructions) do
+      table.insert(lines, "  "..c)
+    end
+    table.insert(lines, "  jmp hook+"..string.format("%X", hookInfo.returnOffset))
+    table.insert(lines, "")
+    table.insert(lines, "hook:")
+    table.insert(lines, "  jmp newmem")
+    table.insert(lines, "")
+    table.insert(lines, "[disable]")
+    table.insert(lines, "")
+    table.insert(lines, "hook:")
+    table.insert(lines, "  db bytes")
+    table.insert(lines, "")
+    table.insert(lines, "dealloc(newmem)")
+
+    local t = {}
+    for i,v in ipairs(lines) do
+      table.insert(t, v);
+      table.insert(t, "\r\n")
+    end
   
---[[================================================================================
---  formSelectImage.lua
---================================================================================]]
+    local aa = table.concat(t)
+
+    getMemoryViewForm().AutoInject1.DoClick()
+    
+    for i=0,getFormCount()-1 do --this is sorted from z-level. 0 is top
+      local f=getForm(i)
+  
+      if getForm(i).ClassName == 'TfrmAutoInject' then
+        f.assemblescreen.Lines.Text = aa
+        break
+      end
+    end
+  end
+end
+
+
+
+--[[--------------------------------------------------------------------------------
+    -- Included File: src/lua/forms/formSelectImage.lua
+    --------------------------------------------------------------------------------]]
+local DEFAULT_ASSEMBLY_NAME = "Assembly-CSharp"
+local imageHasBeenSelected = false
 
 function mono.formSelectImage:show()
-    LaunchMonoDataCollector()
-    formMonoImage.listImages.Visible = true
-    formMonoImage.buttonSelectImage.Visible = true
-    formMonoImage.progressImage.Visible = false
-    formMonoImage.labelMessage.Visible = false
-    
-    self.imageNames = mono.MonoImage.enumerate()
-    table.sort(self.imageNames)
-    local items = formMonoImage.listImages.Items
-    items.Clear()
-    for i,name in ipairs(self.imageNames) do items.add(name) end
-    
-    local handler = function(sender)
-      mono.formSelectImage.OnSelectImage(self)
+  LaunchMonoDataCollector()
+  formMonoImage.listImages.Visible = true
+  formMonoImage.buttonSelectImage.Visible = true
+  formMonoImage.progressImage.Visible = false
+  formMonoImage.labelMessage.Visible = false
+  
+  self.imageNames = mono.MonoImage.enumerate()
+  table.sort(self.imageNames)
+  local items = formMonoImage.listImages.Items
+  items.Clear()
+
+  local foundIndex = 0
+  for i,name in ipairs(self.imageNames) do
+    items.add(name)
+    if name == DEFAULT_ASSEMBLY_NAME then foundIndex = i end
+  end
+  
+  local handler = function(sender)
+    mono.formSelectImage.OnSelectImage(self)
+  end
+  
+  formMonoImage.buttonSelectImage.OnClick = handler
+  formMonoImage.listImages.OnDblClick = handler
+  
+  formMonoImage.show()
+
+  if foundIndex ~= 0 and imageHasBeenSelected == false then
+    formMonoImage.listImages.ItemIndex = foundIndex - 1
+    mono.formSelectImage:OnSelectImage()
+  end
+end
+
+function mono.formSelectImage:OnSelectImage()
+  imageHasBeenSelected = true
+  local index = formMonoImage.listImages.ItemIndex + 1
+  if self.imageNames == nil or index < 1 or index > #self.imageNames then return end
+  local imageName = self.imageNames[index]
+ 
+  formMonoImage.listImages.Visible = false
+  formMonoImage.buttonSelectImage.Visible = false
+  formMonoImage.progressImage.Visible = true
+  formMonoImage.labelMessage.Visible = true
+  formMonoImage.labelMessage.Caption = 'Finding classes...'
+  
+  local image = mono.MonoImage.new()
+  
+  formMonoImage.progressImage.Min = 0
+  local progressHandler = function(done, image, message, count, total)
+    if total ~= nil and total > 0 and count ~= nil and count >= 0 then
+      message = string.format('%s  %d/%d', message, count, total)
+      formMonoImage.progressImage.Max = total
+      formMonoImage.progressImage.Position = count
     end
     
-    formMonoImage.buttonSelectImage.OnClick = handler
-    formMonoImage.listImages.OnDblClick = handler
-    
-    formMonoImage.show()
+    formMonoImage.labelMessage.Caption = message
+    if done then self:OnImageComplete(image) end
   end
   
-  function mono.formSelectImage:OnSelectImage()
-    local index = formMonoImage.listImages.ItemIndex + 1
-    if self.imageNames == nil or index < 1 or index > #self.imageNames then return end
-    local imageName = self.imageNames[index]
-   
-    formMonoImage.listImages.Visible = false
-    formMonoImage.buttonSelectImage.Visible = false
-    formMonoImage.progressImage.Visible = true
-    formMonoImage.labelMessage.Visible = true
-    formMonoImage.labelMessage.Caption = 'Finding classes...'
-    
-    local image = mono.MonoImage.new()
-    
-    formMonoImage.progressImage.Min = 0
-    local progressHandler = function(done, image, message, count, total)
-      if total ~= nil and total > 0 and count ~= nil and count >= 0 then
-        message = string.format('%s  %d/%d', message, count, total)
-        formMonoImage.progressImage.Max = total
-        formMonoImage.progressImage.Position = count
-      end
-      
-      formMonoImage.labelMessage.Caption = message
-      if done then self:OnImageComplete(image) end
-    end
-    
-    image:init(imageName, progressHandler)
-  end
-  
-  function mono.formSelectImage:OnImageComplete(image)
-    self.image = image
-    mono.selectedImage = image
-    formMonoImage.Close()
-    mono.formSearch:show()
-  end
-  
+  image:init(imageName, progressHandler)
+end
 
---[[================================================================================
---  formSearch.lua
---================================================================================]]
+function mono.formSelectImage:OnImageComplete(image)
+  self.image = image
+  mono.selectedImage = image
+  formMonoImage.Close()
+  mono.formSearch:show()
+  formMonoSearch:centerScreen()
+end
 
+
+--[[--------------------------------------------------------------------------------
+    -- Included File: src/lua/forms/formSearch.lua
+    --------------------------------------------------------------------------------]]
 --[[
     Form for searching an image.
     
@@ -1013,21 +1206,26 @@ function mono.formSearch:show()
     end
   end
   
-  formMonoSearch.editSearchText.OnChange = function(sender)
-    self:search(sender.text)
+  local onCheckedMenuClick = function(sender)
+    sender.Checked = not sender.Checked
+    mono.formSearch:search()
   end
+
+  formMonoSearch.editSearchText.OnChange = function() mono.formSearch:search() end
+  formMonoSearch.miFieldsNormal.OnClick = onCheckedMenuClick
+  formMonoSearch.miFieldsConst.OnClick = onCheckedMenuClick
+  formMonoSearch.miFieldsStatic.OnClick = onCheckedMenuClick
   
   -- popups
   formMonoSearch.listSearchClasses.PopupMenu = formMonoSearch.popupClasses
   local count = 0
   formMonoSearch.popupClasses.OnPopup = function(sender)
-    print('formMonoSearch.popupClasses.OnPopup "'..tostring(sender.name)..'" count '..tostring(count))
+    -- print('formMonoSearch.popupClasses.OnPopup "'..tostring(sender.name)..'" count '..tostring(count))
     count = count + 1
   end
   
   -- perform initial search to set 'found' results, probably empty text
-  self:search(formMonoSearch.editSearchText.Text)
-  
+  self:search()
 
   -- show form
   formMonoSearch.show()
@@ -1046,7 +1244,12 @@ end
     When typing in the edit box to filter results, filter the lists of
     classes, fields, and methods with the lower case of the text
 --]]
-function mono.formSearch:search(text)
+function mono.formSearch:search()
+  local includeConst = formMonoSearch.miFieldsConst.Checked
+  local includeStatic = formMonoSearch.miFieldsStatic.Checked
+  local includeNormal = formMonoSearch.miFieldsNormal.Checked
+  local text = formMonoSearch.editSearchText.Text
+
   local lower = nil
   if text ~= nil then lower = text:lower() end
 
@@ -1059,7 +1262,15 @@ function mono.formSearch:search(text)
       if lower == nil or method.lowerName:find(lower, 1, true) ~= nil then table.insert(methods, method) end
     end
     for j,field in ipairs(class.fields) do
-      if lower == nil or field.lowerName:find(lower, 1, true) ~= nil then table.insert(fields, field) end
+      if lower == nil or field.lowerName:find(lower, 1, true) ~= nil then
+        if field.isConst then
+          if includeConst then table.insert(fields, field) end
+        elseif field.isStatic then
+          if includeStatic then table.insert(fields, field) end
+        else
+          if includeNormal then table.insert(fields, field) end
+        end
+      end
     end
   end
   self.found.classes = classes
@@ -1084,7 +1295,11 @@ function mono.formSearch:listSearchFields_OnData(sender, listitem)
     listitem.Caption = 'nil index '..tostring(index)
   else
     listitem.Caption = field.name
-    listitem.SubItems.text = field.class.name
+    local staticString = ""
+    if field.isStatic then staticString = "Static" end
+    if field.isConst then staticString = "Const" end
+    local xtra = { field.class.name,  staticString }
+    listitem.SubItems.text = table.concat(xtra, '\n')
   end
 end
 
@@ -1099,445 +1314,703 @@ function mono.formSearch:listSearchMethods_OnData(sender, listitem)
   end
 end
 
---[[================================================================================
---  formClass.lua
---================================================================================]]
+
+--[[--------------------------------------------------------------------------------
+    -- Included File: src/lua/forms/formClass.lua
+    --------------------------------------------------------------------------------]]
+--[[
+    Form for viewing a class
+    
+    Controls:
+      listFields: TCEListView
+      listMethods: TCEListView
+      miSortFieldsByOffset - if Checked, sort by offset, otherwise by name
+      miShowInherited - if Checked, add in methods and fields of parent(s)
+      miShowUsage - if Checked, funcs and methods will be on other classes that use the type
+      
+      miFindFields - When clicked, find fields in all classes that have this class as a type
+      miFindMethodCode - When clicked, find methods in all classes that have this class as a type
+      
+      
+    Standard Mode:
+      listFields (can sort by name (default) or offset)
+        Offset
+        Type
+        Name
+        Class - class it is defined on, blank if not inherited
+      listMethods (sorted by name)
+        Name
+        Signature (return type, parameter types and names)
+        Class - class it is defined on, blank if not inherited
+      
+    Usage Mode:
+      listFields (sorted by Class then Name)
+        Offset
+        Type
+        Class
+--]]
 
 local sortByClassThenName = function(a, b)
-    if a.isConst and not b.isConst then return true end
-    if b.isConst and not a.isConst then return false end
-    if a.isConst and b.isConst then return a.constValue < b.constValue end
-    if a.class.lowerName < b.class.lowerName then return true end
-    if b.class.lowerName < a.class.lowerName then return false end
-    return a.name < b.name
+  if a.isConst and not b.isConst then return true end
+  if b.isConst and not a.isConst then return false end
+  if a.isConst and b.isConst then return a.constValue < b.constValue end
+  if a.class.lowerName < b.class.lowerName then return true end
+  if b.class.lowerName < a.class.lowerName then return false end
+  return a.name < b.name
+end
+
+local sortByClassThenOffset = function(a, b)
+  if a.isConst and not b.isConst then return true end
+  if b.isConst and not a.isConst then return false end
+  if a.isConst and b.isConst then return a.constValue < b.constValue end
+  if a.class.lowerName < b.class.lowerName then return true end
+  if b.class.lowerName < a.class.lowerName then return false end
+  return a.offset < b.offset
+end
+
+local sortByName = function(a, b)
+  if a.isConst and not b.isConst then return true end
+  if b.isConst and not a.isConst then return false end
+  if a.isConst and b.isConst then return a.constValue < b.constValue end
+  return a.lowerName < b.lowerName
+end
+
+local sortByOffset = function(a, b)
+  if a.isConst and not b.isConst then return true end
+  if b.isConst and not a.isConst then return false end
+  if a.isConst and b.isConst then return a.constValue < b.constValue end
+  return a.offset < b.offset
+end
+
+
+--[[
+    Show the search form, mono.selectedImage should be set to the
+    image to search.
+--]]
+function mono.formClass:show(class, field, method)
+  if mono.selectedImage == nil or class == nil then return end
+  self.image = mono.selectedImage
+  self.class = class
+  
+  -- function to update lists, for setting on menu items that
+  -- make other changes
+  local funcUpdate = function(sender) self:setFieldsAndMethods() end
+  
+  formMonoClass.listFields.OnData = function(sender, listitem)
+    self:listFields_OnData(sender, listitem)
   end
   
-  local sortByClassThenOffset = function(a, b)
-    if a.isConst and not b.isConst then return true end
-    if b.isConst and not a.isConst then return false end
-    if a.isConst and b.isConst then return a.constValue < b.constValue end
-    if a.class.lowerName < b.class.lowerName then return true end
-    if b.class.lowerName < a.class.lowerName then return false end
-    return a.offset < b.offset
+  formMonoClass.listFields.OnDblClick = function(sender)
+    self:listFields_OnDblClick(sender)
   end
-  
-  local sortByName = function(a, b)
-    if a.isConst and not b.isConst then return true end
-    if b.isConst and not a.isConst then return false end
-    if a.isConst and b.isConst then return a.constValue < b.constValue end
-    return a.lowerName < b.lowerName
+
+  formMonoClass.listMethods.OnData = function(sender, listitem)
+    self:listMethods_OnData(sender, listitem)
   end
-  
-  local sortByOffset = function(a, b)
-    if a.isConst and not b.isConst then return true end
-    if b.isConst and not a.isConst then return false end
-    if a.isConst and b.isConst then return a.constValue < b.constValue end
-    return a.offset < b.offset
+
+  formMonoClass.listMethods.OnDblClick = function(sender)
+    self:listMethods_OnDblClick(sender)
   end
+
+  formMonoClass.miSortFieldsByOffset.OnClick = funcUpdate
+  formMonoClass.miShowInherited.OnClick = funcUpdate
+  formMonoClass.miShowUsage.OnClick = funcUpdate
   
+  -- create our own lists of fields and methods that we can sort
+  -- and filter
+  self:setFieldsAndMethods()
   
-  --[[
-      Show the search form, mono.selectedImage should be set to the
-      image to search.
-  --]]
-  function mono.formClass:show(class, field, method)
-    if mono.selectedImage == nil or class == nil then return end
-    self.image = mono.selectedImage
-    self.class = class
-    
-    -- function to update lists, for setting on menu items that
-    -- make other changes
-    local funcUpdate = function(sender) self:setFieldsAndMethods() end
-    
-    formMonoClass.listFields.OnData = function(sender, listitem)
-      self:listFields_OnData(sender, listitem)
-    end
-    
-    formMonoClass.listFields.OnDblClick = function(sender)
-      self:listFields_OnDblClick(sender)
-    end
-  
-    formMonoClass.listMethods.OnData = function(sender, listitem)
-      self:listMethods_OnData(sender, listitem)
-    end
-  
-    formMonoClass.listMethods.OnDblClick = function(sender)
-      self:listMethods_OnDblClick(sender)
-    end
-  
-    formMonoClass.miSortFieldsByOffset.OnClick = funcUpdate
-    formMonoClass.miShowInherited.OnClick = funcUpdate
-    formMonoClass.miShowUsage.OnClick = funcUpdate
-    
-    -- create our own lists of fields and methods that we can sort
-    -- and filter
-    self:setFieldsAndMethods()
-    
-    -- show form
-    formMonoClass.show()
-  end
-  
-  --[[
-      Set fields and methods arrays, sorted appropriately and
-      with extra fields, including possibly parent fields and methods
-  --]]
-  function mono.formClass:setFieldsAndMethods()
-    local other = ''
-    if formMonoClass.miShowUsage.Checked then other = ' (usage by other classes)' end
-  
-    formMonoClass.labelClassName.Caption = string.format('Mono Class: %s:%s%s', self.class.namespace, self.class.name, other)
-    local fields = {}
-    local methods = {}
-    if formMonoClass.miShowUsage.Checked then
-      ---------- show where class is used in other classes
-      for i,class in ipairs(self.image.classes) do
-        for j,method in ipairs(class.methods) do
-          local found = false
-          if method.returnType == self.class.name then
-            found = true
-          else
-            for k,p in ipairs(method.parameters) do
-              if p.typeName == self.class.name then found = true end
-            end
-          end
-          if found then table.insert(methods, method) end
-        end
-        
-        for j,field in ipairs(class.fields) do
-          if field.typeName == self.class.name then table.insert(fields, field) end
-        end
-      end
-    else
-      ---------- basic class fields and methods
-      local c = self.class
-      
-      while c ~= nil do
-        for i,field in ipairs(c.fields) do
-          table.insert(fields, field)
-        end
-        
-        for i,method in ipairs(c.methods) do
-          table.insert(methods, method)
-        end
-        
-        if formMonoClass.miShowInherited.Checked then
-          c = c.parent
+  -- show form
+  formMonoClass.show()
+end
+
+--[[
+    Set fields and methods arrays, sorted appropriately and
+    with extra fields, including possibly parent fields and methods
+--]]
+function mono.formClass:setFieldsAndMethods()
+  local other = ''
+  if formMonoClass.miShowUsage.Checked then other = ' (usage by other classes)' end
+
+  formMonoClass.labelClassName.Caption = string.format('Mono Class: %s:%s%s', self.class.namespace, self.class.name, other)
+  local fields = {}
+  local methods = {}
+  if formMonoClass.miShowUsage.Checked then
+    ---------- show where class is used in other classes
+    for i,class in ipairs(self.image.classes) do
+      for j,method in ipairs(class.methods) do
+        local found = false
+        if method.returnType == self.class.name then
+          found = true
         else
-          c = nil
+          for k,p in ipairs(method.parameters) do
+            if p.typeName == self.class.name then found = true end
+          end
         end
+        if found then table.insert(methods, method) end
+      end
+      
+      for j,field in ipairs(class.fields) do
+        if field.typeName == self.class.name then table.insert(fields, field) end
       end
     end
-  
-  
-    if formMonoClass.miSortByClassFirst.Checked then
-      table.sort(fields, formMonoClass.miSortFieldsByOffset.Checked and sortByClassThenOffset or sortByClassThenName)
-      table.sort(methods, sortByClassThenName)
-    else
-      table.sort(fields, formMonoClass.miSortFieldsByOffset.Checked and sortByOffset or sortByName)
-      table.sort(methods, sortByName)
-    end
-  
-    self.fields = fields
-    self.methods = methods
-    formMonoClass.listFields.Items.Count = 0
-    formMonoClass.listFields.Items.Count = #fields
-    formMonoClass.listMethods.Items.Count = 0
-    formMonoClass.listMethods.Items.Count = #methods
-  end
-  
-  -- handler to display fields in list view
-  function mono.formClass:listFields_OnData(sender, listitem)
-    -- columns are offset (or 'STATIC'), Type, Name
-    local index = listitem.Index + 1
-    local field = self.fields[index]
+  else
+    ---------- basic class fields and methods
+    local c = self.class
     
-    -- columns are Offset, Type, Name
-    if field.isStatic then
-      if field.isConst then
-        listitem.Caption = 'Const:'..string.format('%2X', field.constValue or 0)
-      else
-        listitem.Caption = 'Static:'..string.format('%2X', field.offset or 0)
+    while c ~= nil do
+      for i,field in ipairs(c.fields) do
+        table.insert(fields, field)
       end
-    else
-      listitem.Caption = string.format('%02X', field.offset or 0)
+      
+      for i,method in ipairs(c.methods) do
+        table.insert(methods, method)
+      end
+      
+      if formMonoClass.miShowInherited.Checked then
+        c = c.parent
+      else
+        c = nil
+      end
     end
+  end
+
+
+  if formMonoClass.miSortByClassFirst.Checked then
+    table.sort(fields, formMonoClass.miSortFieldsByOffset.Checked and sortByClassThenOffset or sortByClassThenName)
+    table.sort(methods, sortByClassThenName)
+  else
+    table.sort(fields, formMonoClass.miSortFieldsByOffset.Checked and sortByOffset or sortByName)
+    table.sort(methods, sortByName)
+  end
+
+  self.fields = fields
+  self.methods = methods
+  formMonoClass.listFields.Items.Count = 0
+  formMonoClass.listFields.Items.Count = #fields
+  formMonoClass.listMethods.Items.Count = 0
+  formMonoClass.listMethods.Items.Count = #methods
+end
+
+-- handler to display fields in list view
+function mono.formClass:listFields_OnData(sender, listitem)
+  -- columns are offset (or 'STATIC'), Type, Name
+  local index = listitem.Index + 1
+  local field = self.fields[index]
+  
+  -- columns are Offset, Type, Name
+  if field.isStatic then
+    if field.isConst then
+      listitem.Caption = 'Const:'..string.format('%2X', field.constValue or 0)
+    else
+      listitem.Caption = 'Static:'..string.format('%2X', field.offset or 0)
+    end
+  else
+    listitem.Caption = string.format('%02X', field.offset or 0)
+  end
+  local className = ''
+  if field.class.name ~= self.class.name then className = field.class.name end
+  listitem.SubItems.text = table.concat({field.typeName or '??', field.name, className}, '\n')
+end
+
+-- handler to display methods in list view
+function mono.formClass:listMethods_OnData(sender, listitem)
+  local method = self.methods[listitem.Index + 1]
+  if method == nil then
+    listitem.Caption = 'nil index '..tostring(listitem.Index + 1)
+  else
+    listitem.Caption = method.name
+    
     local className = ''
-    if field.class.name ~= self.class.name then className = field.class.name end
-    listitem.SubItems.text = table.concat({field.typeName or '??', field.name, className}, '\n')
-  end
-  
-  -- handler to display methods in list view
-  function mono.formClass:listMethods_OnData(sender, listitem)
-    local method = self.methods[listitem.Index + 1]
-    if method == nil then
-      listitem.Caption = 'nil index '..tostring(listitem.Index + 1)
-    else
-      listitem.Caption = method.name
-      
-      local className = ''
-      if method.class.name ~= self.class.name then className = method.class.name end
-      
-      local ps = {}
-      for i,p in ipairs(method.parameters) do
-        table.insert(ps, string.format('%s %s', p.type, p.name))
-      end
-      local parms = method.returnType..' ('..table.concat(ps, ', ')..')'
-     
-      --print('className, method.class.name', className, method.class.name)
-      listitem.SubItems.text = table.concat({ parms, className }, '\n')
-    end
-  end
-  
-  local parameters = { 'RCX', 'RDX', 'R8', 'R9', '[RBP+30]', '[RBP+38]', '[RBP+40]', '[RBP+48]', '[RBP+50]' }
-  local floatParameters = { 'XMM0', 'XMM1', 'XMM2', 'XMM3', 'XMM4', 'XMM5', 'XMM6'}
-  
-  function mono.formClass:popupMethod_OnPopup(sender)
+    if method.class.name ~= self.class.name then className = method.class.name end
     
-  end
-  
-  function mono.formClass:listMethods_OnDblClick(sender)
-    local method = self.methods[sender.ItemIndex + 1]
-    --print("method: "..tostring(method.id))
-    if method then
-      local address = mono_compile_method(method.id)
-      --print("address: "..tostring(address))
-      getMemoryViewForm().DisassemblerView.SelectedAddress = address
-      getMemoryViewForm().show()
-      local hookInfo = hookAt(address)
-      -- have aobString, hookString, returnString, instructions
-      --[[ how to get method signature
-      local ps = {}
-      for i,p in ipairs(method.parameters) do
-        table.insert(ps, string.format('%s %s', p.type, p.name))
-      end
-      local parms = method.returnType..' ('..table.concat(ps, ', ')..')'
-      ]]
-  
-      local lines = {}
-      table.insert(lines, "define(hook,"..hookInfo.hookString..")")
-      table.insert(lines, "define(bytes,"..hookInfo.aobString..")")
-      table.insert(lines, "")
-      table.insert(lines, "[enable]")
-      table.insert(lines, "")
-      table.insert(lines, "assert(hook, bytes)")
-      table.insert(lines, "alloc(newmem,$1000, hook)")
-      table.insert(lines, "{")
-  
-  
-      -- note: per x64 calling convention, RCX might actually be space for
-      -- a pre-allocated structure for the return value and other parameters
-      -- might be moved one further down the list
-      table.insert(lines, "  RCX: "..method.class.name.." (this)")
-      for i,p in ipairs(method.parameters) do
-        local param = parameters[i + 1]
-        if (p.type == "System.Single" or p.type == "System.Double") then param = floatParameters[i + 1] end
-        table.insert(lines, "  "..param..": "..tostring(p.type).." "..tostring(p.name))
-      end
-      table.insert(lines, "")
-  
-      table.insert(lines, "  Returns (RAX) "..method.returnType)
-      table.insert(lines, "}")
-      table.insert(lines, "")
-      table.insert(lines, "newmem:")
-      table.insert(lines, "  // original code")
-      for i,c in ipairs(hookInfo.instructions) do
-        table.insert(lines, "  "..c)
-      end
-      table.insert(lines, "  jmp hook+"..string.format("%X", hookInfo.returnOffset))
-      table.insert(lines, "")
-      table.insert(lines, "hook:")
-      table.insert(lines, "  jmp newmem")
-      table.insert(lines, "")
-      table.insert(lines, "[disable]")
-      table.insert(lines, "")
-      table.insert(lines, "hook:")
-      table.insert(lines, "  db bytes")
-      table.insert(lines, "")
-      table.insert(lines, "dealloc(newmem)")
-  
-      local t = {}
-      for i,v in ipairs(lines) do
-        table.insert(t, v);
-        table.insert(t, "\r\n")
-      end
-    
-      local aa = table.concat(t)
-  
-      getMemoryViewForm().AutoInject1.DoClick()
-      
-      for i=0,getFormCount()-1 do --this is sorted from z-level. 0 is top
-        local f=getForm(i)
-    
-        if getForm(i).ClassName == 'TfrmAutoInject' then
-          f.assemblescreen.Lines.Text = aa
-          break
-        end
-      end
+    local ps = {}
+    for i,p in ipairs(method.parameters) do
+      table.insert(ps, string.format('%s %s', p.type, p.name))
     end
+    local parms = method.returnType..' ('..table.concat(ps, ', ')..')'
+   
+    --print('className, method.class.name', className, method.class.name)
+    listitem.SubItems.text = table.concat({ parms, className }, '\n')
   end
-  
-  --[[
-        When double-clicking a field, print out the base address for the statics of the
-        class and the address of the clicked-on static field.
-  --]]
-  function mono.formClass:listFields_OnDblClick(sender)
-    local field = self.fields[sender.ItemIndex + 1]
-    if field then
-      local class = field.class
-      local image = class.image
-      local domainId = image.domain
-      print('double-clicked on class '..tostring(field.class.name)..' field '..tostring(field.name)..' domain '..tostring(domainId))
-      local address = mono_class_getStaticFieldAddress(domainId, class.id)
-      print('statics base address: '..string.format("%x", address))
-      print(class.name..'.'..field.name..': '..string.format("%x", address + field.offset))
-    end
+end
+
+local getParameter = function(index, monoParam)
+  local param = { index = index }
+  if monoParam ~= nil then
+    param.name = monoParam.name
+    param.type = monoParam.type
   end
-  
-  --[[
-        IN PROGRESS - take an address and create an AA script to hook at that address
-        expecting MONO code.  Will process instructions until 5 bytes (for jmp) are
-        processed.  Basic format is like this for address 'CryingSuns.PlayerStatus:BattleshipState:HasAuxiliarySystemType+28'
-  
-  [enable]
-  assert("CryingSuns.PlayerStatus:BattleshipState:HasAuxiliarySystemType":+28, )
+end
+
+local parameters = { 'RCX', 'RDX', 'R8', 'R9', '[RBP+30]', '[RBP+38]', '[RBP+40]', '[RBP+48]', '[RBP+50]', '[RBP+58]', '[RBP+60]', '[RBP+68]', '[RBP+70]', '[RBP+78]' }
+local floatParameters = { 'XMM0', 'XMM1', 'XMM2', 'XMM3', '[RBP+30]', '[RBP+38]', '[RBP+40]', '[RBP+48]', '[RBP+50]', '[RBP+58]', '[RBP+60]', '[RBP+68]', '[RBP+70]', '[RBP+78]' }
+
+local addMenuItem = function(popup, name, caption, func)
+  local mi = createMenuItem(popup.Items)
+  mi.Name = name
+  mi.Caption = caption
+  mi.OnClick = func
+  popup.Items.add(mi)
+end
+
+--[[
+Popup for methods
+]]
+function mono.formClass:popupMethods_OnPopup(popup)
+  local popup = formMonoClass.popupMethods
+  popup.Items:clear()
+
+  local method = self:getSelectedMethod()
+  if method == nil then return end
+
+  addMenuItem(popup, "miMethodsHook", "Hook", mono.formClass.methodHook)
+  addMenuItem(popup, "miMethodsDisassemble", "Disassemble", mono.formClass.methodDisassemble)
+  addMenuItem(popup, "miMethodsCreateTableScript", "Create Table Script", mono.formClass.methodCreateTableScript)
+end
+
+formMonoClass.popupMethods.OnPopup = function(sender) mono.formClass:popupMethods_OnPopup(sender) end
+
+mono.formClass.methodHook = function()
+  local self = mono.formClass
+  local method = self:getSelectedMethod()
+  if method == nil then
+    print("No method selected!")
+    return
+  end
+
+  local address = mono_compile_method(method.id)
+  local hookInfo = hookAt(address)
+  -- have aobString, hookString, returnString, instructions
+  --[[ how to get method signature
+  local ps = {}
+  for i,p in ipairs(method.parameters) do
+    table.insert(ps, string.format('%s %s', p.type, p.name))
+  end
+  local parms = method.returnType..' ('..table.concat(ps, ', ')..')'
   ]]
-  function hookAt(address)
-    local pos = string.find(address, "+", 1, true)
-    local name = address
-    local offset = 0
-    if (pos ~= nil) then
-      name = string.substring(1, pos - 1)
-      offset = tonumber(string.sub(pos + 1), 16)
-    end
-    local actualAddress = getAddress(name) + offset
-  
-    local data = {
-      hookString = util.safeAddress(getNameFromAddress(actualAddress)), -- used for injection, etc
-      instructions = {},
-      aobString = ""
-    }
-  
-    local aobs = {}
-  
-    while (offset < 5) do
-      local parsed = disassembleAndParse(actualAddress + offset)
-      if #aobs > 0 then table.insert(aobs, " ") end
-      table.insert(aobs, parsed.bytesString)
-      table.insert(data.instructions, parsed.instructionString)
-      offset = offset + parsed.length
-    end
-  
-    data.aobString = table.concat(aobs)
-    data.returnString = util.safeAddress(getNameFromAddress(actualAddress + offset))
-    data.returnOffset = offset
-    return data
+
+  local lines = {}
+  table.insert(lines, "define(hook,"..hookInfo.hookString..")")
+  table.insert(lines, "define(bytes,"..hookInfo.aobString..")")
+  table.insert(lines, "")
+  table.insert(lines, "[enable]")
+  table.insert(lines, "")
+  table.insert(lines, "assert(hook, bytes)")
+  table.insert(lines, "alloc(newmem,$1000, hook)")
+  table.insert(lines, "{")
+
+
+  -- note: per x64 calling convention, RCX might actually be space for
+  -- a pre-allocated structure for the return value and other parameters
+  -- might be moved one further down the list
+  table.insert(lines, "  RCX: "..method.class.name.." (this)")
+  for i,p in ipairs(method.parameters) do
+    local param = parameters[i + 1]
+    if (p.type == "single" or p.type == "double" or p.type == "System.Single" or p.type == "System.Double") then param = floatParameters[i + 1] end
+    table.insert(lines, "  "..param..": "..tostring(p.type).." "..tostring(p.name))
   end
-  
-  function hookMethod(method)
-  
+  table.insert(lines, "")
+
+  table.insert(lines, "  Returns (RAX) "..method.returnType)
+  table.insert(lines, "}")
+  table.insert(lines, "")
+  table.insert(lines, "newmem:")
+  table.insert(lines, "  // original code")
+  for i,c in ipairs(hookInfo.instructions) do
+    table.insert(lines, "  "..c)
   end
+  table.insert(lines, "  jmp hook+"..string.format("%X", hookInfo.returnOffset))
+  table.insert(lines, "")
+  table.insert(lines, "hook:")
+  table.insert(lines, "  jmp newmem")
+  table.insert(lines, "")
+  table.insert(lines, "[disable]")
+  table.insert(lines, "")
+  table.insert(lines, "hook:")
+  table.insert(lines, "  db bytes")
+  table.insert(lines, "")
+  table.insert(lines, "dealloc(newmem)")
+
+  local t = {}
+  for i,v in ipairs(lines) do
+    table.insert(t, v);
+    table.insert(t, "\r\n")
+  end
+
+  local aa = table.concat(t)
+
+  getMemoryViewForm().AutoInject1.DoClick()
   
-  --[[
-        Expects address to be a number
-  ]]
-  function disassembleAndParse(address)
-    local disassembly = disassemble(address)
-    local parts = util.split(disassembly, "-")
-    for i = 1,#parts do
-      if i == 2 then
-        parts[i] = parts[i]:gsub("%s+", "") -- remove ALL whitespace from bytes
+  for i=0,getFormCount()-1 do --this is sorted from z-level. 0 is top
+    local f=getForm(i)
+
+    if getForm(i).ClassName == 'TfrmAutoInject' then
+      f.assemblescreen.Lines.Text = aa
+      break
+    end
+  end
+end
+
+mono.formClass.methodDisassemble = function()
+  local self = mono.formClass
+  local method = self:getSelectedMethod()
+  if method == nil then
+    print("No method selected!")
+    return
+  end
+
+  local address = mono_compile_method(method.id)
+  getMemoryViewForm().DisassemblerView.SelectedAddress = address
+  getMemoryViewForm().show()
+end
+
+--[[
+--------------------------------------------------------------------------------
+-- Currently working on
+--------------------------------------------------------------------------------
+]]
+mono.formClass.methodCreateTableScript = function()
+  local self = mono.formClass
+  local method = self:getSelectedMethod()
+  if method == nil then
+    print("No method selected!")
+    return
+  end
+
+  local address = mono_compile_method(method.id)
+  local hookInfo = hookAt(address)
+  local pointerLabel = "p"..method.class.name.."_"..method.name
+
+  local lines = {}
+  table.insert(lines, "define(hook,"..hookInfo.hookString..")")
+  table.insert(lines, "define(bytes,"..hookInfo.aobString..")")
+  table.insert(lines, "")
+  table.insert(lines, "[enable]")
+  table.insert(lines, "")
+  table.insert(lines, "assert(hook, bytes)")
+  table.insert(lines, "alloc(newmem,$1000, hook)")
+  table.insert(lines, "label("..pointerLabel..")")
+  table.insert(lines, "")
+  table.insert(lines, "{")
+
+
+  -- note: per x64 calling convention, RCX might actually be space for
+  -- a pre-allocated structure for the return value and other parameters
+  -- might be moved one further down the list
+  table.insert(lines, "  RCX: "..method.class.name.." (this)")
+  for i,p in ipairs(method.parameters) do
+    local param = parameters[i + 1]
+    if (p.type == "single" or p.type == "double" or p.type == "System.Single" or p.type == "System.Double") then param = floatParameters[i + 1] end
+    table.insert(lines, "  "..param..": "..tostring(p.type).." "..tostring(p.name))
+  end
+  table.insert(lines, "")
+
+  table.insert(lines, "  Returns (RAX) "..method.returnType)
+  table.insert(lines, "}")
+  table.insert(lines, "")
+  table.insert(lines, "newmem:")
+
+  table.insert(lines, "  // increment counter, store instance and parameters (could be off for static method?)")
+  table.insert(lines, "  push rbp")
+  table.insert(lines, "  mov rbp,rsp")
+  table.insert(lines, "  push rax")
+  table.insert(lines, "  mov ["..pointerLabel.."], rcx")
+  table.insert(lines, "  inc dword ptr ["..pointerLabel.."+8]")
+  local parameterOffset = 0x10
+  for i,p in ipairs(method.parameters) do
+    local param = parameters[i + 1]
+    if i < 4 then
+      -- windows 64 ABI: first 3 parameters (plus 'this' in rcx) are in registers
+      if (p.type == "single" or p.type == "double" or p.type == "System.Single" or p.type == "System.Double") then
+        table.insert(lines, "  movss ["..pointerLabel.."+"..string.format("%x", parameterOffset).."], "..floatParameters[i + 1].."  // "..p.name)
       else
-        parts[i] = parts[i]:gsub("^%s*(.-)%s*$", "%1") -- remove whitespace from ends
+        table.insert(lines, "  mov ["..pointerLabel.."+"..string.format("%x", parameterOffset).."], "..parameters[i + 1].."  // "..p.name)
       end
+    else
+      -- doesn't really matter if it's float or not, we use [ebp+XX] as source and RAX as temp register to copy value
+      table.insert(lines, "  mov rax,[rbp+"..string.format("%x", parameterOffset + 0x08).."]  // "..p.name)
+      table.insert(lines, "  mov ["..pointerLabel.."+"..string.format("%x", parameterOffset).."], rax")
     end
-  
-    local aob = {}
-    local i = 1
-    while i < string.len(parts[2]) do
-      if (i ~= 1) then table.insert(aob, " ") end
-      table.insert(aob, string.sub(parts[2], i, i+1))
-      i = i + 2
-    end
-  
-    local instructionString = parts[3]
-    for k,v in parts[3]:gmatch("[0-9a-fA-F]+") do
-      if k:len() == 8 or k:len() == 16 then
-        instructionString = instructionString:gsub(k, getNameFromAddress(k))
-      end
-    end
-    
-  
-    local result = {
-      address = getAddress(address),
-      addressString = util.safeAddress(getNameFromAddress(address)),
-      aob = aob,
-      bytesString = table.concat(aob),
-      disassembly = disassembly,
-      instructionString = instructionString,
-      length = getInstructionSize(address),
-      originalInstructionString = parts[3]
-    }
-  
-    return result
+    parameterOffset = parameterOffset + 8
   end
-  
---[[================================================================================
---  Replacement code to activate top level menu
---================================================================================]]
+  table.insert(lines, "  pop rax")
+  table.insert(lines, "  pop rbp")
+  table.insert(lines, "")
 
-function monohelper_OpenProcessMT(t)
-    if t ~= nil then
-        t.destroy()
+  table.insert(lines, "  // original code")
+  for i,c in ipairs(hookInfo.instructions) do
+    table.insert(lines, "  "..c)
+  end
+  table.insert(lines, "  jmp hook+"..string.format("%X", hookInfo.returnOffset))
+  table.insert(lines, "")
+  table.insert(lines, "align 10")
+  table.insert(lines, pointerLabel..":")
+  table.insert(lines, "  dq 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0")
+  table.insert(lines, "")
+
+  table.insert(lines, "hook:")
+  table.insert(lines, "  jmp newmem")
+  table.insert(lines, "")
+  table.insert(lines, "registersymbol("..pointerLabel..")")
+  table.insert(lines, "")
+  table.insert(lines, "[disable]")
+  table.insert(lines, "")
+  table.insert(lines, "hook:")
+  table.insert(lines, "  db bytes")
+  table.insert(lines, "")
+  table.insert(lines, "unregistersymbol("..pointerLabel..")")
+  table.insert(lines, "")
+  table.insert(lines, "dealloc(newmem)")
+
+  local t = {}
+  for i,v in ipairs(lines) do
+    table.insert(t, v);
+    table.insert(t, "\r\n")
+  end
+
+  local aa = table.concat(t)
+
+  local parent = getAddressList().createMemoryRecord()
+  parent.setDescription(method.class.name..":"..method.name)
+  parent.Type = vtAutoAssembler -- must be set before setting 'Script'
+  parent.Script = aa
+  parent.Options = '[moHideChildren]'
+  getAddressList().SelectedRecord = n -- select record
+
+  addMemoryRecord(parent, pointerLabel, pointerLabel, vtQword, true)
+  addMemoryRecord(parent, "Counter", pointerLabel.."+8", vtDword, false)
+  parameterOffset = 0x10
+  for i,p in ipairs(method.parameters) do
+    local valueType = vtQword
+    local showAsHex = false
+    local param = parameters[i + 1]
+    if (p.type == "single" or p.type == "System.Single") then
+      valueType = vtSingle
+    elseif (p.type == "double" or p.type == "System.Double") then
+      valueType = vtDouble
+    elseif (p.type == "int" or p.type == "System.Int32") then
+      valueType = vtDword
+    elseif (p.type == "long" or p.type == "System.Int64") then
+      valueType = vtQword
+    -- TODO: add pointer for string?
+    else
+      valueType = vtQword
+      showAsHex = true
     end
+    addMemoryRecord(parent, p.name.." ("..p.type..")", pointerLabel.."+"..string.format("%x", parameterOffset), valueType, showAsHex)
+    parameterOffset = parameterOffset + 8
+  end
 
-    local usesmono=false
-    local m=enumModules()
-    local i
-    for i=1, #m do
-      if (m[i].Name=='mono.dll') or (string.sub(m[i].Name,1,5)=='mono-') then
-        usesmono=true
+  -- bring main window to front
+  getMainForm().bringToFront()
+end
+
+function addMemoryRecord(parent, description, address, type, hex)
+  local memrec = getAddressList().createMemoryRecord()
+  memrec.setDescription(description)
+  memrec.Address = address
+  memrec.Type = type
+  memrec.ShowAsHex = hex
+  memrec.appendToEntry(parent) -- also works: n.Parent = parent
+end
+
+
+function mono.formClass:getSelectedMethod()
+  local index = formMonoClass.listMethods.ItemIndex
+  if index < 0 then return nil end
+  return self.methods[index + 1]
+end
+
+function mono.formClass:listMethods_OnDblClick(sender)
+  local method = self.methods[sender.ItemIndex + 1]
+  --print("method: "..tostring(method.id))
+  if method then
+    local address = mono_compile_method(method.id)
+    --print("address: "..tostring(address))
+    getMemoryViewForm().DisassemblerView.SelectedAddress = address
+    getMemoryViewForm().show()
+    local hookInfo = hookAt(address)
+    -- have aobString, hookString, returnString, instructions
+    --[[ how to get method signature
+    local ps = {}
+    for i,p in ipairs(method.parameters) do
+      table.insert(ps, string.format('%s %s', p.type, p.name))
+    end
+    local parms = method.returnType..' ('..table.concat(ps, ', ')..')'
+    ]]
+
+    local lines = {}
+    table.insert(lines, "define(hook,"..hookInfo.hookString..")")
+    table.insert(lines, "define(bytes,"..hookInfo.aobString..")")
+    table.insert(lines, "")
+    table.insert(lines, "[enable]")
+    table.insert(lines, "")
+    table.insert(lines, "assert(hook, bytes)")
+    table.insert(lines, "alloc(newmem,$1000, hook)")
+    table.insert(lines, "{")
+
+
+    -- note: per x64 calling convention, RCX might actually be space for
+    -- a pre-allocated structure for the return value and other parameters
+    -- might be moved one further down the list
+    table.insert(lines, "  RCX: "..method.class.name.." (this)")
+    for i,p in ipairs(method.parameters) do
+      local param = parameters[i + 1]
+      if (p.type == "single" or p.type == "double" or p.type == "System.Single" or p.type == "System.Double") then param = floatParameters[i + 1] end
+      table.insert(lines, "  "..param..": "..tostring(p.type).." "..tostring(p.name))
+    end
+    table.insert(lines, "")
+
+    table.insert(lines, "  Returns (RAX) "..method.returnType)
+    table.insert(lines, "}")
+    table.insert(lines, "")
+    table.insert(lines, "newmem:")
+    table.insert(lines, "  // original code")
+    for i,c in ipairs(hookInfo.instructions) do
+      table.insert(lines, "  "..c)
+    end
+    table.insert(lines, "  jmp hook+"..string.format("%X", hookInfo.returnOffset))
+    table.insert(lines, "")
+    table.insert(lines, "hook:")
+    table.insert(lines, "  jmp newmem")
+    table.insert(lines, "")
+    table.insert(lines, "[disable]")
+    table.insert(lines, "")
+    table.insert(lines, "hook:")
+    table.insert(lines, "  db bytes")
+    table.insert(lines, "")
+    table.insert(lines, "dealloc(newmem)")
+
+    local t = {}
+    for i,v in ipairs(lines) do
+      table.insert(t, v);
+      table.insert(t, "\r\n")
+    end
+  
+    local aa = table.concat(t)
+
+    getMemoryViewForm().AutoInject1.DoClick()
+    
+    for i=0,getFormCount()-1 do --this is sorted from z-level. 0 is top
+      local f=getForm(i)
+  
+      if getForm(i).ClassName == 'TfrmAutoInject' then
+        f.assemblescreen.Lines.Text = aa
         break
       end
     end
+  end
+end
 
-    if usesmono then
-        --create a menu item if needed
-        if (miMonoHelperTopMenuItem == nil) then
-            local mfm = getMainForm().Menu
-            
-            if (mfm) then
-                local mi
-                miMonoHelperTopMenuItem = createMenuItem(mfm)
-                miMonoHelperTopMenuItem.Caption = "Mono Search"
-                mfm.Items.insert(mfm.Items.Count - 1, miMonoHelperTopMenuItem) --add it before help
+--[[
+      When double-clicking a field, print out the base address for the statics of the
+      class and the address of the clicked-on static field.
+--]]
+function mono.formClass:listFields_OnDblClick(sender)
+  local field = self.fields[sender.ItemIndex + 1]
+  if field then
+    local class = field.class
+    local image = class.image
+    local domainId = image.domain
+    print('double-clicked on class '..tostring(field.class.name)..' field '..tostring(field.name)..' domain '..tostring(domainId))
+    local address = mono_class_getStaticFieldAddress(domainId, class.id)
+    print('statics base address: '..string.format("%x", address))
+    print(class.name..'.'..field.name..': '..string.format("%x", address + field.offset))
+  end
+end
 
-                mono.menu:init(miMonoHelperTopMenuItem)
-            end
-        end
+--[[
+      IN PROGRESS - take an address and create an AA script to hook at that address
+      expecting MONO code.  Will process instructions until 5 bytes (for jmp) are
+      processed.  Basic format is like this for address 'CryingSuns.PlayerStatus:BattleshipState:HasAuxiliarySystemType+28'
+
+// [enable]
+// assert("CryingSuns.PlayerStatus:BattleshipState:HasAuxiliarySystemType":+28, )
+]]
+function hookAt(address)
+  local pos = string.find(address, "+", 1, true)
+  local name = address
+  local offset = 0
+  if (pos ~= nil) then
+    name = string.substring(1, pos - 1)
+    offset = tonumber(string.sub(pos + 1), 16)
+  end
+  local actualAddress = getAddress(name) + offset
+
+  local data = {
+    hookString = util.safeAddress(getNameFromAddress(actualAddress)), -- used for injection, etc
+    instructions = {},
+    aobString = ""
+  }
+
+  local aobs = {}
+
+  while (offset < 14) do
+    local parsed = disassembleAndParse(actualAddress + offset)
+    if #aobs > 0 then table.insert(aobs, " ") end
+    table.insert(aobs, parsed.bytesString)
+    table.insert(data.instructions, parsed.instructionString)
+    offset = offset + parsed.length
+  end
+
+  data.aobString = table.concat(aobs)
+  data.returnString = util.safeAddress(getNameFromAddress(actualAddress + offset))
+  data.returnOffset = offset
+  return data
+end
+
+function hookMethod(method)
+
+end
+
+--[[
+      Expects address to be a number
+]]
+function disassembleAndParse(address)
+  local disassembly = disassemble(address)
+  local parts = util.split(disassembly, "-")
+  for i = 1,#parts do
+    if i == 2 then
+      parts[i] = parts[i]:gsub("%s+", "") -- remove ALL whitespace from bytes
     else
-        --destroy the menu item if needed
-        if miMonoTopMenuItem~=nil then
-            miMonoTopMenuItem.miMonoDissect.destroy() --clean up the onclick handler
-            miMonoTopMenuItem.miMonoActivate.destroy()  --clean up the onclick handler
-
-            miMonoTopMenuItem.destroy() --also destroys the subitems as they are owned by this menuitem
-            miMonoTopMenuItem=nil
-        end
+      parts[i] = parts[i]:gsub("^%s*(.-)%s*$", "%1") -- remove whitespace from ends
     end
-end
+  end
 
-function monohelper_OpenProcess(processid)
-    --call the original onOpenProcess if there was one
-    if monohelper_oldOnOpenProcess~=nil then
-        monohelper_oldOnOpenProcess(processid)
+  local aob = {}
+  local i = 1
+  while i < string.len(parts[2]) do
+    if (i ~= 1) then table.insert(aob, " ") end
+    table.insert(aob, string.sub(parts[2], i, i+1))
+    i = i + 2
+  end
+
+  if (#parts > 3) then
+    local result = util.slice(parts, 3)
+    parts[3] = table.concat(result, '-')
+  end
+
+  local instructionString = parts[3]
+  for k,v in parts[3]:gmatch("[0-9a-fA-F]+") do
+    if k:len() == 8 or k:len() == 16 then
+      instructionString = instructionString:gsub(k, getNameFromAddress(k))
     end
-  
-    synchronize("monohelper_OpenProcessMT")
+  end
+
+  local result = {
+    address = getAddress(address),
+    addressString = util.safeAddress(getNameFromAddress(address)),
+    aob = aob,
+    bytesString = table.concat(aob),
+    disassembly = disassembly,
+    instructionString = instructionString,
+    length = getInstructionSize(address),
+    originalInstructionString = parts[3]
+  }
+
+  return result
 end
 
-function monohelper_Init()
-    monohelper_oldOnOpenProcess = onOpenProcess
-    onOpenProcess = monohelper_OpenProcess
-end
 
-monohelper_Init()
+
