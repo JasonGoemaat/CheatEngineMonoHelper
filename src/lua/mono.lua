@@ -85,9 +85,17 @@ mono.clearTimer = function()
   end
 end
 
-MainForm.OnProcessOpened = function()
-  mono.reset()
-end
+-- if mono.hookedOnProcessOpened ~= nil then
+--   MainForm.OnOnProcessOpened  = mono.hookedOnProcessOpened
+--   mono.hookedOnProcessOpened = nil
+-- else
+--   mono.hookedOnProcessOpened = MainForm.OnProcessOpened
+-- end
+
+-- MainForm.OnProcessOpened = function()
+--   if mono.hookedOnProcessOpened ~= nil then 
+--   mono.reset()
+-- end
 
 
 [[-- #INCLUDEFILE(src/lua/mono/monofield.lua) ]]

@@ -626,7 +626,7 @@ function hookAt(address)
 
   local aobs = {}
 
-  while (offset < 5) do
+  while (offset < 14) do
     local parsed = disassembleAndParse(actualAddress + offset)
     if #aobs > 0 then table.insert(aobs, " ") end
     table.insert(aobs, parsed.bytesString)
@@ -666,13 +666,17 @@ function disassembleAndParse(address)
     i = i + 2
   end
 
+  if (#parts > 3) then
+    local result = util.slice(parts, 3)
+    parts[3] = table.concat(result, '-')
+  end
+
   local instructionString = parts[3]
   for k,v in parts[3]:gmatch("[0-9a-fA-F]+") do
     if k:len() == 8 or k:len() == 16 then
       instructionString = instructionString:gsub(k, getNameFromAddress(k))
     end
   end
-  
 
   local result = {
     address = getAddress(address),

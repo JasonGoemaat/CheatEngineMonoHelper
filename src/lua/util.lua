@@ -290,3 +290,9 @@ function util.map(t, f)
   end
   return results
 end
+
+function util.slice(t, index)
+  local result = {}
+  for i = index, #t do table.insert(result, t[i]) end
+  return result
+end
