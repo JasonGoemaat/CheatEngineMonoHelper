@@ -246,17 +246,22 @@ function mono.formClass:popupMethods_OnPopup(popup)
 
   addMenuItem(popup, "miMethodsHook", "Hook", mono.formClass.methodHook)
   addMenuItem(popup, "miMethodsHookEntry", "Hook (Table Entry)", mono.formClass.methodHookEntry)
+  addMenuItem(popup, "methodHookEntryOverridden", "Hook (Table Entry, Overridden)", mono.formClass.methodHookEntryOverridden)
   addMenuItem(popup, "miMethodsDisassemble", "Disassemble", mono.formClass.methodDisassemble)
   addMenuItem(popup, "miMethodsCreateTableScript", "Create Debug Entry", mono.formClass.methodCreateTableScript)
 end
 
 formMonoClass.popupMethods.OnPopup = function(sender) mono.formClass:popupMethods_OnPopup(sender) end
 
+mono.formClass.methodHookEntryOverridden = function()
+  mono.formClass.methodHook(1, 1)
+end
+
 mono.formClass.methodHookEntry = function()
   mono.formClass.methodHook(1)
 end
 
-mono.formClass.methodHook = function(entry_flag)
+mono.formClass.methodHook = function(entry_flag, override_flag)
   local self = mono.formClass
   local method = self:getSelectedMethod()
   if method == nil then
@@ -276,7 +281,39 @@ mono.formClass.methodHook = function(entry_flag)
   ]]
 
   local lines = {}
-  table.insert(lines, "define(hook,"..hookInfo.hookString..")")
+  
+  if override_flag then
+    local signature = mono_method_getSignature(method.id)
+    table.insert(lines, '{$lua}')
+    table.insert(lines, 'if syntaxcheck then return "define(hook,0)" end')
+    table.insert(lines, 'local class_id = mono_findClass("'..method.class.namespace..'", "'..method.class.name..'")')
+    table.insert(lines, 'local methods = mono_class_enumMethods(class_id)')
+    table.insert(lines, 'for i = 1,#methods do')
+    table.insert(lines, '  local m = methods[i]')
+    table.insert(lines, '  if m.name == "'..method.name..'" and mono_method_getSignature(m.method) == "'..signature..'" then')
+    table.insert(lines, '    local address = mono_compile_method(m.method)')
+    table.insert(lines, '    return string.format("define(hook,%x)",address)')
+    table.insert(lines, '  end')
+    table.insert(lines, 'end')
+    table.insert(lines, 'return nil, "COULD NOT FIND METHOD WITH SIGNATURE"')
+    table.insert(lines, '{$asm}')
+--[[ This works in Underminer
+if syntaxcheck then return "define(hook,0)" end
+local class_id = mono_findClass("", "Inventory")
+local methods = mono_class_enumMethods(class_id)
+for i = 1,#methods do
+  local m = methods[i]
+  print(m.name.." signature: "..mono_method_getSignature(m.method))
+  if m.name == "TryRemoveItem" and mono_method_getSignature(m.method) == "Item,int" then
+    local address = mono_compile_method(m.method)
+    return string.format("define(hook,%x)",address)
+  end
+end
+return nil, "COULD NOT FIND METHOD WITH SIGNATURE"
+]]
+  else
+    table.insert(lines, "define(hook,"..hookInfo.hookString..")")
+  end
   table.insert(lines, "define(bytes,"..hookInfo.aobString..")")
   table.insert(lines, "")
   table.insert(lines, "[enable]")
@@ -312,7 +349,7 @@ mono.formClass.methodHook = function(entry_flag)
   table.insert(lines, "  jmp hook+"..string.format("%X", hookInfo.returnOffset))
   table.insert(lines, "")
   table.insert(lines, "hook:")
-  table.insert(lines, "  jmp short newmem")
+  table.insert(lines, "  jmp long newmem")
   table.insert(lines, "")
   table.insert(lines, "[disable]")
   table.insert(lines, "")
