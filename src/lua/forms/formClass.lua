@@ -332,10 +332,12 @@ mono.formClass.methodHook = function(entry_flag)
   if (entry_flag) then
     -- create table entry with hook code named after address
     local entry = getAddressList().createMemoryRecord()
-    entry.setDescription(hookInfo.hookString)
+    entry.setDescription("HOOK: "..method.class.name.."."..method.name)
     entry.Type = vtAutoAssembler -- must be set before setting 'Script'
     entry.Script = aa
     entry.Options = '[moHideChildren]'
+    getAddressList().SelectedRecord = entry -- select new entry
+    getAddressList().doValueChange() -- open editor
   else
     -- open up AA window with hook code
     getMemoryViewForm().AutoInject1.DoClick()
@@ -475,7 +477,7 @@ mono.formClass.methodCreateTableScript = function()
   parent.Type = vtAutoAssembler -- must be set before setting 'Script'
   parent.Script = aa
   parent.Options = '[moHideChildren]'
-  getAddressList().SelectedRecord = n -- select record
+  getAddressList().SelectedRecord = parent -- select record
 
   addMemoryRecord(parent, pointerLabel, pointerLabel, vtQword, true)
   addMemoryRecord(parent, "Counter", pointerLabel.."+8", vtDword, false)
