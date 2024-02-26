@@ -5,7 +5,7 @@
   </Forms>
   <CheatEntries>
     <CheatEntry>
-      <ID>1</ID>
+      <ID>3</ID>
       <Description>"MonoHelper"</Description>
       <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
@@ -1436,6 +1436,30 @@ function mono.formClass:show(class, field, method)
   
   -- show form
   formMonoClass.show()
+
+  if field then
+    formMonoClass.pageMain.ActivePage = formMonoClass.tabFields
+    for i = 1,#self.fields do
+      if field.id == self.fields[i].id then
+        formMonoClass.listFields.ItemIndex = i - 1
+        formMonoClass.listFields.setFocus()
+        break
+      end
+    end
+  end
+
+  if method then
+    formMonoClass.pageMain.ActivePage = formMonoClass.tabMethods
+    -- formMonoClass.listMethods.Selected
+    -- listMethods.ItemIndex is 0 based, self.methods is 1 based
+    for i = 1,#self.methods do
+      if method.id == self.methods[i].id then
+        formMonoClass.listMethods.ItemIndex = i - 1
+        formMonoClass.listMethods.setFocus()
+        break
+      end
+    end
+  end
 end
 
 --[[
