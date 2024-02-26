@@ -245,13 +245,18 @@ function mono.formClass:popupMethods_OnPopup(popup)
   if method == nil then return end
 
   addMenuItem(popup, "miMethodsHook", "Hook", mono.formClass.methodHook)
+  addMenuItem(popup, "miMethodsHookEntry", "Hook (Table Entry)", mono.formClass.methodHookEntry)
   addMenuItem(popup, "miMethodsDisassemble", "Disassemble", mono.formClass.methodDisassemble)
-  addMenuItem(popup, "miMethodsCreateTableScript", "Create Table Script", mono.formClass.methodCreateTableScript)
+  addMenuItem(popup, "miMethodsCreateTableScript", "Create Debug Entry", mono.formClass.methodCreateTableScript)
 end
 
 formMonoClass.popupMethods.OnPopup = function(sender) mono.formClass:popupMethods_OnPopup(sender) end
 
-mono.formClass.methodHook = function()
+mono.formClass.methodHookEntry = function()
+  mono.formClass.methodHook(1)
+end
+
+mono.formClass.methodHook = function(entry_flag)
   local self = mono.formClass
   local method = self:getSelectedMethod()
   if method == nil then
@@ -292,7 +297,11 @@ mono.formClass.methodHook = function()
   end
   table.insert(lines, "")
 
-  table.insert(lines, "  Returns (RAX) "..method.returnType)
+  if (method.returnType == "single" or method.returnType == "double" or method.returnType == "System.Single" or method.returnType == "System.Double") then
+    table.insert(lines, "  Returns XMM0 ("..method.returnType..")")
+  else
+    table.insert(lines, "  Returns RAX ("..method.returnType..")")
+  end
   table.insert(lines, "}")
   table.insert(lines, "")
   table.insert(lines, "newmem:")
@@ -303,7 +312,7 @@ mono.formClass.methodHook = function()
   table.insert(lines, "  jmp hook+"..string.format("%X", hookInfo.returnOffset))
   table.insert(lines, "")
   table.insert(lines, "hook:")
-  table.insert(lines, "  jmp newmem")
+  table.insert(lines, "  jmp short newmem")
   table.insert(lines, "")
   table.insert(lines, "[disable]")
   table.insert(lines, "")
@@ -320,14 +329,24 @@ mono.formClass.methodHook = function()
 
   local aa = table.concat(t)
 
-  getMemoryViewForm().AutoInject1.DoClick()
-  
-  for i=0,getFormCount()-1 do --this is sorted from z-level. 0 is top
-    local f=getForm(i)
+  if (entry_flag) then
+    -- create table entry with hook code named after address
+    local entry = getAddressList().createMemoryRecord()
+    entry.setDescription(hookInfo.hookString)
+    entry.Type = vtAutoAssembler -- must be set before setting 'Script'
+    entry.Script = aa
+    entry.Options = '[moHideChildren]'
+  else
+    -- open up AA window with hook code
+    getMemoryViewForm().AutoInject1.DoClick()
+    
+    for i=0,getFormCount()-1 do --this is sorted from z-level. 0 is top
+      local f=getForm(i)
 
-    if getForm(i).ClassName == 'TfrmAutoInject' then
-      f.assemblescreen.Lines.Text = aa
-      break
+      if getForm(i).ClassName == 'TfrmAutoInject' then
+        f.assemblescreen.Lines.Text = aa
+        break
+      end
     end
   end
 end
@@ -608,7 +627,7 @@ end
 // [enable]
 // assert("CryingSuns.PlayerStatus:BattleshipState:HasAuxiliarySystemType":+28, )
 ]]
-function hookAt(address)
+function hookAtFar(address)
   local pos = string.find(address, "+", 1, true)
   local name = address
   local offset = 0
@@ -640,8 +659,51 @@ function hookAt(address)
   return data
 end
 
-function hookMethod(method)
+function hookAt(address)
+  local pos = string.find(address, "+", 1, true)
+  local name = address
+  local offset = 0
+  if (pos ~= nil) then
+    name = string.substring(1, pos - 1)
+    offset = tonumber(string.sub(pos + 1), 16)
+  end
+  local actualAddress = getAddress(name) + offset
 
+  local data = {
+    hookString = util.safeAddress(getNameFromAddress(actualAddress)), -- used for injection, etc
+    instructions = {},
+    aobString = ""
+  }
+
+  local aobs = {}
+
+  while (offset < 5) do
+    local parsed = disassembleAndParse(actualAddress + offset)
+    if #aobs > 0 then table.insert(aobs, " ") end
+    table.insert(aobs, parsed.bytesString)
+    table.insert(data.instructions, "// "..parsed.instructionString)
+    offset = offset + parsed.length
+  end
+
+  -- Use readmem to get all instruction bytes, but we only need to replace 5.
+  -- Many times the instructions will look like this:
+  -- FuelController:UseRecoverItem - 55                    - push rbp
+  -- FuelController:UseRecoverItem+1- 48 8B EC              - mov rbp,rsp
+  -- FuelController:UseRecoverItem+4- 48 83 EC 40           - sub rsp,40 { 64 }
+  -- Hooking will overwrite the sub rsp instruction, but we only need to overwrite
+  -- the '48 83' for the last 2 bytes of the jmp.   Since this is a value
+  -- that frequently causes game updates to break scripts, we don't need
+  -- to have it hard-coded.
+  table.insert(data.instructions, "readmem(hook,"..tostring(offset)..")")
+
+  data.aobString = table.concat(aobs):sub(1,14) -- 5 bytes is what we need, 14 characters
+  data.returnString = util.safeAddress(getNameFromAddress(actualAddress + offset))
+  data.returnOffset = offset
+  return data
+end
+
+function hookMethod(method)
+  print('hookMethod() is not implemented!')
 end
 
 --[[
