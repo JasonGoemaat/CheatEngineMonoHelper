@@ -16,6 +16,15 @@ Recent (2024-02-25):
 * Default or separate option so 'hook' creates a standard table entry (and opens?)
 * Toggle for enabling 14 byte far jmp, default to 5 (current uses 14)
 * Toggle to use 'readmem', default on...  Mostly for 5 byte jumps where 'sub rsp,xxx' won't overwrite the xxx, helpful for not having to update scripts on game updates
+* Put AA commands in comments for classes in parameter list, calling class, and maybe fields?
+  * `GETMONOSTRUCT(Inventory,:Inventory)` should work
+  * Test in CE LUA window: `return monoAA_GETMONOSTRUCT("Inventory", ":Inventory", false)`
+  * Check that parent fields are included, or add parent classes separately and note in comments?
+* Better structure dissect for arrays, lists, dictionaries?
+  * Sucks that the indexed items are often wrong, or there are multiple
+  * Keys and Values are dumb
+  * Maybe LUA form to parse and display dictionary contents?   Table with Key, Value?
+* Look into calling mono method?  Creating mono class? 
 
 Older:
 
