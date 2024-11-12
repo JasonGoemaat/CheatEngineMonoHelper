@@ -250,6 +250,8 @@ end
 local parameters = { 'RCX', 'RDX', 'R8', 'R9', '[RBP+30]', '[RBP+38]', '[RBP+40]', '[RBP+48]', '[RBP+50]', '[RBP+58]', '[RBP+60]', '[RBP+68]', '[RBP+70]', '[RBP+78]' }
 local floatParameters = { 'XMM0', 'XMM1', 'XMM2', 'XMM3', '[RBP+30]', '[RBP+38]', '[RBP+40]', '[RBP+48]', '[RBP+50]', '[RBP+58]', '[RBP+60]', '[RBP+68]', '[RBP+70]', '[RBP+78]' }
 
+local parameters32 = { '[ebp+08]', '[ebp+0c]', '[ebp+10]', '[ebp+14]', '[ebp+18]', '[ebp+1c]', '[ebp+20]', '[ebp+24]', '[ebp+28]', '[ebp+2c]', '[ebp+30]', '[ebp+34]', '[ebp+38]', '[ebp+3c]' }
+
 local addMenuItem = function(popup, name, caption, func)
   local mi = createMenuItem(popup.Items)
   mi.Name = name
@@ -285,7 +287,7 @@ mono.formClass.methodHookEntry = function()
   mono.formClass.methodHook(1)
 end
 
-mono.formClass.methodHook = function(entry_flag, override_flag)
+local methodHook64 = function(entry_flag, override_flag)
   local self = mono.formClass
   local method = self:getSelectedMethod()
   if method == nil then
@@ -411,6 +413,142 @@ return nil, "COULD NOT FIND METHOD WITH SIGNATURE"
         break
       end
     end
+  end
+end
+
+local methodHook32 = function(entry_flag, override_flag)
+  local self = mono.formClass
+  local method = self:getSelectedMethod()
+  if method == nil then
+    print("No method selected!")
+    return
+  end
+
+  local address = mono_compile_method(method.id)
+  local hookInfo = hookAt(address)
+  -- have aobString, hookString, returnString, instructions
+  --[[ how to get method signature
+  local ps = {}
+  for i,p in ipairs(method.parameters) do
+    table.insert(ps, string.format('%s %s', p.type, p.name))
+  end
+  local parms = method.returnType..' ('..table.concat(ps, ', ')..')'
+  ]]
+
+  local lines = {}
+  
+  if override_flag then
+    local signature = mono_method_getSignature(method.id)
+    table.insert(lines, '{$lua}')
+    table.insert(lines, 'if syntaxcheck then return "define(hook,0)" end')
+    table.insert(lines, 'local class_id = mono_findClass("'..method.class.namespace..'", "'..method.class.name..'")')
+    table.insert(lines, 'local methods = mono_class_enumMethods(class_id)')
+    table.insert(lines, 'for i = 1,#methods do')
+    table.insert(lines, '  local m = methods[i]')
+    table.insert(lines, '  if m.name == "'..method.name..'" and mono_method_getSignature(m.method) == "'..signature..'" then')
+    table.insert(lines, '    local address = mono_compile_method(m.method)')
+    table.insert(lines, '    return string.format("define(hook,%x)",address)')
+    table.insert(lines, '  end')
+    table.insert(lines, 'end')
+    table.insert(lines, 'return nil, "COULD NOT FIND METHOD WITH SIGNATURE"')
+    table.insert(lines, '{$asm}')
+--[[ This works in Underminer
+if syntaxcheck then return "define(hook,0)" end
+local class_id = mono_findClass("", "Inventory")
+local methods = mono_class_enumMethods(class_id)
+for i = 1,#methods do
+  local m = methods[i]
+  print(m.name.." signature: "..mono_method_getSignature(m.method))
+  if m.name == "TryRemoveItem" and mono_method_getSignature(m.method) == "Item,int" then
+    local address = mono_compile_method(m.method)
+    return string.format("define(hook,%x)",address)
+  end
+end
+return nil, "COULD NOT FIND METHOD WITH SIGNATURE"
+]]
+  else
+    table.insert(lines, "define(hook,"..hookInfo.hookString..")")
+  end
+  table.insert(lines, "define(bytes,"..hookInfo.aobString..")")
+  table.insert(lines, "")
+  table.insert(lines, "[enable]")
+  table.insert(lines, "")
+  table.insert(lines, "assert(hook, bytes)")
+  table.insert(lines, "alloc(newmem,$1000, hook)")
+  table.insert(lines, "{")
+
+
+  -- note: per x64 calling convention, RCX might actually be space for
+  -- a pre-allocated structure for the return value and other parameters
+  -- might be moved one further down the list
+  table.insert(lines, "  [ebp+08]: "..method.class.name.." (this)")
+  for i,p in ipairs(method.parameters) do
+    local param = parameters32[i + 1]
+    table.insert(lines, "  "..param..": "..tostring(p.type).." "..tostring(p.name))
+  end
+  table.insert(lines, "")
+
+  if (method.returnType == "single" or method.returnType == "double" or method.returnType == "System.Single" or method.returnType == "System.Double") then
+    table.insert(lines, "  Returns XMM0 ("..method.returnType..")")
+  else
+    table.insert(lines, "  Returns EAX ("..method.returnType..")")
+  end
+  table.insert(lines, "}")
+  table.insert(lines, "")
+  table.insert(lines, "newmem:")
+  table.insert(lines, "  // original code")
+  for i,c in ipairs(hookInfo.instructions) do
+    table.insert(lines, "  "..c)
+  end
+  table.insert(lines, "  jmp hook+"..string.format("%X", hookInfo.returnOffset))
+  table.insert(lines, "")
+  table.insert(lines, "hook:")
+  table.insert(lines, "  jmp long newmem")
+  table.insert(lines, "")
+  table.insert(lines, "[disable]")
+  table.insert(lines, "")
+  table.insert(lines, "hook:")
+  table.insert(lines, "  db bytes")
+  table.insert(lines, "")
+  table.insert(lines, "dealloc(newmem)")
+
+  local t = {}
+  for i,v in ipairs(lines) do
+    table.insert(t, v);
+    table.insert(t, "\r\n")
+  end
+
+  local aa = table.concat(t)
+
+  if (entry_flag) then
+    -- create table entry with hook code named after address
+    local entry = getAddressList().createMemoryRecord()
+    entry.setDescription("HOOK: "..method.class.name.."."..method.name)
+    entry.Type = vtAutoAssembler -- must be set before setting 'Script'
+    entry.Script = aa
+    entry.Options = '[moHideChildren]'
+    getAddressList().SelectedRecord = entry -- select new entry
+    getAddressList().doValueChange() -- open editor
+  else
+    -- open up AA window with hook code
+    getMemoryViewForm().AutoInject1.DoClick()
+    
+    for i=0,getFormCount()-1 do --this is sorted from z-level. 0 is top
+      local f=getForm(i)
+
+      if getForm(i).ClassName == 'TfrmAutoInject' then
+        f.assemblescreen.Lines.Text = aa
+        break
+      end
+    end
+  end
+end
+
+mono.formClass.methodHook = function(entry_flag, override_flag)
+  if targetIs64Bit() then
+    methodHook64(entry_flag, override_flag)
+  else
+    methodHook32(entry_flag, override_flag)
   end
 end
 
