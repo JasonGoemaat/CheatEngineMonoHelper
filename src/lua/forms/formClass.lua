@@ -323,20 +323,20 @@ local methodHook64 = function(entry_flag, override_flag)
     table.insert(lines, 'end')
     table.insert(lines, 'return nil, "COULD NOT FIND METHOD WITH SIGNATURE"')
     table.insert(lines, '{$asm}')
---[[ This works in Underminer
-if syntaxcheck then return "define(hook,0)" end
-local class_id = mono_findClass("", "Inventory")
-local methods = mono_class_enumMethods(class_id)
-for i = 1,#methods do
-  local m = methods[i]
-  print(m.name.." signature: "..mono_method_getSignature(m.method))
-  if m.name == "TryRemoveItem" and mono_method_getSignature(m.method) == "Item,int" then
-    local address = mono_compile_method(m.method)
-    return string.format("define(hook,%x)",address)
-  end
-end
-return nil, "COULD NOT FIND METHOD WITH SIGNATURE"
-]]
+    --[[ This works in Underminer
+    if syntaxcheck then return "define(hook,0)" end
+    local class_id = mono_findClass("", "Inventory")
+    local methods = mono_class_enumMethods(class_id)
+    for i = 1,#methods do
+      local m = methods[i]
+      print(m.name.." signature: "..mono_method_getSignature(m.method))
+      if m.name == "TryRemoveItem" and mono_method_getSignature(m.method) == "Item,int" then
+        local address = mono_compile_method(m.method)
+        return string.format("define(hook,%x)",address)
+      end
+    end
+    return nil, "COULD NOT FIND METHOD WITH SIGNATURE"
+    ]]
   else
     table.insert(lines, "define(hook,"..hookInfo.hookString..")")
   end
@@ -452,20 +452,20 @@ local methodHook32 = function(entry_flag, override_flag)
     table.insert(lines, 'end')
     table.insert(lines, 'return nil, "COULD NOT FIND METHOD WITH SIGNATURE"')
     table.insert(lines, '{$asm}')
---[[ This works in Underminer
-if syntaxcheck then return "define(hook,0)" end
-local class_id = mono_findClass("", "Inventory")
-local methods = mono_class_enumMethods(class_id)
-for i = 1,#methods do
-  local m = methods[i]
-  print(m.name.." signature: "..mono_method_getSignature(m.method))
-  if m.name == "TryRemoveItem" and mono_method_getSignature(m.method) == "Item,int" then
-    local address = mono_compile_method(m.method)
-    return string.format("define(hook,%x)",address)
-  end
-end
-return nil, "COULD NOT FIND METHOD WITH SIGNATURE"
-]]
+    --[[ This works in Underminer
+    if syntaxcheck then return "define(hook,0)" end
+    local class_id = mono_findClass("", "Inventory")
+    local methods = mono_class_enumMethods(class_id)
+    for i = 1,#methods do
+      local m = methods[i]
+      print(m.name.." signature: "..mono_method_getSignature(m.method))
+      if m.name == "TryRemoveItem" and mono_method_getSignature(m.method) == "Item,int" then
+        local address = mono_compile_method(m.method)
+        return string.format("define(hook,%x)",address)
+      end
+    end
+    return nil, "COULD NOT FIND METHOD WITH SIGNATURE"
+    ]]
   else
     table.insert(lines, "define(hook,"..hookInfo.hookString..")")
   end
@@ -570,7 +570,8 @@ end
 -- Currently working on
 --------------------------------------------------------------------------------
 ]]
-mono.formClass.methodCreateTableScript = function()
+
+local createTableScript64 = function()
   local self = mono.formClass
   local method = self:getSelectedMethod()
   if method == nil then
@@ -706,6 +707,142 @@ mono.formClass.methodCreateTableScript = function()
   getMainForm().bringToFront()
 end
 
+local createTableScript32 = function()
+  local self = mono.formClass
+  local method = self:getSelectedMethod()
+  if method == nil then
+    print("No method selected!")
+    return
+  end
+
+  local address = mono_compile_method(method.id)
+  local hookInfo = hookAt(address)
+  local pointerLabel = "p"..method.class.name.."_"..method.name
+
+  local lines = {}
+  table.insert(lines, "define(hook,"..hookInfo.hookString..")")
+  table.insert(lines, "define(bytes,"..hookInfo.aobString..")")
+  table.insert(lines, "")
+  table.insert(lines, "[enable]")
+  table.insert(lines, "")
+  table.insert(lines, "assert(hook, bytes)")
+  table.insert(lines, "alloc(newmem,$1000, hook)")
+  table.insert(lines, "label("..pointerLabel..")")
+  table.insert(lines, "")
+  table.insert(lines, "{")
+
+  -- note: per x64 calling convention, RCX might actually be space for
+  -- a pre-allocated structure for the return value and other parameters
+  -- might be moved one further down the list
+  table.insert(lines, "  Parameters:")
+  table.insert(lines, "    [ebp+08]: "..method.class.name.." (this)")
+  for i,p in ipairs(method.parameters) do
+    local param = parameters32[i + 1]
+    table.insert(lines, "    "..param..": "..tostring(p.type).." "..tostring(p.name))
+  end
+  table.insert(lines, "")
+
+  if method.returnType ~= "(System.Void)" then
+    table.insert(lines, "  Returns (EAX) "..method.returnType)
+  end
+  table.insert(lines, "}")
+  table.insert(lines, "")
+  table.insert(lines, "newmem:")
+
+  table.insert(lines, "  // increment counter, store instance and parameters (could be off for static method?)")
+  table.insert(lines, "  push ebp")
+  table.insert(lines, "  mov ebp,esp")
+  table.insert(lines, "  push eax")
+  table.insert(lines, "  mov eax,[ebp+08]")
+  table.insert(lines, "  mov ["..pointerLabel.."], eax")
+  table.insert(lines, "  inc dword ptr ["..pointerLabel.."+4]")
+  local parameterOffset = 0x08
+  for i,p in ipairs(method.parameters) do
+    local param = parameters32[i + 1]
+    table.insert(lines, "  mov eax,"..param)
+    table.insert(lines, "  mov ["..pointerLabel.."+"..string.format("%x", parameterOffset).."],eax")
+    parameterOffset = parameterOffset + 4
+  end
+  table.insert(lines, "  pop eax")
+  table.insert(lines, "  pop ebp")
+  table.insert(lines, "")
+
+  table.insert(lines, "  // original code")
+  for i,c in ipairs(hookInfo.instructions) do
+    table.insert(lines, "  "..c)
+  end
+  table.insert(lines, "  jmp hook+"..string.format("%X", hookInfo.returnOffset))
+  table.insert(lines, "")
+  table.insert(lines, "align 10")
+  table.insert(lines, pointerLabel..":")
+  table.insert(lines, "  dq 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0")
+  table.insert(lines, "")
+
+  table.insert(lines, "hook:")
+  table.insert(lines, "  jmp newmem")
+  table.insert(lines, "")
+  table.insert(lines, "registersymbol("..pointerLabel..")")
+  table.insert(lines, "")
+  table.insert(lines, "[disable]")
+  table.insert(lines, "")
+  table.insert(lines, "hook:")
+  table.insert(lines, "  db bytes")
+  table.insert(lines, "")
+  table.insert(lines, "unregistersymbol("..pointerLabel..")")
+  table.insert(lines, "")
+  table.insert(lines, "dealloc(newmem)")
+
+  local t = {}
+  for i,v in ipairs(lines) do
+    table.insert(t, v);
+    table.insert(t, "\r\n")
+  end
+
+  local aa = table.concat(t)
+
+  local parent = getAddressList().createMemoryRecord()
+  parent.setDescription(method.class.name..":"..method.name)
+  parent.Type = vtAutoAssembler -- must be set before setting 'Script'
+  parent.Script = aa
+  parent.Options = '[moHideChildren]'
+  getAddressList().SelectedRecord = parent -- select record
+
+  addMemoryRecord(parent, pointerLabel, pointerLabel, vtDword, true)
+  addMemoryRecord(parent, "Counter", pointerLabel.."+4", vtDword, false)
+  parameterOffset = 0x08
+  for i,p in ipairs(method.parameters) do
+    local valueType = vtDword
+    local showAsHex = false
+    local param = parameters[i + 1]
+    if (p.type == "single" or p.type == "System.Single") then
+      valueType = vtSingle
+    elseif (p.type == "double" or p.type == "System.Double") then
+      valueType = vtDouble
+    elseif (p.type == "int" or p.type == "System.Int32") then
+      valueType = vtDword
+    elseif (p.type == "long" or p.type == "System.Int64") then
+      valueType = vtQword
+    -- TODO: add pointer for string?
+    else
+      valueType = vtQword
+      showAsHex = true
+    end
+    addMemoryRecord(parent, p.name.." ("..p.type..")", pointerLabel.."+"..string.format("%x", parameterOffset), valueType, showAsHex)
+    parameterOffset = parameterOffset + 4
+  end
+
+  -- bring main window to front
+  getMainForm().bringToFront()
+end
+
+mono.formClass.methodCreateTableScript = function()
+  if targetIs64Bit() then
+    createTableScript64()
+  else
+    createTableScript32()
+  end
+end
+
 function addMemoryRecord(parent, description, address, type, hex)
   local memrec = getAddressList().createMemoryRecord()
   memrec.setDescription(description)
@@ -806,6 +943,9 @@ end
 --[[
       When double-clicking a field, print out the base address for the statics of the
       class and the address of the clicked-on static field.
+
+      TODO: Create table entry that will use lua to find statics:
+        * mono_class_getStaticFieldAddress(mono_enumDomains()[1], mono_findClass("", "GameManager"))
 --]]
 function mono.formClass:listFields_OnDblClick(sender)
   local field = self.fields[sender.ItemIndex + 1]
