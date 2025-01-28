@@ -24,13 +24,13 @@ classes and functions in games that use Mono.
 The search pre-processes a single image, which defaults to 'Assembly-CSharp',
 so do 'Select Image' to pick a different one:
 
-![SelectImage](Docs/SelectImage.png)
+![SelectImage](docs/SelectImage.png)
 
 Use the new 'Mono->Search' menu and start typing to show Classes, Fields,
 and Methods that contain your text.   Double-clicking on any will open
 a 'Class' window.
 
-![Search](Docs/Search.png)
+![Search](docs/Search.png)
 
 In the 'Class' window you can see fields and methods.  Right-clicking on
 a method gives you a few options:
@@ -39,7 +39,7 @@ a method gives you a few options:
 2. Disassemble - jump to the method in the disassembler
 3. Create Table Script - Creates table entry hooking the start of the method with a counter for number of times executed and storing the most recent object pointer and parameter values
 
-![Class](Docs/Class.png)
+![Class](docs/Class.png)
 
 ## Hooking a method
 
