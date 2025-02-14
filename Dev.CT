@@ -5,467 +5,6 @@
   </Forms>
   <CheatEntries>
     <CheatEntry>
-      <ID>24</ID>
-      <Description>"www.patreon.com/gamercare"</Description>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>[ENABLE]
-{$lua}
-shellExecute('www.patreon.com/gamercare')
-{$asm}
-
-[DISABLE]
-</AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>34</ID>
-      <Description>"cheats"</Description>
-      <Options moHideChildren="1"/>
-      <LastState/>
-      <Color>FF0000</Color>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>[ENABLE]
-{$lua}
-OpenProcess("THKM.exe")
-showMessage("Created by GamerCare, enjoy.")
-mono_initialize()
-LaunchMonoDataCollector()
-{$asm}
-
-[DISABLE]
-</AssemblerScript>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>46</ID>
-          <Description>"godmode"</Description>
-          <LastState/>
-          <Color>FF0000</Color>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>// Game Executable   : THKM.exe
-// Author            : GamerCare
-// Tables Archive    : wwww.pastelink.net/133ki
-// Patreon           : www.patreon.com/gamercare
-
-[ENABLE]
-
-THKM:PlayerBaseDamage:set_Health+16:
-	nop
-	nop
-
-[DISABLE]
-
-THKM:PlayerBaseDamage:set_Health+16:
-	test eax,eax
-
-{
-// ORIGINAL CODE - INJECTION POINT: THKM:PlayerBaseDamage:set_Health+16
-
-18687053E3B: 01 00  - add [rax],eax
-18687053E3D: 00 00  - add [rax],al
-18687053E3F: 00 55 48  - add [rbp+48],dl
-THKM:PlayerBaseDamage:set_Health+2: 8B EC  - mov ebp,esp
-THKM:PlayerBaseDamage:set_Health+4: 57 - push rdi
-THKM:PlayerBaseDamage:set_Health+5: 48 83 EC 18 - sub rsp,18
-THKM:PlayerBaseDamage:set_Health+9: 48 8B F9  - mov rdi,rcx
-THKM:PlayerBaseDamage:set_Health+c: 48 89 55 E0  - mov [rbp-20],rdx
-THKM:PlayerBaseDamage:set_Health+10: 48 8B C2  - mov rax,rdx
-THKM:PlayerBaseDamage:set_Health+13: 89 47 20  - mov [rdi+20],eax
-// ---------- INJECTING HERE ----------
-THKM:PlayerBaseDamage:set_Health+16: 85 C0  - test eax,eax
-// ---------- DONE INJECTING  ----------
-THKM:PlayerBaseDamage:set_Health+18: 0F85 9D000000 - jne 18687053EFB
-THKM:PlayerBaseDamage:set_Health+1e: 48 B8 F095FFC986010000 - mov rax,00000186C9FF95F0
-THKM:PlayerBaseDamage:set_Health+28: 48 8B 00  - mov rax,[rax]
-THKM:PlayerBaseDamage:set_Health+2b: 0FB6 40 50  - movzx eax,byte ptr [rax+50]
-THKM:PlayerBaseDamage:set_Health+2f: 85 C0  - test eax,eax
-THKM:PlayerBaseDamage:set_Health+31: 75 2A - jne 18687053E9D
-THKM:PlayerBaseDamage:set_Health+33: 48 B8 F095FFC986010000 - mov rax,00000186C9FF95F0
-THKM:PlayerBaseDamage:set_Health+3d: 48 8B 00  - mov rax,[rax]
-THKM:PlayerBaseDamage:set_Health+40: 48 8B C8  - mov rcx,rax
-THKM:PlayerBaseDamage:set_Health+43: 83 39 00 - cmp dword ptr [rcx],00
-}
-</AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>42</ID>
-          <Description>"weapon"</Description>
-          <LastState/>
-          <Color>FF0000</Color>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>// Game Executable   : THKM.exe
-// Author            : GamerCare
-// Tables Archive    : wwww.pastelink.net/133ki
-// Patreon           : www.patreon.com/gamercare
-
-[ENABLE]
-alloc(newmem_rapidfire,1024,THKM:PlayerBaseInput:ButtonInputs+16)
-alloc(showstat_rapidfire,8)
-label(return_rapidfire)
-label(code_rapidfire)
-label(exit_rapidfire)
-registersymbol(showstat_rapidfire)
-
-newmem_rapidfire:
-  mov [showstat_rapidfire],rax
-
-code_rapidfire:
-  movzx eax,byte ptr [rax+000000AC]
-
-exit_rapidfire:
-  jmp return_rapidfire
-
-THKM:PlayerBaseInput:ButtonInputs+16:
-rapidfire:
-  jmp newmem_rapidfire
-  nop 2
-return_rapidfire:
-
-[DISABLE]
-THKM:PlayerBaseInput:ButtonInputs+16:
-  movzx eax,byte ptr [rax+000000AC]
-  //db 0F B6 80 AC 00 00 00
-
-unregistersymbol(showstat_rapidfire)
-dealloc(showstat_rapidfire)
-dealloc(newmem_rapidfire)
-
-{
-// ORIGINAL CODE - INJECTION POINT: THKM:PlayerBaseInput:ButtonInputs+16
-
-1868700886B: 00 00                          -  add [rax],al
-1868700886D: 00 00                          -  add [rax],al
-1868700886F: 00 55 48                       -  add [rbp+48],dl
-18687008872: 8B EC                          -  mov ebp,esp
-18687008874: 56                             -  push rsi
-18687008875: 48 83 EC 28                    -  sub rsp,28
-18687008879: 48 8B F1                       -  mov rsi,rcx
-1868700887C: 48 8B 46 18                    -  mov rax,[rsi+18]
-18687008880: 48 8B C8                       -  mov rcx,rax
-18687008883: 83 39 00                       -  cmp dword ptr [rcx],00
-// ---------- INJECTING HERE ----------
-18687008886: 0F B6 80 AC 00 00 00           -  movzx eax,byte ptr [rax+000000AC]
-// ---------- DONE INJECTING  ----------
-1868700888D: 85 C0                          -  test eax,eax
-1868700888F: 0F 84 78 00 00 00              -  je 1868700890D
-18687008895: 48 8B 46 10                    -  mov rax,[rsi+10]
-18687008899: 48 8B C8                       -  mov rcx,rax
-1868700889C: 48 BA 00 2A B8 E0 86 01 00 00  -  mov rdx,00000186E0B82A00
-186870088A6: 48 83 EC 20                    -  sub rsp,20
-186870088AA: 83 38 00                       -  cmp dword ptr [rax],00
-186870088AD: 49 BB 20 87 02 87 86 01 00 00  -  mov r11,0000018687028720
-186870088B7: 41 FF D3                       -  call r11
-186870088BA: 48 83 C4 20                    -  add rsp,20
-}
-</AssemblerScript>
-          <CheatEntries>
-            <CheatEntry>
-              <ID>43</ID>
-              <Description>"rapidfire"</Description>
-              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:No
-1:Yes
-</DropDownList>
-              <Color>FF8000</Color>
-              <VariableType>4 Bytes</VariableType>
-              <Address>[showstat_rapidfire]+ac</Address>
-            </CheatEntry>
-          </CheatEntries>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>35</ID>
-          <Description>"infinite ammo"</Description>
-          <LastState/>
-          <Color>FF0000</Color>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>// Game Executable   : THKM.exe
-// Author            : GamerCare
-// Tables Archive    : wwww.pastelink.net/133ki
-// Patreon           : www.patreon.com/gamercare
-
-[ENABLE]
-alloc(newmem_bullets,1024,THKM:WeaponBase:Fire+28)
-label(return_bullets)
-label(code_bullets)
-label(exit_bullets)
-
-newmem_bullets:
-
-code_bullets:
-  nop
-  mov [rsi+0000011C],eax
-
-exit_bullets:
-  jmp return_bullets
-
-THKM:WeaponBase:Fire+28:
-bullets:
-  jmp newmem_bullets
-  nop 3
-return_bullets:
-
-[DISABLE]
-THKM:WeaponBase:Fire+28:
-  dec eax
-  mov [rsi+0000011C],eax
-  //db FF C8 89 86 1C 01 00 00
-
-dealloc(newmem_bullets)
-
-{
-// ORIGINAL CODE - INJECTION POINT: THKM:WeaponBase:Fire+28
-
-22F08CC03F2: 8B EC                          -  mov ebp,esp
-22F08CC03F4: 56                             -  push rsi
-22F08CC03F5: 48 83 EC 48                    -  sub rsp,48
-22F08CC03F9: 48 8B F1                       -  mov rsi,rcx
-22F08CC03FC: 48 8D 86 F8 00 00 00           -  lea rax,[rsi+000000F8]
-22F08CC0403: 48 8B 4D 40                    -  mov rcx,[rbp+40]
-22F08CC0407: 48 89 08                       -  mov [rax],rcx
-22F08CC040A: 48 63 4D 48                    -  movsxd  rcx,dword ptr [rbp+48]
-22F08CC040E: 89 48 08                       -  mov [rax+08],ecx
-22F08CC0411: 48 63 86 1C 01 00 00           -  movsxd  rax,dword ptr [rsi+0000011C]
-// ---------- INJECTING HERE ----------
-22F08CC0418: FF C8                          -  dec eax
-22F08CC041A: 89 86 1C 01 00 00              -  mov [rsi+0000011C],eax
-// ---------- DONE INJECTING  ----------
-22F08CC0420: 48 8B 86 80 00 00 00           -  mov rax,[rsi+00000080]
-22F08CC0427: F3 0F 10 05 31 01 00 00        -  movss xmm0,[22F08CC0560]
-22F08CC042F: F3 0F 5A C0                    -  cvtss2sd xmm0,xmm0
-22F08CC0433: 48 8B C8                       -  mov rcx,rax
-22F08CC0436: F2 0F 10 C8                    -  movsd xmm1,xmm0
-22F08CC043A: F2 0F 5A C9                    -  cvtsd2ss xmm1,xmm1
-22F08CC043E: 48 83 EC 20                    -  sub rsp,20
-22F08CC0442: 83 38 00                       -  cmp dword ptr [rax],00
-22F08CC0445: 49 BB 50 24 CC 08 2F 02 00 00  -  mov r11,0000022F08CC2450
-22F08CC044F: 41 FF D3                       -  call r11
-}
-</AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>36</ID>
-          <Description>"infinite stars"</Description>
-          <LastState/>
-          <Color>FF0000</Color>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>// Game Executable   : THKM.exe
-// Author            : GamerCare
-// Tables Archive    : wwww.pastelink.net/133ki
-// Patreon           : www.patreon.com/gamercare
-
-[ENABLE]
-alloc(newmem_stars,1024,InventoryBase:WeaponInventoryBase:Start+2c)
-label(return_stars)
-label(code_stars)
-label(exit_stars)
-
-newmem_stars:
-  mov [rax+60],#999
-
-code_stars:
-  movsxd  rax,dword ptr [rax+60]
-  mov [rsi+20],eax
-
-exit_stars:
-  jmp return_stars
-
-InventoryBase:WeaponInventoryBase:Start+2c:
-stars:
-  jmp newmem_stars
-  nop 2
-return_stars:
-
-[DISABLE]
-InventoryBase:WeaponInventoryBase:Start+2c:
-  movsxd  rax,dword ptr [rax+60]
-  mov [rsi+20],eax
-  //db 48 63 40 60 89 46 20
-
-dealloc(newmem_stars)
-
-{
-// ORIGINAL CODE - INJECTION POINT: InventoryBase:WeaponInventoryBase:Start+2c
-
-22F08C7A4A3: 18 48 89                       -  sbb [rax-77],cl
-22F08C7A4A6: 34 24                          -  xor al,24
-22F08C7A4A8: 48 89 7C 24 08                 -  mov [rsp+08],rdi
-22F08C7A4AD: 4C 89 7C 24 10                 -  mov [rsp+10],r15
-22F08C7A4B2: 48 8B F1                       -  mov rsi,rcx
-22F08C7A4B5: 48 B8 00 CC C1 38 2F 02 00 00  -  mov rax,0000022F38C1CC00
-22F08C7A4BF: 48 8B 00                       -  mov rax,[rax]
-22F08C7A4C2: 48 8B C8                       -  mov rcx,rax
-22F08C7A4C5: 83 39 00                       -  cmp dword ptr [rcx],00
-22F08C7A4C8: 48 8B 40 28                    -  mov rax,[rax+28]
-// ---------- INJECTING HERE ----------
-22F08C7A4CC: 48 63 40 60                    -  movsxd  rax,dword ptr [rax+60]
-22F08C7A4D0: 89 46 20                       -  mov [rsi+20],eax
-// ---------- DONE INJECTING  ----------
-22F08C7A4D3: 45 33 FF                       -  xor r15d,r15d
-22F08C7A4D6: E9 53 00 00 00                 -  jmp 22F08C7A52E
-22F08C7A4DB: 48 8D 64 24 00                 -  lea rsp,[rsp+00]
-22F08C7A4E0: 48 8B 46 18                    -  mov rax,[rsi+18]
-22F08C7A4E4: 49 63 CF                       -  movsxd  rcx,r15d
-22F08C7A4E7: 39 48 18                       -  cmp [rax+18],ecx
-22F08C7A4EA: 0F 86 75 00 00 00              -  jbe 22F08C7A565
-22F08C7A4F0: 48 8D 44 C8 20                 -  lea rax,[rax+rcx*8+20]
-22F08C7A4F5: 48 8B 38                       -  mov rdi,[rax]
-22F08C7A4F8: 48 B8 00 CC C1 38 2F 02 00 00  -  mov rax,0000022F38C1CC00
-}
-</AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>39</ID>
-          <Description>"unlimited slow motion power"</Description>
-          <LastState/>
-          <Color>FF0000</Color>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>// Game Executable   : THKM.exe
-// Author            : GamerCare
-// Tables Archive    : wwww.pastelink.net/133ki
-// Patreon           : www.patreon.com/gamercare
-
-[ENABLE]
-alloc(newmem_matrix,1024,THKM:PlayerBaseInput:ButtonInputs+762)
-label(return_matrix)
-label(code_matrix)
-label(exit_matrix)
-
-newmem_matrix:
-
-code_matrix:
-  mov [rax+000000B0],(float)1.0
-  //movss [rax+000000B0],xmm5
-
-exit_matrix:
-  jmp return_matrix
-
-THKM:PlayerBaseInput:ButtonInputs+762:
-matrix:
-  jmp newmem_matrix
-  nop 3
-return_matrix:
-
-[DISABLE]
-THKM:PlayerBaseInput:ButtonInputs+762:
-  movss [rax+000000B0],xmm5
-  //db F3 0F 11 A8 B0 00 00 00
-
-dealloc(newmem_matrix)
-
-{
-// ORIGINAL CODE - INJECTION POINT: THKM:PlayerBaseInput:ButtonInputs+762
-
-18687008FA7: F2 0F 10 45 E0                 -  movsd xmm0,[rbp-20]
-18687008FAC: F2 0F 10 4D D8                 -  movsd xmm1,[rbp-28]
-18687008FB1: F2 0F 59 CA                    -  mulsd xmm1,xmm2
-18687008FB5: F2 0F 5C C1                    -  subsd xmm0,xmm1
-18687008FB9: F2 0F 5A E8                    -  cvtsd2ss xmm5,xmm0
-18687008FBD: F3 0F 11 6D F4                 -  movss [rbp-0C],xmm5
-18687008FC2: 83 38 00                       -  cmp dword ptr [rax],00
-18687008FC5: F3 0F 10 45 F4                 -  movss xmm0,[rbp-0C]
-18687008FCA: F3 0F 5A C0                    -  cvtss2sd xmm0,xmm0
-18687008FCE: F2 0F 5A E8                    -  cvtsd2ss xmm5,xmm0
-// ---------- INJECTING HERE ----------
-18687008FD2: F3 0F 11 A8 B0 00 00 00        -  movss [rax+000000B0],xmm5
-// ---------- DONE INJECTING  ----------
-18687008FDA: E9 8D 03 00 00                 -  jmp 1868700936C
-18687008FDF: 48 B8 00 CC 09 BB 86 01 00 00  -  mov rax,00000186BB09CC00
-18687008FE9: 48 8B 00                       -  mov rax,[rax]
-18687008FEC: 83 38 00                       -  cmp dword ptr [rax],00
-18687008FEF: 48 B8 D8 4E 09 BB 86 01 00 00  -  mov rax,00000186BB094ED8
-18687008FF9: 48 63 00                       -  movsxd  rax,dword ptr [rax]
-18687008FFC: 83 F8 02                       -  cmp eax,02
-18687008FFF: 0F 85 AD 00 00 00              -  jne 186870090B2
-18687009005: 48 8B 46 18                    -  mov rax,[rsi+18]
-18687009009: 48 8B C8                       -  mov rcx,rax
-}
-</AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>44</ID>
-          <Description>"movement speed"</Description>
-          <LastState/>
-          <Color>FF0000</Color>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>// Game Executable   : THKM.exe
-// Author            : GamerCare
-// Tables Archive    : wwww.pastelink.net/133ki
-// Patreon           : www.patreon.com/gamercare
-
-[ENABLE]
-alloc(newmem_movspeed,1024,THKM:PlayerBaseInput:UpdateMoveAxis+68)
-alloc(showstat_movspeed,8)
-label(return_movspeed)
-label(code_movspeed)
-label(exit_movspeed)
-registersymbol(showstat_movspeed)
-
-newmem_movspeed:
-  mov [showstat_movspeed],rsi
-
-code_movspeed:
-  push rax
-  mov eax,(float)2.0
-  mov [rsi+4c],eax
-  pop rax
-  movss xmm1,[rsi+4C]
-
-exit_movspeed:
-  jmp return_movspeed
-
-THKM:PlayerBaseInput:UpdateMoveAxis+68:
-movspeed:
-  jmp newmem_movspeed
-return_movspeed:
-
-[DISABLE]
-THKM:PlayerBaseInput:UpdateMoveAxis+68:
-  movss xmm1,[rsi+4C]
-  //db F3 0F 10 4E 4C
-
-unregistersymbol(showstat_movspeed)
-dealloc(showstat_movspeed)
-dealloc(newmem_movspeed)
-
-{
-// ORIGINAL CODE - INJECTION POINT: THKM:PlayerBaseInput:UpdateMoveAxis+68
-
-18687008357: 48 8B 46 10                    -  mov rax,[rsi+10]
-1868700835B: 48 8B C8                       -  mov rcx,rax
-1868700835E: 48 BA A0 2A B8 E0 86 01 00 00  -  mov rdx,00000186E0B82AA0
-18687008368: 48 83 EC 20                    -  sub rsp,20
-1868700836C: 83 38 00                       -  cmp dword ptr [rax],00
-1868700836F: 49 BB 80 84 00 87 86 01 00 00  -  mov r11,0000018687008480
-18687008379: 41 FF D3                       -  call r11
-1868700837C: 48 83 C4 20                    -  add rsp,20
-18687008380: F3 0F 5A C0                    -  cvtss2sd xmm0,xmm0
-18687008384: 48 8B 45 D8                    -  mov rax,[rbp-28]
-// ---------- INJECTING HERE ----------
-18687008388: F3 0F 10 4E 4C                 -  movss xmm1,[rsi+4C]
-// ---------- DONE INJECTING  ----------
-1868700838D: F3 0F 5A C9                    -  cvtss2sd xmm1,xmm1
-18687008391: F2 0F 59 C1                    -  mulsd xmm0,xmm1
-18687008395: F2 0F 5A E8                    -  cvtsd2ss xmm5,xmm0
-18687008399: F3 0F 11 28                    -  movss [rax],xmm5
-1868700839D: 48 85 F6                       -  test rsi,rsi
-186870083A0: 0F 84 82 00 00 00              -  je 18687008428
-186870083A6: 48 8D 46 30                    -  lea rax,[rsi+30]
-186870083AA: 48 89 45 E0                    -  mov [rbp-20],rax
-186870083AE: 48 8B 46 10                    -  mov rax,[rsi+10]
-186870083B2: 48 8B C8                       -  mov rcx,rax
-}
-</AssemblerScript>
-          <CheatEntries>
-            <CheatEntry>
-              <ID>45</ID>
-              <Description>"value"</Description>
-              <Color>FF8000</Color>
-              <VariableType>Float</VariableType>
-              <Address>[showstat_movspeed]+4c</Address>
-            </CheatEntry>
-          </CheatEntries>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
       <ID>3</ID>
       <Description>"MonoHelper"</Description>
       <LastState/>
@@ -2620,1118 +2159,8 @@ end
 </AssemblerScript>
     </CheatEntry>
     <CheatEntry>
-      <ID>47</ID>
-      <Description>"IGNORE: THKM.EnemyCanSeeTarget:Score"</Description>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>define(hook,"THKM.EnemyCanSeeTarget:Score")
-define(bytes,55 48 8B EC 56)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-
-{
-  RCX: EnemyCanSeeTarget (this)
-  RDX: Apex.AI.IAIContext context
-
-  Returns (RAX) System.Single
-}
-
-newmem:
-  xorps xmm0,xmm0 // should clear to 0
-  mov eax,0
-  movzx rax,al
-  ret
-
-  // original code
-  // push rbp
-  // mov rbp,rsp
-  // push rsi
-  readmem(hook,5)
-  jmp hook+5
-
-hook:
-  jmp newmem
-
-[disable]
-
-hook:
-  db bytes
-
-dealloc(newmem)
-</AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>48</ID>
-      <Description>"IGNORE: THKM.EnemyBaseContextProvider:Attack"</Description>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>define(hook,"THKM.EnemyBaseContextProvider:Attack")
-define(bytes,48 83 EC 08 48)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-{
-  RCX: EnemyBaseContextProvider (this)
-
-  Returns (RAX) System.Void
-}
-
-newmem:
-  // original code
-  // sub rsp,08
-  // add rsp,08
-  xor rax,rax
-  ret
-  readmem(hook,8)
-  jmp hook+8
-
-hook:
-  jmp newmem
-
-[disable]
-
-hook:
-  db bytes
-
-dealloc(newmem)
-</AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>49</ID>
-      <Description>"HOOK: EnemyBaseContextProvider.Attack"</Description>
-      <Options moHideChildren="1"/>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>{$lua}
-if syntaxcheck then return "define(hook,0)" end
-local class_id = mono_findClass("THKM", "EnemyBaseContextProvider")
-local methods = mono_class_enumMethods(class_id)
-for i = 1,#methods do
-  local m = methods[i]
-  if m.name == "Attack" and mono_method_getSignature(m.method) == "" then
-    local address = mono_compile_method(m.method)
-    return string.format("define(hook,%x)",address)
-  end
-end
-return nil, "COULD NOT FIND METHOD WITH SIGNATURE"
-{$asm}
-define(bytes,48 83 EC 08 48)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-{
-  RCX: EnemyBaseContextProvider (this)
-
-  Returns RAX (System.Void)
-}
-
-newmem:
-  // original code
-  // sub rsp,08
-  // add rsp,08
-  readmem(hook,8)
-  jmp hook+8
-
-hook:
-  jmp long newmem
-
-[disable]
-
-hook:
-  db bytes
-
-dealloc(newmem)
-</AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>50</ID>
-      <Description>"HOOK: EnemyBaseContextProvider.Attack"</Description>
-      <Options moHideChildren="1"/>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>define(hook,"THKM.EnemyBaseContextProvider:Attack")
-define(bytes,48 83 EC 08 48)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-{
-  RCX: EnemyBaseContextProvider (this)
-
-  Returns RAX (System.Void)
-}
-
-newmem:
-  // original code
-  // sub rsp,08
-  // add rsp,08
-  readmem(hook,8)
-  jmp hook+8
-
-hook:
-  jmp long newmem
-
-[disable]
-
-hook:
-  db bytes
-
-dealloc(newmem)
-</AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>51</ID>
-      <Description>"EnemyBaseContextProvider:Attack"</Description>
-      <Options moHideChildren="1"/>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>define(hook,"THKM.EnemyBaseContextProvider:Attack")
-define(bytes,48 83 EC 08 48)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-label(pEnemyBaseContextProvider_Attack)
-
-{
-  RCX: EnemyBaseContextProvider (this)
-
-  Returns (RAX) System.Void
-}
-
-newmem:
-  // increment counter, store instance and parameters (could be off for static method?)
-  push rbp
-  mov rbp,rsp
-  push rax
-  mov [pEnemyBaseContextProvider_Attack], rcx
-  inc dword ptr [pEnemyBaseContextProvider_Attack+8]
-  pop rax
-  pop rbp
-
-  // original code
-  // sub rsp,08
-  // add rsp,08
-  readmem(hook,8)
-  jmp hook+8
-
-align 10
-pEnemyBaseContextProvider_Attack:
-  dq 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-
-hook:
-  jmp newmem
-
-registersymbol(pEnemyBaseContextProvider_Attack)
-
-[disable]
-
-hook:
-  db bytes
-
-unregistersymbol(pEnemyBaseContextProvider_Attack)
-
-dealloc(newmem)
-</AssemblerScript>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>52</ID>
-          <Description>"pEnemyBaseContextProvider_Attack"</Description>
-          <ShowAsHex>1</ShowAsHex>
-          <VariableType>8 Bytes</VariableType>
-          <Address>pEnemyBaseContextProvider_Attack</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>53</ID>
-          <Description>"Counter"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>pEnemyBaseContextProvider_Attack+8</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>54</ID>
-          <Description>"EnemyBaseContextProvider:Update"</Description>
-          <Options moHideChildren="1"/>
-          <LastState/>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>define(hook,"THKM.EnemyBaseContextProvider:Update")
-define(bytes,55 48 8B EC 48)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-label(pEnemyBaseContextProvider_Update)
-
-{
-  RCX: EnemyBaseContextProvider (this)
-
-  Returns (RAX) System.Void
-}
-
-newmem:
-  // increment counter, store instance and parameters (could be off for static method?)
-  push rbp
-  mov rbp,rsp
-  push rax
-  mov [pEnemyBaseContextProvider_Update], rcx
-  inc dword ptr [pEnemyBaseContextProvider_Update+8]
-  pop rax
-  pop rbp
-
-  // original code
-  // push rbp
-  // mov rbp,rsp
-  // sub rsp,10
-  readmem(hook,8)
-  jmp hook+8
-
-align 10
-pEnemyBaseContextProvider_Update:
-  dq 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-
-hook:
-  jmp newmem
-
-registersymbol(pEnemyBaseContextProvider_Update)
-
-[disable]
-
-hook:
-  db bytes
-
-unregistersymbol(pEnemyBaseContextProvider_Update)
-
-dealloc(newmem)
-</AssemblerScript>
-          <CheatEntries>
-            <CheatEntry>
-              <ID>55</ID>
-              <Description>"pEnemyBaseContextProvider_Update"</Description>
-              <ShowAsHex>1</ShowAsHex>
-              <VariableType>8 Bytes</VariableType>
-              <Address>pEnemyBaseContextProvider_Update</Address>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>56</ID>
-              <Description>"Counter"</Description>
-              <VariableType>4 Bytes</VariableType>
-              <Address>pEnemyBaseContextProvider_Update+8</Address>
-            </CheatEntry>
-          </CheatEntries>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>57</ID>
-      <Description>"EnemyUnitBaseContextProvider:Attack"</Description>
-      <Options moHideChildren="1"/>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>define(hook,"THKM.EnemyUnitBase.EnemyUnitBaseContextProvider:Attack")
-define(bytes,48 83 EC 08 48)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-label(pEnemyUnitBaseContextProvider_Attack)
-
-{
-  RCX: EnemyUnitBaseContextProvider (this)
-
-  Returns (RAX) System.Void
-}
-
-newmem:
-  // increment counter, store instance and parameters (could be off for static method?)
-  push rbp
-  mov rbp,rsp
-  push rax
-  mov [pEnemyUnitBaseContextProvider_Attack], rcx
-  inc dword ptr [pEnemyUnitBaseContextProvider_Attack+8]
-  pop rax
-  pop rbp
-
-  // original code
-  // sub rsp,08
-  // add rsp,08
-  readmem(hook,8)
-  jmp hook+8
-
-align 10
-pEnemyUnitBaseContextProvider_Attack:
-  dq 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-
-hook:
-  jmp newmem
-
-registersymbol(pEnemyUnitBaseContextProvider_Attack)
-
-[disable]
-
-hook:
-  db bytes
-
-unregistersymbol(pEnemyUnitBaseContextProvider_Attack)
-
-dealloc(newmem)
-</AssemblerScript>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>58</ID>
-          <Description>"pEnemyUnitBaseContextProvider_Attack"</Description>
-          <ShowAsHex>1</ShowAsHex>
-          <VariableType>8 Bytes</VariableType>
-          <Address>pEnemyUnitBaseContextProvider_Attack</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>59</ID>
-          <Description>"Counter"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>pEnemyUnitBaseContextProvider_Attack+8</Address>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>60</ID>
-      <Description>"UnitBaseContextProvider:Attack"</Description>
-      <Options moHideChildren="1"/>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>define(hook,"THKM.UnitBaseContextProvider:Attack")
-define(bytes,55 48 8B EC 48)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-label(pUnitBaseContextProvider_Attack)
-
-{
-  RCX: UnitBaseContextProvider (this)
-
-  Returns (RAX) System.Void
-}
-
-newmem:
-  // increment counter, store instance and parameters (could be off for static method?)
-  push rbp
-  mov rbp,rsp
-  push rax
-  mov [pUnitBaseContextProvider_Attack], rcx
-  inc dword ptr [pUnitBaseContextProvider_Attack+8]
-  pop rax
-  pop rbp
-
-  // original code
-  // push rbp
-  // mov rbp,rsp
-  // sub rsp,10
-  readmem(hook,8)
-  jmp hook+8
-
-align 10
-pUnitBaseContextProvider_Attack:
-  dq 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-
-hook:
-  jmp newmem
-
-registersymbol(pUnitBaseContextProvider_Attack)
-
-[disable]
-
-hook:
-  db bytes
-
-unregistersymbol(pUnitBaseContextProvider_Attack)
-
-dealloc(newmem)
-</AssemblerScript>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>61</ID>
-          <Description>"pUnitBaseContextProvider_Attack"</Description>
-          <ShowAsHex>1</ShowAsHex>
-          <VariableType>8 Bytes</VariableType>
-          <Address>pUnitBaseContextProvider_Attack</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>62</ID>
-          <Description>"Counter"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>pUnitBaseContextProvider_Attack+8</Address>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>63</ID>
-      <Description>"&lt;----- AddObservation"</Description>
-      <Options moHideChildren="1"/>
-      <LastState Value="" RealAddress="00000000"/>
-      <GroupHeader>1</GroupHeader>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>64</ID>
-          <Description>"HOOK: EnemyBaseContextProvider.AddObservation"</Description>
-          <Options moHideChildren="1"/>
-          <LastState/>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>{$lua}
-if syntaxcheck then return "define(hook,0)" end
-local class_id = mono_findClass("THKM", "EnemyBaseContextProvider")
-local methods = mono_class_enumMethods(class_id)
-for i = 1,#methods do
-  local m = methods[i]
-  if m.name == "AddObservation" and mono_method_getSignature(m.method) == "THKM.Helpers.Observation" then
-    local address = mono_compile_method(m.method)
-    return string.format("define(hook,%x)",address)
-  end
-end
-return nil, "COULD NOT FIND METHOD WITH SIGNATURE"
-{$asm}
-define(bytes,48 83 EC 18 48)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-{
-  RCX: EnemyBaseContextProvider (this)
-  RDX: THKM.Helpers.Observation observation
-
-  Returns RAX (System.Void)
-}
-
-newmem:
-  // original code
-  // sub rsp,18
-  // add rsp,18
-  ret
-  readmem(hook,8)
-  jmp hook+8
-
-hook:
-  jmp long newmem
-
-[disable]
-
-hook:
-  db bytes
-
-dealloc(newmem)
-</AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>65</ID>
-          <Description>"HOOK: EnemyBaseContextProvider.AddObservation"</Description>
-          <Options moHideChildren="1"/>
-          <LastState/>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>{$lua}
-if syntaxcheck then return "define(hook,0)" end
-local class_id = mono_findClass("THKM", "EnemyBaseContextProvider")
-local methods = mono_class_enumMethods(class_id)
-for i = 1,#methods do
-  local m = methods[i]
-  if m.name == "AddObservation" and mono_method_getSignature(m.method) == "THKM.IUnit" then
-    local address = mono_compile_method(m.method)
-    return string.format("define(hook,%x)",address)
-  end
-end
-return nil, "COULD NOT FIND METHOD WITH SIGNATURE"
-{$asm}
-define(bytes,48 83 EC 18 48)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-{
-  RCX: EnemyBaseContextProvider (this)
-  RDX: THKM.IUnit entity
-
-  Returns RAX (System.Void)
-}
-
-newmem:
-  // original code
-  // sub rsp,18
-  // add rsp,18
-  ret
-  readmem(hook,8)
-  jmp hook+8
-
-hook:
-  jmp long newmem
-
-[disable]
-
-hook:
-  db bytes
-
-dealloc(newmem)
-</AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>66</ID>
-          <Description>"HOOK: EnemyBossContextProvider.AddObservation"</Description>
-          <Options moHideChildren="1"/>
-          <LastState/>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>{$lua}
-if syntaxcheck then return "define(hook,0)" end
-local class_id = mono_findClass("THKM", "EnemyBossContextProvider")
-local methods = mono_class_enumMethods(class_id)
-for i = 1,#methods do
-  local m = methods[i]
-  if m.name == "AddObservation" and mono_method_getSignature(m.method) == "THKM.IUnit" then
-    local address = mono_compile_method(m.method)
-    return string.format("define(hook,%x)",address)
-  end
-end
-return nil, "COULD NOT FIND METHOD WITH SIGNATURE"
-{$asm}
-define(bytes,48 83 EC 18 48)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-{
-  RCX: EnemyBossContextProvider (this)
-  RDX: THKM.IUnit entity
-
-  Returns RAX (System.Void)
-}
-
-newmem:
-  // original code
-  // sub rsp,18
-  // add rsp,18
-  ret
-  readmem(hook,8)
-  jmp hook+8
-
-hook:
-  jmp long newmem
-
-[disable]
-
-hook:
-  db bytes
-
-dealloc(newmem)
-</AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>67</ID>
-          <Description>"HOOK: EnemyBossContextProvider.AddObservation"</Description>
-          <Options moHideChildren="1"/>
-          <LastState/>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>{$lua}
-if syntaxcheck then return "define(hook,0)" end
-local class_id = mono_findClass("THKM", "EnemyBossContextProvider")
-local methods = mono_class_enumMethods(class_id)
-for i = 1,#methods do
-  local m = methods[i]
-  if m.name == "AddObservation" and mono_method_getSignature(m.method) == "THKM.Helpers.Observation" then
-    local address = mono_compile_method(m.method)
-    return string.format("define(hook,%x)",address)
-  end
-end
-return nil, "COULD NOT FIND METHOD WITH SIGNATURE"
-{$asm}
-define(bytes,48 83 EC 18 48)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-{
-  RCX: EnemyBossContextProvider (this)
-  RDX: THKM.Helpers.Observation observation
-
-  Returns RAX (System.Void)
-}
-
-newmem:
-  // original code
-  // sub rsp,18
-  // add rsp,18
-  ret
-  readmem(hook,8)
-  jmp hook+8
-
-hook:
-  jmp long newmem
-
-[disable]
-
-hook:
-  db bytes
-
-dealloc(newmem)
-</AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>68</ID>
-          <Description>"HOOK: EnemyUnitBaseContextProvider.AddObservation"</Description>
-          <Options moHideChildren="1"/>
-          <LastState/>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>{$lua}
-if syntaxcheck then return "define(hook,0)" end
-local class_id = mono_findClass("THKM.EnemyUnitBase", "EnemyUnitBaseContextProvider")
-local methods = mono_class_enumMethods(class_id)
-for i = 1,#methods do
-  local m = methods[i]
-  if m.name == "AddObservation" and mono_method_getSignature(m.method) == "THKM.Helpers.Observation" then
-    local address = mono_compile_method(m.method)
-    return string.format("define(hook,%x)",address)
-  end
-end
-return nil, "COULD NOT FIND METHOD WITH SIGNATURE"
-{$asm}
-define(bytes,48 83 EC 18 48)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-{
-  RCX: EnemyUnitBaseContextProvider (this)
-  RDX: THKM.Helpers.Observation observation
-
-  Returns RAX (System.Void)
-}
-
-newmem:
-  // original code
-  // sub rsp,18
-  // add rsp,18
-  ret
-  readmem(hook,8)
-  jmp hook+8
-
-hook:
-  jmp long newmem
-
-[disable]
-
-hook:
-  db bytes
-
-dealloc(newmem)
-</AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>69</ID>
-          <Description>"HOOK: EnemyUnitBaseContextProvider.AddObservation"</Description>
-          <Options moHideChildren="1"/>
-          <LastState/>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>{$lua}
-if syntaxcheck then return "define(hook,0)" end
-local class_id = mono_findClass("THKM.EnemyUnitBase", "EnemyUnitBaseContextProvider")
-local methods = mono_class_enumMethods(class_id)
-for i = 1,#methods do
-  local m = methods[i]
-  if m.name == "AddObservation" and mono_method_getSignature(m.method) == "THKM.IUnit" then
-    local address = mono_compile_method(m.method)
-    return string.format("define(hook,%x)",address)
-  end
-end
-return nil, "COULD NOT FIND METHOD WITH SIGNATURE"
-{$asm}
-define(bytes,48 83 EC 18 48)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-{
-  RCX: EnemyUnitBaseContextProvider (this)
-  RDX: THKM.IUnit entity
-
-  Returns RAX (System.Void)
-}
-
-newmem:
-  // original code
-  // sub rsp,18
-  // add rsp,18
-  ret
-  readmem(hook,8)
-  jmp hook+8
-
-hook:
-  jmp long newmem
-
-[disable]
-
-hook:
-  db bytes
-
-dealloc(newmem)
-</AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>70</ID>
-          <Description>"HOOK: UnitBaseContextProvider.AddObservation"</Description>
-          <Options moHideChildren="1"/>
-          <LastState/>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>{$lua}
-if syntaxcheck then return "define(hook,0)" end
-local class_id = mono_findClass("THKM", "UnitBaseContextProvider")
-local methods = mono_class_enumMethods(class_id)
-for i = 1,#methods do
-  local m = methods[i]
-  if m.name == "AddObservation" and mono_method_getSignature(m.method) == "THKM.Helpers.Observation" then
-    local address = mono_compile_method(m.method)
-    return string.format("define(hook,%x)",address)
-  end
-end
-return nil, "COULD NOT FIND METHOD WITH SIGNATURE"
-{$asm}
-define(bytes,55 48 8B EC 48)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-{
-  RCX: UnitBaseContextProvider (this)
-  RDX: THKM.Helpers.Observation observation
-
-  Returns RAX (System.Void)
-}
-
-newmem:
-  // original code
-  // push rbp
-  // mov rbp,rsp
-  // sub rsp,10
-  ret
-  readmem(hook,8)
-  jmp hook+8
-
-hook:
-  jmp long newmem
-
-[disable]
-
-hook:
-  db bytes
-
-dealloc(newmem)
-</AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>71</ID>
-          <Description>"HOOK: UnitBaseContextProvider.AddObservation"</Description>
-          <Options moHideChildren="1"/>
-          <LastState/>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>{$lua}
-if syntaxcheck then return "define(hook,0)" end
-local class_id = mono_findClass("THKM", "UnitBaseContextProvider")
-local methods = mono_class_enumMethods(class_id)
-for i = 1,#methods do
-  local m = methods[i]
-  if m.name == "AddObservation" and mono_method_getSignature(m.method) == "THKM.IUnit" then
-    local address = mono_compile_method(m.method)
-    return string.format("define(hook,%x)",address)
-  end
-end
-return nil, "COULD NOT FIND METHOD WITH SIGNATURE"
-{$asm}
-define(bytes,55 48 8B EC 48)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-{
-  RCX: UnitBaseContextProvider (this)
-  RDX: THKM.IUnit entity
-
-  Returns RAX (System.Void)
-}
-
-newmem:
-  // original code
-  // push rbp
-  // mov rbp,rsp
-  // sub rsp,10
-  ret
-  readmem(hook,8)
-  jmp hook+8
-
-hook:
-  jmp long newmem
-
-[disable]
-
-hook:
-  db bytes
-
-dealloc(newmem)
-</AssemblerScript>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>72</ID>
-      <Description>"AIManager:AddTargetObservation"</Description>
-      <Options moHideChildren="1"/>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>define(hook,"THKM.AIManager:AddTargetObservation")
-define(bytes,55 48 8B EC 56)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-label(pAIManager_AddTargetObservation)
-
-{
-  RCX: AIManager (this)
-  RDX: UnityEngine.Vector3 pos
-
-  Returns (RAX) System.Void
-}
-
-newmem:
-  // increment counter, store instance and parameters (could be off for static method?)
-  push rbp
-  mov rbp,rsp
-  push rax
-  mov [pAIManager_AddTargetObservation], rcx
-  inc dword ptr [pAIManager_AddTargetObservation+8]
-  mov [pAIManager_AddTargetObservation+10], RDX  // pos
-  pop rax
-  pop rbp
-  xor rax,rax
-  ret
-
-  // original code
-  // push rbp
-  // mov rbp,rsp
-  // push rsi
-  readmem(hook,5)
-  jmp hook+5
-
-align 10
-pAIManager_AddTargetObservation:
-  dq 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-
-hook:
-  jmp newmem
-
-registersymbol(pAIManager_AddTargetObservation)
-
-[disable]
-
-hook:
-  db bytes
-
-unregistersymbol(pAIManager_AddTargetObservation)
-
-dealloc(newmem)
-</AssemblerScript>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>73</ID>
-          <Description>"pAIManager_AddTargetObservation"</Description>
-          <ShowAsHex>1</ShowAsHex>
-          <VariableType>8 Bytes</VariableType>
-          <Address>pAIManager_AddTargetObservation</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>74</ID>
-          <Description>"Counter"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>pAIManager_AddTargetObservation+8</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>75</ID>
-          <Description>"pos (UnityEngine.Vector3)"</Description>
-          <ShowAsHex>1</ShowAsHex>
-          <VariableType>8 Bytes</VariableType>
-          <Address>pAIManager_AddTargetObservation+10</Address>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>76</ID>
-      <Description>"AIManager:Awake"</Description>
-      <Options moHideChildren="1"/>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>define(hook,"THKM.AIManager:Awake")
-define(bytes,55 48 8B EC 56)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-label(pAIManager_Awake)
-
-{
-  RCX: AIManager (this)
-
-  Returns (RAX) System.Void
-}
-
-newmem:
-  // increment counter, store instance and parameters (could be off for static method?)
-  push rbp
-  mov rbp,rsp
-  push rax
-  mov [pAIManager_Awake], rcx
-  inc dword ptr [pAIManager_Awake+8]
-  pop rax
-  pop rbp
-  xor rax,rax
-  ret
-
-  // original code
-  // push rbp
-  // mov rbp,rsp
-  // push rsi
-  readmem(hook,5)
-  jmp hook+5
-
-align 10
-pAIManager_Awake:
-  dq 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-
-hook:
-  jmp newmem
-
-registersymbol(pAIManager_Awake)
-
-[disable]
-
-hook:
-  db bytes
-
-unregistersymbol(pAIManager_Awake)
-
-dealloc(newmem)
-</AssemblerScript>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>77</ID>
-          <Description>"pAIManager_Awake"</Description>
-          <ShowAsHex>1</ShowAsHex>
-          <VariableType>8 Bytes</VariableType>
-          <Address>pAIManager_Awake</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>78</ID>
-          <Description>"Counter"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>pAIManager_Awake+8</Address>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>79</ID>
-      <Description>"HOOK: AIManager.Awake"</Description>
-      <Options moHideChildren="1"/>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>define(hook,"THKM.AIManager:Awake")
-define(bytes,55 48 8B EC 56)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-{
-  RCX: AIManager (this)
-
-  Returns RAX (System.Void)
-}
-
-newmem:
-  // original code
-  // push rbp
-  // mov rbp,rsp
-  // push rsi
-  xor rax,rax
-  ret
-  readmem(hook,5)
-  jmp hook+5
-
-hook:
-  jmp long newmem
-
-[disable]
-
-hook:
-  db bytes
-
-dealloc(newmem)
-</AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>80</ID>
-      <Description>"HOOK: AIManager.Awake"</Description>
-      <Options moHideChildren="1"/>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>define(hook,"THKM.AIManager:Awake")
-define(bytes,55 48 8B EC 56)
-
-[enable]
-
-assert(hook, bytes)
-alloc(newmem,$1000, hook)
-{
-  RCX: AIManager (this)
-
-  Returns RAX (System.Void)
-}
-
-newmem:
-  // original code
-  // push rbp
-  // mov rbp,rsp
-  // push rsi
-  xor rax,rax
-  ret
-  readmem(hook,5)
-  jmp hook+5
-
-hook:
-  jmp long newmem
-
-[disable]
-
-hook:
-  db bytes
-
-dealloc(newmem)
-</AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
       <ID>81</ID>
-      <Description>"MonoHelper"</Description>
+      <Description>"MonoHelper (Updated)"</Description>
       <LastState Activated="1"/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[enable]
@@ -6013,8 +4442,56 @@ function mono.formClass:listFields_OnDblClick(sender)
     local address = mono_class_getStaticFieldAddress(domainId, class.id)
     print('statics base address: '..string.format("%x", address))
     print(class.name..'.'..field.name..': '..string.format("%x", address + field.offset))
+
+    -- create table entry
+    local description = 'STATIC: '..class.name..'.'..field.name
+
+    local valueType = vtDword
+    if (field.type == "single" or field.type == "System.Single") then
+      valueType = vtSingle
+    elseif (field.type == "double" or field.type == "System.Double") then
+      valueType = vtDouble
+    elseif (field.type == "int" or field.type == "System.Int32") then
+      valueType = vtDword
+    elseif (field.type == "long" or field.type == "System.Int64") then
+      valueType = vtQword
+    -- TODO: add pointer for string?
+    else
+      valueType = vtQword
+      showAsHex = true
+    end
+
+    local memrec = getAddressList().createMemoryRecord()
+    memrec.setDescription(description)
+    memrec.Address = address + field.offset
+    memrec.Type = valueType
+    memrec.ShowAsHex = showAsHex
+    getAddressList().SelectedRecord = memrec
   end
 end
+
+--[[
+function mono.formClass:listFields_OnDblClick(sender)
+  local field = self.fields[sender.ItemIndex + 1]
+  if field then
+    local class = field.class
+    local image = class.image
+    local domainId = image.domain
+    print('double-clicked on class '..tostring(field.class.name)..' field '..tostring(field.name)..' domain '..tostring(domainId))
+    local address = mono_class_getStaticFieldAddress(domainId, class.id)
+    print('statics base address: '..string.format("%x", address))
+    print(class.name..'.'..field.name..': '..string.format("%x", address + field.offset))
+    local parent = getAddressList().createMemoryRecord()
+    parent.setDescription(method.class.name..":"..method.name)
+    parent.Type = vt
+    parent.Script = aa
+    parent.Options = '[moHideChildren]'
+    getAddressList().SelectedRecord = parent -- select record
+
+  end
+end
+--]]
+
 
 --[[
       IN PROGRESS - take an address and create an AA script to hook at that address
@@ -6158,6 +4635,445 @@ end
 [disable]
 </AssemblerScript>
     </CheatEntry>
+    <CheatEntry>
+      <ID>82</ID>
+      <Description>"Choises:RerollAbilities1"</Description>
+      <Options moHideChildren="1"/>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>define(hook,"Choises:RerollAbilities1")
+define(bytes,55 48 8B EC 48)
+
+[enable]
+
+assert(hook, bytes)
+alloc(newmem,$1000, hook)
+label(pChoises_RerollAbilities1)
+
+{
+  RCX: Choises (this)
+
+  Returns (RAX) System.Void
+}
+
+newmem:
+  // increment counter, store instance and parameters (could be off for static method?)
+  push rbp
+  mov rbp,rsp
+  push rax
+  mov [pChoises_RerollAbilities1], rcx
+  inc dword ptr [pChoises_RerollAbilities1+8]
+  pop rax
+  pop rbp
+
+  // original code
+  // push rbp
+  // mov rbp,rsp
+  // sub rsp,60
+  readmem(hook,8)
+  jmp hook+8
+
+align 10
+pChoises_RerollAbilities1:
+  dq 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+hook:
+  jmp newmem
+
+registersymbol(pChoises_RerollAbilities1)
+
+[disable]
+
+hook:
+  db bytes
+
+unregistersymbol(pChoises_RerollAbilities1)
+
+dealloc(newmem)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>83</ID>
+          <Description>"pChoises_RerollAbilities1"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>8 Bytes</VariableType>
+          <Address>pChoises_RerollAbilities1</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>84</ID>
+          <Description>"Counter"</Description>
+          <VariableType>4 Bytes</VariableType>
+          <Address>pChoises_RerollAbilities1+8</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>85</ID>
+      <Description>"Resolve Choises.numberOfChoises"</Description>
+      <LastState/>
+      <Color>FF0000</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+label(classname)
+label(namespace)
+label(assemblyname)
+label(fieldname)
+label(status)
+label(domain)
+label(assembly)
+label(field)
+label(Choises.numberOfChoises)
+label(Choises.numberOfChoises.threadexit)
+alloc(Choises.numberOfChoises.threadstart, 2048)
+
+registersymbol(Choises.numberOfChoises)
+
+Choises.numberOfChoises.threadstart:
+mov [Choises.numberOfChoises],0
+
+call mono.mono_get_root_domain
+cmp eax,0
+je Choises.numberOfChoises.threadexit
+mov [domain],eax
+
+push [domain]
+call mono.mono_thread_attach
+add esp,4
+
+push status
+push assemblyname
+call mono.mono_assembly_load_with_partial_name
+add esp,8
+cmp eax,0
+je Choises.numberOfChoises.threadexit
+
+push eax
+call mono.mono_assembly_get_image
+add esp,4
+cmp eax,0
+je Choises.numberOfChoises.threadexit
+mov [assembly], eax
+
+push classname
+push namespace
+push eax
+call mono.mono_class_from_name_case
+add esp,C
+cmp eax,0
+je Choises.numberOfChoises.threadexit
+push fieldname
+push eax
+call mono.mono_class_get_field_from_name
+add esp,8
+cmp eax,0
+je Choises.numberOfChoises.threadexit
+mov [field], eax
+push eax
+call mono.mono_field_get_parent
+add esp,4
+cmp eax,0
+je Choises.numberOfChoises.threadexit
+push eax
+push [domain]
+call mono.mono_class_vtable
+add esp,8
+cmp eax,0
+je Choises.numberOfChoises.threadexit
+push eax
+call mono.mono_vtable_get_static_field_data
+add esp,4
+cmp eax,0
+je Choises.numberOfChoises.threadexit
+push eax // save data on stack
+push [field]
+call mono.mono_field_get_offset
+add esp,4
+pop ebx // restore data
+add eax,ebx
+mov [Choises.numberOfChoises],eax
+jmp Choises.numberOfChoises.threadexit
+///////////////////////////////////////////////////////
+// Data section
+Choises.numberOfChoises:
+dd 0
+assemblyname:
+db 'Assembly-CSharp',0
+namespace:
+db '',0
+classname:
+db 'Choises',0
+fieldname:
+db 'numberOfChoises',0
+status:
+dd 0
+domain:
+dd 0
+assembly:
+dd 0
+field:
+dd 0
+Choises.numberOfChoises.threadexit:
+ret
+createthread(Choises.numberOfChoises.threadstart)
+
+[DISABLE]
+unregistersymbol(Choises.numberOfChoises)
+dealloc(Choises.numberOfChoises.threadstart)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>86</ID>
+          <Description>"Choises.numberOfChoises"</Description>
+          <VariableType>4 Bytes</VariableType>
+          <Address>[Choises.numberOfChoises]</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87</ID>
+      <Description>"rerollsAvailable"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1b63e123a3c </Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>88</ID>
+      <Description>"numberOfChoices"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1b63e123804 </Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>89</ID>
+      <Description>"shotgunClicksNeeded"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1b63e123ab4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>90</ID>
+      <Description>"clicksPerHomingBullet"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1b63e123ae8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>99</ID>
+      <Description>"STATIC: Choises.buttonHealth"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Float</VariableType>
+      <Address>1D65CE239F8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>91</ID>
+      <Description>"STATIC: Choises.commonChance"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1D65CE238A8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>92</ID>
+      <Description>"STATIC: Choises.uncommonChance"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1D65CE238AC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>95</ID>
+      <Description>"STATIC: Choises.rareChance"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1D65CE238B0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>93</ID>
+      <Description>"STATIC: Choises.shotGunClicksNeeded"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1D65CE23AB4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>94</ID>
+      <Description>"STATIC: Choises.rerollsAviable"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1D65CE23A3C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>96</ID>
+      <Description>"STATIC: Choises.arrowClicksNeeded"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1D65CE23B80</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>97</ID>
+      <Description>"STATIC: Choises.stopTimeClicks"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1D65CE23DD8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>98</ID>
+      <Description>"STATIC: Choises.stopTimeClickTotal"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1D65CE23DDC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>100</ID>
+      <Description>"STATIC: Choises.ritualClicksNeeded"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1D65CE23C70</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>101</ID>
+      <Description>"STATIC: Choises.ritualClicks"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1D65CE23C6C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>102</ID>
+      <Description>"STATIC: Choises.ritualClicksIncrease"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1D65CE23C74</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>103</ID>
+      <Description>"STATIC: Choises.ritualFirst"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Byte</VariableType>
+      <Address>1D65CE238E8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>104</ID>
+      <Description>"STATIC: Choises.ritualTimer"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Float</VariableType>
+      <Address>1D65CE23C7C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>105</ID>
+      <Description>"STATIC: Choises.mp4ClicksNeeded"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1D65CE23ACC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>106</ID>
+      <Description>"STATIC: Choises.mp4Damage"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Float</VariableType>
+      <Address>1D65CE23ABC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>107</ID>
+      <Description>"STATIC: Choises.mp4Speed"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Float</VariableType>
+      <Address>1D65CE23AC0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>108</ID>
+      <Description>"STATIC: Choises.pointsIncreaseTotal"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Float</VariableType>
+      <Address>1D65CE24054</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>109</ID>
+      <Description>"STATIC: Choises.clicksNeedForLevel"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Float</VariableType>
+      <Address>1D65CE24058</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>110</ID>
+      <Description>"STATIC: Choises.totalIdlePoints"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Float</VariableType>
+      <Address>1D65CE23A2C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>111</ID>
+      <Description>"STATIC: Choises.eggCritclickChosen"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Byte</VariableType>
+      <Address>1D65CE23DB2</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>112</ID>
+      <Description>"STATIC: Choises.eggDefenseChosen"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Byte</VariableType>
+      <Address>1D65CE23DB4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>113</ID>
+      <Description>"STATIC: Choises.eggShotgunChosen"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Byte</VariableType>
+      <Address>1D65CE23DBA</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>114</ID>
+      <Description>"STATIC: Choises.eggSkullHarvestChosen"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Byte</VariableType>
+      <Address>1D65CE23DCE</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>115</ID>
+      <Description>"STATIC: Choises.eggPointDropChosen"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Byte</VariableType>
+      <Address>1D65CE23DCB</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>116</ID>
+      <Description>"STATIC: Choises.eggPointPerClickChosen"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Byte</VariableType>
+      <Address>1D65CE23DB1</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>117</ID>
+      <Description>"STATIC: Choises.eggIdleClickChosen"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Byte</VariableType>
+      <Address>1D65CE23DB3</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>118</ID>
+      <Description>"STATIC: Choises.choseUnlimitedPower"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Byte</VariableType>
+      <Address>1D65CE23DA0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>119</ID>
+      <Description>"STATIC: Choises.stopTimeClickTotal"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1D65CE23DDC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>120</ID>
+      <Description>"STATIC: Choises.stopTimeClicks"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1D65CE23DD8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>121</ID>
+      <Description>"STATIC: Choises.stopTimeClicksDecrease"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>1D65CE23DE8</Address>
+    </CheatEntry>
   </CheatEntries>
   <CheatCodes>
     <CodeEntry>
@@ -6205,6 +5121,40 @@ end
     </CodeEntry>
   </CheatCodes>
   <UserdefinedSymbols/>
+  <Structures StructVersion="2">
+    <Structure Name="unnamed structure" AutoFill="0" AutoCreate="1" DefaultHex="0" AutoDestroy="0" DoNotSaveLocal="0" RLECompression="1" AutoCreateStructsize="4096">
+      <Elements>
+        <Element Offset="0" Vartype="4 Bytes" Bytesize="4" RLECount="8" OffsetHex="00000000" DisplayMethod="unsigned integer"/>
+        <Element Offset="32" Vartype="Double" Bytesize="8" OffsetHex="00000020" DisplayMethod="unsigned integer"/>
+        <Element Offset="40" Vartype="4 Bytes" Bytesize="4" RLECount="26" OffsetHex="00000028" DisplayMethod="unsigned integer"/>
+        <Element Offset="144" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000090" DisplayMethod="hexadecimal"/>
+        <Element Offset="148" Vartype="4 Bytes" Bytesize="4" RLECount="11" OffsetHex="00000094" DisplayMethod="unsigned integer"/>
+        <Element Offset="192" Vartype="4 Bytes" Bytesize="4" OffsetHex="000000C0" DisplayMethod="hexadecimal"/>
+        <Element Offset="196" Vartype="4 Bytes" Bytesize="4" OffsetHex="000000C4" DisplayMethod="unsigned integer"/>
+        <Element Offset="200" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="000000C8" DisplayMethod="hexadecimal"/>
+        <Element Offset="208" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="000000D0" DisplayMethod="unsigned integer"/>
+        <Element Offset="216" Vartype="4 Bytes" Bytesize="4" OffsetHex="000000D8" DisplayMethod="hexadecimal"/>
+        <Element Offset="220" Vartype="4 Bytes" Bytesize="4" OffsetHex="000000DC" DisplayMethod="unsigned integer"/>
+        <Element Offset="224" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="000000E0" DisplayMethod="hexadecimal"/>
+        <Element Offset="232" Vartype="4 Bytes" Bytesize="4" RLECount="33" OffsetHex="000000E8" DisplayMethod="unsigned integer"/>
+        <Element Offset="364" Vartype="Double" Bytesize="8" OffsetHex="0000016C" DisplayMethod="unsigned integer"/>
+        <Element Offset="372" Vartype="Float" Bytesize="4" OffsetHex="00000174" DisplayMethod="unsigned integer"/>
+        <Element Offset="376" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000178" DisplayMethod="unsigned integer"/>
+        <Element Offset="384" Vartype="Float" Bytesize="4" RLECount="2" OffsetHex="00000180" DisplayMethod="unsigned integer"/>
+        <Element Offset="392" Vartype="4 Bytes" Bytesize="4" RLECount="10" OffsetHex="00000188" DisplayMethod="unsigned integer"/>
+        <Element Offset="432" Vartype="Double" Bytesize="8" OffsetHex="000001B0" DisplayMethod="unsigned integer"/>
+        <Element Offset="440" Vartype="Float" Bytesize="4" OffsetHex="000001B8" DisplayMethod="unsigned integer"/>
+        <Element Offset="444" Vartype="4 Bytes" Bytesize="4" RLECount="3" OffsetHex="000001BC" DisplayMethod="unsigned integer"/>
+        <Element Offset="456" Vartype="Double" Bytesize="8" OffsetHex="000001C8" DisplayMethod="unsigned integer"/>
+        <Element Offset="464" Vartype="4 Bytes" Bytesize="4" RLECount="3" OffsetHex="000001D0" DisplayMethod="unsigned integer"/>
+        <Element Offset="476" Vartype="Double" Bytesize="8" OffsetHex="000001DC" DisplayMethod="unsigned integer"/>
+        <Element Offset="484" Vartype="Float" Bytesize="4" OffsetHex="000001E4" DisplayMethod="unsigned integer"/>
+        <Element Offset="488" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="000001E8" DisplayMethod="unsigned integer"/>
+        <Element Offset="496" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001F0" DisplayMethod="hexadecimal"/>
+        <Element Offset="500" Vartype="Float" Bytesize="4" RLECount="3" OffsetHex="000001F4" DisplayMethod="unsigned integer"/>
+      </Elements>
+    </Structure>
+  </Structures>
   <LuaScript>--[[--------------------------------------------------------------------------------
      Dev table script.  Load this into a cheat table in the root directory of this
      repository, or into Dev.CT
